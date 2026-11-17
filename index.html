@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <!-- Security: only this page's own (hash-pinned) scripts and the pinned Three.js CDN may run.
      After editing any inline script block, run:  node tools/update-csp.mjs  -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-AHCbxAbDnQF+V02stJsqA8ZF+sGVoEeYlKf4Ml5KNyw=' 'sha256-/8bze6kt/5C9cfmyHjRlMKzH0f+LQz28jhj/0BkhtZM=' 'sha256-CI68HEFw8zjCpwKg9BSErYsmSD643/D5QQX8Sax0dkc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; manifest-src 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-AHCbxAbDnQF+V02stJsqA8ZF+sGVoEeYlKf4Ml5KNyw=' 'sha256-dDzK4SLzeC03svleUtt7Cu1bmTIqzbecNeFVDyL5Lak=' 'sha256-NTkvhhIYVSYTOhmwKQATz0BCN0VYwK26IVScuqvCwdg='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; manifest-src 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Akshat Rawat — AI/ML Engineer (Edge AI · Computer Vision · LLMs) | Akshat's AI &amp; Edge Lab</title>
@@ -352,6 +352,100 @@ body[data-state="play"] #app canvas{cursor:grab}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;transition-delay:0s!important}
 }
+/* mid-size desktop windows: icon-only top bar so it never runs into the mission card */
+@media (max-width:1000px){#topbar .lbl{display:none}}
+
+/* =====================================================================
+   9. PHONES — LANDSCAPE ONLY. In portrait a full-screen gate asks the
+      visitor to rotate; the lab is paused behind it (see the shell script).
+   ===================================================================== */
+#rotate{display:none;position:fixed;inset:0;z-index:1000;place-items:center;overflow:auto;text-align:center;padding:24px max(22px,env(safe-area-inset-right)) 24px max(22px,env(safe-area-inset-left));background:radial-gradient(ellipse at 20% 15%,rgba(255,122,168,.32),transparent 45%),radial-gradient(ellipse at 85% 30%,rgba(127,246,255,.28),transparent 50%),radial-gradient(ellipse at 50% 100%,rgba(255,210,122,.22),transparent 50%),linear-gradient(160deg,#1c1d4d,#121735 60%,#0d1230)}
+.rot-card{max-width:340px}
+.rot-phone{position:relative;width:62px;height:106px;margin:0 auto 28px;border:3px solid #7ff6ff;border-radius:14px;box-shadow:0 0 26px rgba(127,246,255,.4);animation:rotPhone 2.8s cubic-bezier(.6,0,.3,1) infinite}
+.rot-phone::before{content:"";position:absolute;left:50%;top:6px;width:16px;height:3px;margin-left:-8px;border-radius:2px;background:rgba(127,246,255,.65)}
+.rot-phone span{position:absolute;inset:15px 6px;border-radius:4px;background:linear-gradient(135deg,rgba(255,122,168,.55),rgba(255,210,122,.45),rgba(127,246,255,.55))}
+@keyframes rotPhone{0%,18%{transform:rotate(0)}46%,82%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+#rotate h2{margin:0 0 10px;font-size:25px;line-height:1.15;background:linear-gradient(90deg,#ff7aa8,#ffd27a 45%,#7ff6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+#rotate p{margin:0 0 18px;color:#dbe7fb;font-size:15.5px;line-height:1.5}
+#rotate p b{color:#7ff6ff}
+#rotate .btn{font-size:14px;padding:.8em 1.2em}
+#rotate small{display:block;margin-top:18px;color:var(--muted);font-size:12.5px;line-height:1.45}
+@media (orientation:portrait) and (hover:none) and (pointer:coarse) and (max-width:700px){
+  #rotate{display:grid}
+}
+@media (prefers-reduced-motion:reduce){.rot-phone{animation:none;transform:rotate(-90deg)}}
+html.rotate-blocked #intro *{animation-play-state:paused!important}
+
+/* =====================================================================
+   10. PHONES IN LANDSCAPE (any short, wide screen): compact HUD, the
+       station panel becomes a full-height side sheet, map/terminal fit.
+   ===================================================================== */
+@media (orientation:landscape) and (max-height:500px){
+  #topbar{top:max(8px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));gap:6px}
+  #topbar .btn.small{padding:.42em .62em}
+  #topbar .lbl{display:none}
+  /* full-screen overlays bring their own close / classic-view buttons; the top bar would sit on top of them */
+  body[data-state="station"] #topbar,body[data-state="map"] #topbar,body[data-state="terminal"] #topbar{display:none}
+  /* with the side panel open, centre toasts and the cyclone alert over the 3D view instead of over the panel */
+  body[data-state="station"] #toast,body[data-state="station"] #alert{left:calc((100vw - min(440px,54vw) - 8px) / 2);max-width:calc(100vw - min(440px,54vw) - 28px)}
+  #mission{top:max(8px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left));min-width:0;padding:7px 10px}
+  #mission .brand{font-size:10px;letter-spacing:.14em}
+  .mission-row{margin-top:3px;font-size:12px}
+  .mission-row b{font-size:15px}
+  #pips{margin-top:5px;gap:4px}
+  #pips i{width:14px;height:5px}
+  #duckBadge{margin-top:4px;font-size:11px}
+  #hint{top:calc(max(8px,env(safe-area-inset-top)) + 86px);bottom:auto;left:max(10px,env(safe-area-inset-left));max-width:min(360px,44vw);padding:7px 10px 7px 8px;gap:8px}
+  #hint p{font-size:12.5px;line-height:1.38}
+  #prompt{bottom:calc(max(8px,env(safe-area-inset-bottom)) + 20px);padding:7px 12px;font-size:13px;max-width:min(56vw,460px)}
+  #prompt small{font-size:11px}
+  #minimap{display:block;top:calc(max(8px,env(safe-area-inset-top)) + 42px);bottom:auto;right:max(10px,env(safe-area-inset-right));width:130px;height:104px;border-radius:10px}
+  #inspectBtn{right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));font-size:14px;padding:.8em 1.15em}
+  #touchHelp{bottom:max(4px,env(safe-area-inset-bottom));font-size:10px}
+  #toast{top:calc(max(8px,env(safe-area-inset-top)) + 42px);font-size:13px;padding:8px 14px}
+  #alert{top:calc(max(8px,env(safe-area-inset-top)) + 40px);padding:8px 18px 7px}
+  #alert .a-en{font-size:15px}
+  #alert .a-hi,#alert .a-or{font-size:16px}
+  /* station panel: full-height sheet on the right instead of a short bottom sheet */
+  #panel{top:max(8px,env(safe-area-inset-top));bottom:max(8px,env(safe-area-inset-bottom));left:auto;right:max(8px,env(safe-area-inset-right));width:min(440px,54vw);height:auto;border-radius:14px;transform:translateX(112%)}
+  #panel.open{transform:none}
+  .panel-head{padding:10px 12px 8px;gap:10px}
+  #panel .panel-head h2{font-size:17px}
+  .panel-body{padding:10px 12px 14px}
+  .xbtn{width:34px;height:34px}
+  .game{padding:10px 11px;margin-bottom:12px}
+  /* map: canvas sized to the screen height, station list in two columns */
+  #map{padding:8px max(8px,env(safe-area-inset-right)) 8px max(8px,env(safe-area-inset-left))}
+  #map .card{grid-template-columns:auto minmax(0,1fr);max-height:calc(100vh - 16px);max-height:calc(100dvh - 16px);padding:10px;gap:12px}
+  #map h2{font-size:12px;margin-bottom:6px}
+  #map .sub{display:none}
+  #mapCanvas{width:min(50vw,calc((100vh - 62px) * 1.25));width:min(50vw,calc((100dvh - 62px) * 1.25))}
+  .map-list{grid-template-columns:1fr 1fr;gap:5px}
+  .map-list button{padding:6px 8px;font-size:12px;gap:6px}
+  .map-list .num{width:18px}
+  .map-list .st{display:none}
+  #map .row{margin-top:8px;gap:6px}
+  #map .row .btn{padding:.45em .7em;font-size:12px}
+  /* contact terminal fills the short screen */
+  #terminal{padding:8px max(8px,env(safe-area-inset-right)) 8px max(8px,env(safe-area-inset-left))}
+  .crt{height:calc(100vh - 16px);height:calc(100dvh - 16px);border-radius:14px}
+  .crt-head{padding:6px 10px 6px 14px}
+  #termOut{padding:8px 14px;font-size:12.5px;line-height:1.5}
+  .term-cmds{padding:6px 14px 0}
+  .term-in{padding:6px 14px 8px}
+  /* loader + intro */
+  .boot{padding:14px 18px 12px}
+  .boot-logo{width:64px;height:64px;margin-bottom:8px}
+  .boot-logo .r2{inset:8px}
+  .boot-logo .hex{inset:17px;font-size:13px}
+  .boot h1{font-size:22px}
+  .boot .sub{margin-bottom:8px;font-size:13px}
+  .boot .bar{margin:10px auto 6px}
+  .boot-line{margin-bottom:10px}
+  #introSkip{bottom:calc(11vh + 8px);right:max(14px,env(safe-area-inset-right))}
+  /* classic view: keep the text clear of the notch */
+  .cv{padding:18px max(20px,env(safe-area-inset-right)) 60px max(20px,env(safe-area-inset-left))}
+}
 </style>
 </head>
 <body>
@@ -361,10 +455,23 @@ body[data-state="play"] #app canvas{cursor:grab}
 <!-- ================= Always-visible top bar ================= -->
 <nav id="topbar" aria-label="Lab controls">
   <button id="soundBtn" class="btn small" type="button" aria-pressed="false" title="Toggle sound"><span aria-hidden="true">🔇</span><span class="lbl">Sound off</span></button>
+  <button id="lookBtn" class="btn small" type="button" aria-pressed="true" title="Mouse look: the camera follows your cursor" hidden><span aria-hidden="true">🖱</span><span class="lbl">Mouse look on</span></button>
+  <button id="fsBtn" class="btn small" type="button" aria-pressed="false" title="Full screen" aria-label="Full screen" hidden><span aria-hidden="true">⛶</span></button>
   <button id="mapBtn" class="btn small" type="button" title="Map (M)" hidden><span aria-hidden="true">🗺</span><span class="lbl">Map <kbd>M</kbd></span></button>
   <button id="contactBtn" class="btn small" type="button" title="Contact (C)" hidden><span aria-hidden="true">💬</span><span class="lbl">Contact</span></button>
-  <button class="btn small primary" type="button" data-classic>Skip the game → Classic view</button>
+  <button class="btn small primary" type="button" data-classic><span class="lbl">Skip the game →</span>Classic view</button>
 </nav>
+
+<!-- ================= Phones: landscape only. Shown by CSS in portrait; the lab waits behind it ================= -->
+<div id="rotate" role="dialog" aria-modal="true" aria-labelledby="rotTitle" aria-describedby="rotText">
+  <div class="rot-card">
+    <div class="rot-phone" aria-hidden="true"><span></span></div>
+    <h2 id="rotTitle">Please rotate your phone</h2>
+    <p id="rotText">Akshat's AI &amp; Edge Lab works in <b>landscape</b> only. Turn your phone sideways to enter.</p>
+    <button id="rotBtn" class="btn primary" type="button" hidden>⛶ Go full screen in landscape</button>
+    <small>Screen not turning? Switch off <b>rotation lock</b> (portrait lock) in your phone's quick settings.</small>
+  </div>
+</div>
 
 <!-- ================= HUD ================= -->
 <div id="hud" hidden>
@@ -692,6 +799,41 @@ body[data-state="play"] #app canvas{cursor:grab}
   document.getElementById('cvBack').addEventListener('click', closeClassic);
   classic.addEventListener('keydown', function (e) { if (e.key === 'Escape') { e.stopPropagation(); closeClassic(); } });
   window.addEventListener('hashchange', function () { if (location.hash === '#classic') openClassic(); });
+
+  // ---- Phones are landscape-only. The CSS shows the #rotate gate in portrait; here we make the page behind it
+  //      inert, tell the 3D lab to pause (lab:rotate), and offer full screen + landscape lock where supported (Android).
+  var rotate = document.getElementById('rotate'), de = document.documentElement;
+  var rotMQ = window.matchMedia ? matchMedia('(orientation: portrait) and (hover: none) and (pointer: coarse) and (max-width: 700px)') : null;
+  var coarse = !!(window.matchMedia && matchMedia('(hover: none) and (pointer: coarse)').matches);
+  function rotateBlocked() { return !!(rotMQ && rotMQ.matches); }
+  function syncRotate() {
+    var b = rotateBlocked(), kids = document.body.children;
+    de.classList.toggle('rotate-blocked', b); rotate.setAttribute('aria-hidden', String(!b));
+    for (var k = 0; k < kids.length; k++) { if (kids[k] !== rotate && kids[k].tagName !== 'SCRIPT') { if (b) kids[k].setAttribute('inert', ''); else kids[k].removeAttribute('inert'); } }
+    document.dispatchEvent(new CustomEvent('lab:rotate', { detail: { blocked: b } }));
+  }
+  if (rotMQ) { if (rotMQ.addEventListener) rotMQ.addEventListener('change', syncRotate); else if (rotMQ.addListener) rotMQ.addListener(syncRotate); }
+  syncRotate();
+  // some phones report the new size a moment after turning: re-run every resize handler once it has settled
+  window.addEventListener('orientationchange', function () { setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 300); });
+  var canFS = !!(de.requestFullscreen && document.fullscreenEnabled);
+  function goLandscape() {
+    var p; try { p = de.requestFullscreen({ navigationUI: 'hide' }); } catch (e) { return; }
+    var lock = function () { if (screen.orientation && screen.orientation.lock) return screen.orientation.lock('landscape'); };
+    if (p && p.then) p.then(lock).catch(function () {}); else { try { var q = lock(); if (q && q.catch) q.catch(function () {}); } catch (e) {} }
+  }
+  var rotBtn = document.getElementById('rotBtn'), fsBtn = document.getElementById('fsBtn');
+  rotBtn.hidden = !(canFS && screen.orientation && screen.orientation.lock);
+  rotBtn.addEventListener('click', goLandscape);
+  fsBtn.hidden = !(canFS && coarse);
+  fsBtn.addEventListener('click', function () {
+    if (!document.fullscreenElement) { goLandscape(); return; }
+    var r = document.exitFullscreen && document.exitFullscreen(); if (r && r.catch) r.catch(function () {});
+  });
+  document.addEventListener('fullscreenchange', function () {
+    var on = !!document.fullscreenElement; fsBtn.setAttribute('aria-pressed', String(on));
+    fsBtn.title = on ? 'Exit full screen' : 'Full screen'; fsBtn.setAttribute('aria-label', fsBtn.title);
+  });
   window.LabShell = Object.freeze({
     contact: Object.freeze(contact),
     links: links,
@@ -705,7 +847,8 @@ body[data-state="play"] #app canvas{cursor:grab}
       openClassic();
     },
     openClassic: openClassic, closeClassic: closeClassic,
-    isClassicOpen: function () { return !classic.hidden; }
+    isClassicOpen: function () { return !classic.hidden; },
+    isRotateBlocked: rotateBlocked
   });
   setTimeout(function () {
     if (!sceneReady && !failed) { msg.hidden = false; msg.textContent = 'Still loading the 3D engine… slow connection? The classic view works right now.'; }
@@ -774,6 +917,8 @@ const LAYOUT = {
 };
 const COUNTED = Object.keys(LAYOUT).filter(k => LAYOUT[k].counts);
 const TOTAL = COUNTED.length; // 7
+// mouse look (desktop): how far the cursor swings the camera, and the edge zone that keeps it turning
+const LOOK = { yaw: 0.62, pitch: 0.3, edge: 0.84, turn: 1.6 };
 const localToWorld = (m, lx, lz) => ({ x: m.x + lx * Math.cos(m.rot) + lz * Math.sin(m.rot), z: m.z - lx * Math.sin(m.rot) + lz * Math.cos(m.rot) });
 
 /* =====================================================================
@@ -1342,6 +1487,9 @@ class Player {
     this.pos = new THREE.Vector3(SPAWN.x, 0, SPAWN.z); this.vel = new THREE.Vector2();
     this.radius = 0.38; this.keys = new Set(); this.joy = { x: 0, y: 0 };
     this.yaw = SPAWN.yaw; this.pitch = 0.3; this.dist = IS_TOUCH ? 4.3 : 3.9; this.distCur = this.dist;
+    // mouse look: the camera follows the cursor. x/y = cursor target (-1..1), cx/cy = smoothed, on = cursor is over the 3D view
+    this.aim = { x: 0, y: 0, cx: 0, cy: 0, on: false };
+    this.mouseLook = !IS_TOUCH && store.get('akshat-ai-edge-lab:mouse-look', !REDUCED);
     this.facing = Math.PI; this.jumpY = 0; this.vy = 0; this.grounded = true; this.speed = 0; this.faceTarget = null;
     this.avatar = new Avatar(); game.world.scene.add(this.avatar.root);
     this._v = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
@@ -1363,11 +1511,32 @@ class Player {
   teleport(x, z, faceX, faceZ) {
     clearTimeout(this.standTimer); this.avatar.sitTarget = 0; this.avatar.sitK = 0;
     this.pos.set(x, 0, z); this.vel.set(0, 0); this.jumpY = 0; this.vy = 0; this.grounded = true;
-    const dx = faceX - x, dz = faceZ - z; this.facing = Math.atan2(dx, dz); this.yaw = Math.atan2(-dx, -dz); this.pitch = 0.3;
+    // face the station even if the cursor is off-centre: the base angles absorb the current mouse-look offset
+    const dx = faceX - x, dz = faceZ - z; this.facing = Math.atan2(dx, dz); this.yaw = Math.atan2(-dx, -dz) - this.aimYaw(); this.pitch = 0.3 - this.aimPitch();
     this.animate(0); this.updateCamera(0, true);
   }
   headPos(v = new THREE.Vector3()) { return v.set(this.pos.x, 1.5 + this.jumpY, this.pos.z); }
   look(dx, dy) { this.yaw -= dx; this.pitch = clamp(this.pitch + dy, -0.25, 1.15); }
+  // ---- mouse look: cursor right → view turns right, cursor down → view tilts down toward a bird's-eye angle
+  aimYaw() { return -this.aim.cx * LOOK.yaw; }
+  aimPitch() { return this.aim.cy * LOOK.pitch; }
+  get viewYaw() { return this.yaw + this.aimYaw(); }
+  get viewPitch() { return clamp(this.pitch + this.aimPitch(), -0.25, 1.15); }
+  /** cursor position in client px. rebase: snap the smoothed aim and shift the base angles so the view does not jump */
+  setAim(px, py, rebase = false) {
+    const a = this.aim; a.x = clamp((px / innerWidth) * 2 - 1, -1, 1); a.y = clamp((py / innerHeight) * 2 - 1, -1, 1);
+    if (!rebase || !this.mouseLook) return;
+    const oy = this.aimYaw(), op = this.aimPitch(); a.cx = a.x; a.cy = a.y;
+    this.yaw += oy - this.aimYaw(); this.pitch = clamp(this.pitch + op - this.aimPitch(), -0.25 - LOOK.pitch, 1.15 + LOOK.pitch);
+  }
+  setMouseLook(on) { this.mouseLook = !!on; store.set('akshat-ai-edge-lab:mouse-look', this.mouseLook); }
+  updateAim(dt) {
+    const a = this.aim, on = this.mouseLook;
+    a.cx = damp(a.cx, on ? a.x : 0, 5, dt); a.cy = damp(a.cy, on ? a.y : 0, 5, dt);
+    // park the cursor near the left/right edge to keep turning (not in the top/bottom corners, where the buttons and minimap live)
+    const ax = Math.abs(a.x);
+    if (on && a.on && !this.game.drag && ax > LOOK.edge && a.y > -0.72 && a.y < 0.6) { const k = (ax - LOOK.edge) / (1 - LOOK.edge); this.yaw -= Math.sign(a.x) * k * k * LOOK.turn * dt; }
+  }
   zoom(d) { this.dist = clamp(this.dist + d, 2.2, 7.5); }
   jump() {
     if (!this.grounded) return;
@@ -1382,8 +1551,10 @@ class Player {
     if (k.has('KeyA')) ix -= 1;
     const turn = (k.has('ArrowLeft') ? 1 : 0) - (k.has('ArrowRight') ? 1 : 0); // arrows turn: playable without a mouse
     if (turn) this.yaw += turn * 2.1 * dt;
+    this.updateAim(dt);
     const len = Math.hypot(ix, iz); if (len > 1) { ix /= len; iz /= len; }
-    const fx = -Math.sin(this.yaw), fz = -Math.cos(this.yaw), rx = Math.cos(this.yaw), rz = -Math.sin(this.yaw);
+    const vyaw = this.viewYaw; // walk toward the centre of the screen, wherever the cursor has turned the view
+    const fx = -Math.sin(vyaw), fz = -Math.cos(vyaw), rx = Math.cos(vyaw), rz = -Math.sin(vyaw);
     const speed = (k.has('ShiftLeft') || k.has('ShiftRight')) ? 7 : 4.3;
     const tx = (fx * iz + rx * ix) * speed, tz = (fz * iz + rz * ix) * speed;
     const a = 1 - Math.exp(-11 * dt); this.vel.x += (tx - this.vel.x) * a; this.vel.y += (tz - this.vel.y) * a;
@@ -1416,8 +1587,9 @@ class Player {
   updateCamera(dt, snap = false, out = null) {
     const [pivot, dir, right, p] = this._v;
     pivot.set(this.pos.x, 1.42 + this.jumpY * 0.6, this.pos.z);
-    const cp = Math.cos(this.pitch); dir.set(Math.sin(this.yaw) * cp, Math.sin(this.pitch), Math.cos(this.yaw) * cp);
-    right.set(Math.cos(this.yaw), 0, -Math.sin(this.yaw)); pivot.addScaledVector(right, IS_TOUCH ? 0.22 : 0.42);
+    const yaw = this.viewYaw, pitch = this.viewPitch, cp = Math.cos(pitch);
+    dir.set(Math.sin(yaw) * cp, Math.sin(pitch), Math.cos(yaw) * cp);
+    right.set(Math.cos(yaw), 0, -Math.sin(yaw)); pivot.addScaledVector(right, IS_TOUCH ? 0.22 : 0.42);
     let d = this.dist; for (; d > 0.9; d -= 0.15) { p.copy(pivot).addScaledVector(dir, d); if (!this.camBlocked(p)) break; }
     this.distCur = snap || d < this.distCur ? d : damp(this.distCur, d, 3, dt);
     p.copy(pivot).addScaledVector(dir, this.distCur); p.y = Math.max(0.35, p.y);
@@ -2229,7 +2401,7 @@ class MyRoom extends Station {
     const p = this.game.progress, L = LINKS;
     const ctr = IS_TOUCH
       ? '<dt>Walk</dt><dd>left thumb joystick</dd><dt>Camera</dt><dd>drag on the right</dd><dt>Open a station</dt><dd>walk onto its glowing circle</dd>'
-      : '<dt>Walk</dt><dd><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> · <kbd>Shift</kbd> run · <kbd>Space</kbd> jump</dd><dt>Camera</dt><dd>drag with the mouse · scroll to zoom</dd><dt>Open a station</dt><dd>walk onto its glowing circle</dd><dt>Map · Contact</dt><dd><kbd>M</kbd> · <kbd>C</kbd></dd>';
+      : '<dt>Walk</dt><dd><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> · <kbd>Shift</kbd> run · <kbd>Space</kbd> jump</dd><dt>Camera</dt><dd>follows the mouse · screen edge keeps turning · drag to turn · scroll to zoom</dd><dt>Open a station</dt><dd>walk onto its glowing circle</dd><dt>Map · Contact</dt><dd><kbd>M</kbd> · <kbd>C</kbd></dd>';
     el.innerHTML = `
       <h3>Welcome to my room 👋</h3>
       <p><b>I'm Akshat Rawat, an AI/ML engineer working on edge AI, computer vision and LLMs for real-world, deployed systems.</b></p>
@@ -3191,6 +3363,8 @@ class UI {
     };
     for (const id of COUNTED) { const i = document.createElement('i'); i.style.setProperty('--c', LAYOUT[id].accent); i.dataset.id = id; i.title = LAYOUT[id].name; this.el.pips.appendChild(i); }
     this.el.sound.addEventListener('click', () => this.toggleSound());
+    this.el.look = $('#lookBtn'); this.el.look.hidden = IS_TOUCH; this.renderLook();
+    this.el.look.addEventListener('click', () => { game.player.setMouseLook(!game.player.mouseLook); this.renderLook(); this.toast(game.player.mouseLook ? '🖱 Mouse look on: the camera follows your cursor' : '🖱 Mouse look off: drag to look around'); });
     this.el.mapBtn.addEventListener('click', () => game.openMap());
     $('#panelClose').addEventListener('click', () => game.closeStation());
     $('#resumeBtn').addEventListener('click', e => { e.stopPropagation(); game.resume(); });
@@ -3218,6 +3392,10 @@ class UI {
     this.el.sound.setAttribute('aria-pressed', String(on)); this.el.sound.classList.toggle('on', on);
     this.el.sound.innerHTML = `<span aria-hidden="true">${on ? '🔊' : '🔇'}</span><span class="lbl">${on ? 'Sound on' : 'Sound off'}</span>`;
     if (on) a.blip();
+  }
+  renderLook() {
+    const on = this.g.player.mouseLook; this.el.look.setAttribute('aria-pressed', String(on)); this.el.look.classList.toggle('on', on);
+    this.el.look.innerHTML = `<span aria-hidden="true">🖱</span><span class="lbl">${on ? 'Mouse look on' : 'Mouse look off'}</span>`;
   }
   updateMission() {
     const p = this.g.progress; this.el.count.textContent = `${p.count}/${TOTAL}`;
@@ -3310,6 +3488,11 @@ class UI {
     // player
     const pp = g.player.pos, f = g.player.facing;
     const [px, py] = P(pp.x, pp.z), a = Math.atan2(Math.cos(f), Math.sin(f)), r = full ? 14 : 8;
+    // camera view cone: the bird's-eye view sweeps with the camera, so it follows the mouse too
+    const cam = g.world.camera, vy = g.player.viewYaw, half = Math.atan(Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2) * cam.aspect);
+    const va = Math.atan2(-Math.cos(vy), -Math.sin(vy)), vr = 11 * s, cone = ctx.createRadialGradient(px, py, 0, px, py, vr);
+    cone.addColorStop(0, 'rgba(61,242,255,.42)'); cone.addColorStop(1, 'rgba(61,242,255,0)');
+    ctx.fillStyle = cone; ctx.beginPath(); ctx.moveTo(px, py); ctx.arc(px, py, vr, va - half, va + half); ctx.closePath(); ctx.fill();
     ctx.save(); ctx.translate(px, py); ctx.rotate(a);
     ctx.fillStyle = '#ffffff'; ctx.shadowColor = '#3df2ff'; ctx.shadowBlur = 10;
     ctx.beginPath(); ctx.moveTo(r, 0); ctx.lineTo(-r * 0.7, r * 0.6); ctx.lineTo(-r * 0.35, 0); ctx.lineTo(-r * 0.7, -r * 0.6); ctx.closePath(); ctx.fill(); ctx.restore();
@@ -3327,7 +3510,7 @@ class UI {
   }
   update(dt) {
     this.miniT -= dt;
-    if (this.miniT < 0 && !this.el.hud.hidden && this.el.minimap.offsetParent) { this.miniT = 0.12; this.drawMap(this.el.minimap, false); }
+    if (this.miniT < 0 && !this.el.hud.hidden && this.el.minimap.offsetParent) { this.miniT = 0.04; this.drawMap(this.el.minimap, false); }
   }
 }
 
@@ -3376,7 +3559,8 @@ class Terminal {
         '&nbsp;',
       ]);
     }
-    setTimeout(() => { try { this.input.focus({ preventScroll: true }); } catch {} }, 60);
+    // on phones focus the close button instead, so the keyboard doesn't cover the short landscape screen until they tap the prompt
+    setTimeout(() => { try { (IS_TOUCH ? $('#termClose') : this.input).focus({ preventScroll: true }); } catch {} }, 60);
   }
   link(href, label) { const todo = href.startsWith('#TODO'); return `<a href="${esc(href)}" ${todo ? 'class="todo"' : 'target="_blank" rel="noopener noreferrer"'}>${esc(label)} ↗</a>${todo ? ' <span class="dim">(link not set yet — meanwhile try <b>email</b>)</span>' : ''}`; }
   run(raw) {
@@ -3499,20 +3683,21 @@ class Game {
     this.ui.showPause(false);
     $('#touch').hidden = !(IS_TOUCH && s === 'play');
     $('#intro').hidden = s !== 'intro';
-    if (s !== 'play') { this.ui.setPrompt(null); this.player.keys.clear(); this.player.joy.x = this.player.joy.y = 0; this.drag = null; this.ui.hideTip(); }
+    if (s !== 'play') { this.ui.setPrompt(null); this.player.keys.clear(); this.player.joy.x = this.player.joy.y = 0; this.drag = null; this.player.aim.on = false; this.ui.hideTip(); }
     this.ui.el.mapBtn.hidden = s === 'boot'; $('#contactBtn').hidden = s === 'boot';
   }
   /** called automatically once the 3D scene is ready — no "Enter" click needed */
   start() {
     if (this.started) return;
     if (window.LabShell && LabShell.isClassicOpen()) { this.pendingStart = true; return; }
+    if (this.blocked) { this.pendingStart = true; return; } // phone held in portrait: wait for landscape so the intro isn't missed
     const loader = $('#loader'); loader.classList.add('out'); setTimeout(() => (loader.hidden = true), 650);
     this.started = true; this.playIntro();
   }
   greet() {
     const hello = IS_TOUCH
       ? "Hi, I'm LAB-E! Left thumb walks, right thumb turns the camera. Walk onto any glowing circle and that station opens by itself. Akshat's own room is right here on your right!"
-      : "Hi, I'm LAB-E! WASD to walk, drag the mouse to look around, Space to jump. Walk onto any glowing circle and that station opens by itself. Akshat's own room is right here on your right!";
+      : `Hi, I'm LAB-E! WASD to walk, ${this.player.mouseLook ? 'move the mouse to look around (rest it at a screen edge to keep turning)' : 'drag the mouse to look around'}, Space to jump. Walk onto any glowing circle and that station opens by itself. Akshat's own room is right here on your right!`;
     this.ui.say(this.progress.count ? `Welcome back! You've explored ${this.progress.count}/${TOTAL} stations. Walk onto a glowing circle, or ${IS_TOUCH ? 'tap 🗺' : 'press M'} for the map.` : hello, 10000);
   }
 
@@ -3696,7 +3881,7 @@ class Game {
     const canvas = this.world.renderer.domElement;
     addEventListener('keydown', e => this.onKey(e));
     addEventListener('keyup', e => { this.player.keys.delete(e.code); if (this.state === 'station' && this.active) this.active.onKeyUp(e); });
-    addEventListener('blur', () => { this.player.keys.clear(); this.drag = null; });
+    addEventListener('blur', () => { this.player.keys.clear(); this.drag = null; this.player.aim.on = false; });
     canvas.addEventListener('wheel', e => { if (this.state === 'play') this.player.zoom(e.deltaY * 0.003); }, { passive: true });
     canvas.addEventListener('pointerdown', e => {
       if (this.state === 'intro') { this.skipIntro(); return; }
@@ -3707,6 +3892,7 @@ class Game {
     canvas.addEventListener('pointermove', e => {
       if (this.state === 'station') { this.setRay(e); this.active.onPointer('move', this.raycaster, e); return; }
       if (this.state !== 'play') return;
+      if (e.pointerType === 'mouse') { this.player.aim.on = true; if (!this.drag) this.player.setAim(e.clientX, e.clientY); }
       if (this.drag) {
         const dx = e.clientX - this.drag.x, dy = e.clientY - this.drag.y; this.drag.x = e.clientX; this.drag.y = e.clientY; this.drag.moved += Math.abs(dx) + Math.abs(dy);
         this.player.look(dx * 0.0048, dy * 0.0036); canvas.style.cursor = 'grabbing'; this.ui.hideTip(); return;
@@ -3717,11 +3903,14 @@ class Game {
       if (this.state === 'station') { this.setRay(e); this.active.onPointer('up', this.raycaster, e); return; }
       if (!this.drag) return;
       const click = this.drag.moved < 6; this.drag = null; canvas.style.cursor = '';
+      if (e.pointerType === 'mouse') this.player.setAim(e.clientX, e.clientY, true); // hand the view back to the cursor without a jump
       if (click && this.state === 'play') { this.hoverAt(e); if (this.mouseHover && this.mouseHover.onUse) this.mouseHover.onUse(); }
     };
     canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up);
-    canvas.addEventListener('pointerleave', () => this.ui.hideTip());
+    canvas.addEventListener('pointerleave', () => { this.ui.hideTip(); this.player.aim.on = false; });
     document.addEventListener('lab:classic', e => this.onClassic(e.detail.open));
+    this.blocked = !!(window.LabShell && LabShell.isRotateBlocked && LabShell.isRotateBlocked());
+    document.addEventListener('lab:rotate', e => this.onRotate(e.detail.blocked));
     document.addEventListener('visibilitychange', () => { if (document.hidden) this.player.keys.clear(); });
     if (IS_TOUCH) this.bindTouch();
   }
@@ -3749,10 +3938,19 @@ class Game {
         if (t.identifier === lookId) lookId = null;
       }
     };
+    this.resetTouch = () => { joyId = lookId = null; base.style.display = 'none'; this.player.joy.x = this.player.joy.y = 0; };
     layer.addEventListener('touchstart', start, { passive: false });
     layer.addEventListener('touchmove', move, { passive: false });
     layer.addEventListener('touchend', end); layer.addEventListener('touchcancel', end);
     $('#touchHelp').textContent = 'Left thumb: walk · right thumb: turn camera';
+  }
+  /** phones: portrait shows the rotate gate. Pause the lab behind it; start (or carry on) once it's landscape again */
+  onRotate(blocked) {
+    this.blocked = blocked;
+    this.player.keys.clear(); this.drag = null; if (this.resetTouch) this.resetTouch(); else this.player.joy.x = this.player.joy.y = 0;
+    if (blocked) return;
+    this.world.resize(); if (this.ui.panelOpen) this.ui.measurePanel();
+    if (!this.started && this.pendingStart) { this.pendingStart = false; this.start(); }
   }
   onClassic(open) {
     if (open) {
@@ -3810,7 +4008,8 @@ class Game {
       if (n) tips.push(`Try the ${n.meta.name}: ${n.meta.tease}`);
       tips.push('Press M for the map, then click any station to jump straight to it.');
       tips.push('Want to get in touch? The 💬 Contact button (top-right) opens the terminal any time.');
-      tips.push('Drag the mouse to look around, and scroll to zoom the camera.');
+      if (IS_TOUCH) tips.push('Drag your right thumb to turn the camera; the left thumb walks.');
+      else tips.push(this.player.mouseLook ? 'The camera follows your cursor: rest it at the left or right edge to keep turning. Scroll to zoom.' : 'Drag the mouse to look around, and scroll to zoom the camera.');
       tips.push('Short on time? "Classic view" (top-right) has everything on one page.');
       if (!this.progress.duck) tips.push('I swear I heard something squeak in a dark corner…');
       this.ui.say(tips[(this.tipIdx = ((this.tipIdx || 0) + 1)) % tips.length], 7500);
@@ -3820,7 +4019,7 @@ class Game {
   // ---------- main loop
   loop() {
     const dt = Math.min(this.clock.getDelta(), 0.05);
-    if (this.state === 'classic') return;
+    if (this.state === 'classic' || this.blocked) return; // nothing to draw behind the classic view or the rotate gate
     this.t += dt; this.frame++; const t = this.t, s = this.state;
     if (s === 'play') this.player.update(dt);
     else { this.player.settle(dt); if (s === 'boot') this.player.updateCamera(dt); }
