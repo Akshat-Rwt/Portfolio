@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <!-- Security: only this page's own (hash-pinned) scripts and the pinned Three.js CDN may run.
      After editing any inline script block, run:  node tools/update-csp.mjs  -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-AHCbxAbDnQF+V02stJsqA8ZF+sGVoEeYlKf4Ml5KNyw=' 'sha256-dDzK4SLzeC03svleUtt7Cu1bmTIqzbecNeFVDyL5Lak=' 'sha256-NTkvhhIYVSYTOhmwKQATz0BCN0VYwK26IVScuqvCwdg='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; manifest-src 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-AHCbxAbDnQF+V02stJsqA8ZF+sGVoEeYlKf4Ml5KNyw=' 'sha256-ueH8OSDifxjjmjdL28XzrljvlMjPfFeZanwyLcsCwa8=' 'sha256-JdLl0Ewne4JO6se1s7mYdZAyk4V8t7cMJR7xXayo9+M='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; manifest-src 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Akshat Rawat — AI/ML Engineer (Edge AI · Computer Vision · LLMs) | Akshat's AI &amp; Edge Lab</title>
@@ -153,6 +153,10 @@ body[data-state="play"] #app canvas{cursor:grab}
 .boot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
 .boot-actions .btn.primary{font-size:15px;padding:.8em 1.4em}
 #bootMsg{font-size:13px;color:var(--amber);margin:8px 0 0}
+.boot-alt{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.cv-top-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.rot-alt{margin:14px 0 0!important}
+.rot-alt .btn{font-size:13px!important;padding:.6em 1em!important}
 #pause{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:rgba(3,6,12,.5);opacity:0;pointer-events:none;transition:opacity .25s;padding:16px}
 #pause.show{opacity:1;pointer-events:auto;transition-delay:.3s}
 #pause .card{padding:20px 22px;text-align:center;max-width:440px}
@@ -459,6 +463,7 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
   <button id="fsBtn" class="btn small" type="button" aria-pressed="false" title="Full screen" aria-label="Full screen" hidden><span aria-hidden="true">⛶</span></button>
   <button id="mapBtn" class="btn small" type="button" title="Map (M)" hidden><span aria-hidden="true">🗺</span><span class="lbl">Map <kbd>M</kbd></span></button>
   <button id="contactBtn" class="btn small" type="button" title="Contact (C)" hidden><span aria-hidden="true">💬</span><span class="lbl">Contact</span></button>
+  <a class="btn small" data-link="resume" data-hide-todo href="#TODO-resume" title="Résumé (PDF), opens in a new tab" aria-label="Résumé (PDF)" hidden><span aria-hidden="true">📄</span><span class="lbl">Résumé</span></a>
   <button class="btn small primary" type="button" data-classic><span class="lbl">Skip the game →</span>Classic view</button>
 </nav>
 
@@ -469,6 +474,7 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
     <h2 id="rotTitle">Please rotate your phone</h2>
     <p id="rotText">Akshat's AI &amp; Edge Lab works in <b>landscape</b> only. Turn your phone sideways to enter.</p>
     <button id="rotBtn" class="btn primary" type="button" hidden>⛶ Go full screen in landscape</button>
+    <p class="rot-alt"><a class="btn ghost" data-link="resume" data-hide-todo href="#TODO-resume" hidden>📄 Just need the résumé? Open the PDF</a></p>
     <small>Screen not turning? Switch off <b>rotation lock</b> (portrait lock) in your phone's quick settings.</small>
   </div>
 </div>
@@ -505,7 +511,10 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
     <div class="bar" aria-hidden="true"><i id="bootBar"></i></div>
     <p id="bootLog" class="boot-line">Powering the lab…</p>
     <p id="bootMsg" hidden></p>
-    <button class="btn ghost small" type="button" data-classic>Prefer reading? Classic view</button>
+    <div class="boot-alt">
+      <button class="btn ghost small" type="button" data-classic>Prefer reading? Classic view</button>
+      <a class="btn ghost small" data-link="resume" data-hide-todo href="#TODO-resume" hidden>📄 Résumé (PDF)</a>
+    </div>
   </div>
 </div>
 
@@ -517,6 +526,7 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
     <div class="row">
       <button id="resumeBtn" class="btn primary" type="button">Resume</button>
       <button id="pauseMap" class="btn" type="button">Map</button>
+      <a class="btn" data-link="resume" data-hide-todo href="#TODO-resume" hidden>📄 Résumé</a>
       <button class="btn ghost" type="button" data-classic>Classic view</button>
     </div>
   </div>
@@ -547,6 +557,7 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
       <div class="row">
         <button id="mapClose" class="btn" type="button">Close map</button>
         <button id="mapTerm" class="btn" type="button">💬 Contact Terminal</button>
+        <a class="btn" data-link="resume" data-hide-todo href="#TODO-resume" hidden>📄 Résumé (PDF)</a>
         <button class="btn ghost" type="button" data-classic>Classic view</button>
       </div>
       <div class="row"><button id="resetBtn" class="btn ghost small" type="button">Reset progress</button></div>
@@ -584,7 +595,10 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
 <main class="cv">
   <div class="cv-top">
     <span class="cv-kicker">Akshat's AI &amp; Edge Lab · classic view</span>
-    <button class="btn" type="button" id="cvBack">← Back to the 3D lab</button>
+    <div class="cv-top-actions">
+      <a class="btn primary" data-link="resume" data-hide-todo href="#TODO-resume" hidden>📄 Résumé (PDF)</a>
+      <button class="btn" type="button" id="cvBack">← Back to the 3D lab</button>
+    </div>
   </div>
   <header data-src="intro">
     <h1 id="cvName">Akshat Rawat</h1>
@@ -594,11 +608,11 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
       <li><a class="js-phone" data-prefix="☎ " href="#cvContact">☎ phone</a></li>
       <li><a href="https://www.linkedin.com/in/akshat-rawat-085a9a279/" target="_blank" rel="noopener noreferrer">in linkedin.com/in/akshat-rawat-085a9a279</a></li>
       <li><a href="#TODO-github" class="todo" data-link="github" data-label="GitHub">GitHub (#TODO-github)</a></li>
-      <li><a href="#TODO-resume" class="todo" data-link="resume" data-label="Résumé (PDF)">Résumé PDF (#TODO-resume)</a></li>
+      <li><a href="#TODO-resume" class="todo" data-link="resume" data-label="📄 Résumé (PDF)">📄 Résumé (PDF)</a></li>
     </ul>
     <div class="cv-hl">
-      <div><b>Deployed: CycloAI</b><span>Hybrid cloud–edge cyclone monitoring and multilingual alert system for Kusumpur Village, Odisha · registered copyright.</span></div>
-      <div><b>4 papers + 1 copyright</b><span>ETTIS 2026 (presented) · RICE, Goa (accepted) · ISICVA 2026 ×2 (accepted).</span></div>
+      <div><b>Deployed: CycloAI</b><span>Hybrid cloud–edge cyclone monitoring and multilingual alert system for Kusumpur Village, Odisha · copyright accepted.</span></div>
+      <div><b>4 papers presented + 1 copyright</b><span>ETTIS 2026 · RICE, Goa · ISICVA 2026 ×2 (all presented) · CycloAI copyright accepted.</span></div>
       <div><b>M.Tech AI &amp; ML · C-DAC Mohali</b><span>CGPA 8.8 · Now Project Associate I at CSIR–CSIO, Chandigarh.</span></div>
     </div>
   </header>
@@ -608,7 +622,7 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
     <article class="cv-job">
       <div class="cv-job-head"><h3>Project Associate I — CSIR–Central Scientific Instruments Organisation (CSIO), Chandigarh</h3><span class="cv-meta">July 2026 – present</span></div>
       <div data-src="storm">
-        <h4>CycloAI – Cyclone Alert Warning System <span class="pill red">Deployed</span> <span class="pill">Registered copyright</span></h4>
+        <h4>CycloAI – Cyclone Alert Warning System <span class="pill red">Deployed</span> <span class="pill green">Copyright · Accepted</span></h4>
         <ul>
           <li>Hybrid cloud–edge cyclone monitoring and multilingual alert system for Kusumpur Village, Kendrapara District, Odisha.</li>
           <li>Tracks cyclones every 3 hours from 500+ km away; raises an alarm only when a cyclone comes within 150 km.</li>
@@ -625,7 +639,7 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
           <li>Multi-channel system reading 8 geophones in parallel using two 24-bit ADCs (ADS131A04).</li>
           <li>Edge processing on Raspberry Pi (noise filtering, calibration, sampling-rate tuning) for low-latency analytics.</li>
         </ul>
-        <p class="cv-paper"><span class="pill amber">Paper · RICE, Goa · Accepted</span><br>“G-SCAN: A Multi-Channel Geophone Data Processing System on a Resource-Constrained Edge Platform” · <a href="#TODO-paper-gscan" class="todo" data-link="papers.gscan" data-label="read the paper ↗">paper link (#TODO-paper-gscan)</a></p>
+        <p class="cv-paper"><span class="pill green">Paper · RICE, Goa · Presented</span><br>“G-SCAN: A Multi-Channel Geophone Data Processing System on a Resource-Constrained Edge Platform” · <a href="#TODO-paper-gscan" class="todo" data-link="papers.gscan" data-label="read the paper ↗">paper link (#TODO-paper-gscan)</a></p>
       </div>
     </article>
     <article class="cv-job" data-src="sports">
@@ -649,8 +663,8 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
       <li>Audio pipeline on FakeAVCeleb (750 real / 750 fake): 63 librosa features → 1,701 per-video statistics → 25–100 selected; BiLSTM hit 98.67% accuracy, 97.39% precision, 100% recall.</li>
       <li>Finding: fake speech never reaches the low spectral centroid, low zero-crossing rate and narrow bandwidth of natural pauses. Future work: audio-visual fusion linking jaw/mouth depth motion to acoustic energy.</li>
     </ul>
-    <p class="cv-paper"><span class="pill amber">ISICVA 2026 · Accepted</span><br>“Interpretable Spatial-Temporal Deepfake Detection Using 3D Facial Geometry and Sequential Deep Learning” · <a href="#TODO-paper-deepfake-1" class="todo" data-link="papers.deepfake1" data-label="read the paper ↗">link (#TODO-paper-deepfake-1)</a></p>
-    <p class="cv-paper"><span class="pill amber">ISICVA 2026 · Accepted</span><br>“Towards Robust Deepfake Detection: A Survey on 3D Facial Geometry and Audio-Visual Synchronization” · <a href="#TODO-paper-deepfake-2" class="todo" data-link="papers.deepfake2" data-label="read the paper ↗">link (#TODO-paper-deepfake-2)</a></p>
+    <p class="cv-paper"><span class="pill green">ISICVA 2026 · Presented</span><br>“Interpretable Spatial-Temporal Deepfake Detection Using 3D Facial Geometry and Sequential Deep Learning” · <a href="#TODO-paper-deepfake-1" class="todo" data-link="papers.deepfake1" data-label="read the paper ↗">link (#TODO-paper-deepfake-1)</a></p>
+    <p class="cv-paper"><span class="pill green">ISICVA 2026 · Presented</span><br>“Towards Robust Deepfake Detection: A Survey on 3D Facial Geometry and Audio-Visual Synchronization” · <a href="#TODO-paper-deepfake-2" class="todo" data-link="papers.deepfake2" data-label="read the paper ↗">link (#TODO-paper-deepfake-2)</a></p>
   </section>
 
   <section aria-labelledby="cvProj" data-src="asl">
@@ -668,10 +682,10 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
     <h2 id="cvPubs">Publications &amp; IP</h2>
     <ul class="cv-pubs">
       <li><span class="t">Hybrid Cloud–Edge LLM Framework for Real-Time Cyclone Monitoring and Multilingual Disaster Alert Generation</span><span class="cv-meta">ETTIS 2026 · Presented</span></li>
-      <li><span class="t">G-SCAN: A Multi-Channel Geophone Data Processing System on a Resource-Constrained Edge Platform</span><span class="cv-meta">RICE, Goa · Accepted</span></li>
-      <li><span class="t">Interpretable Spatial-Temporal Deepfake Detection Using 3D Facial Geometry and Sequential Deep Learning</span><span class="cv-meta">ISICVA 2026 · Accepted</span></li>
-      <li><span class="t">Towards Robust Deepfake Detection: A Survey on 3D Facial Geometry and Audio-Visual Synchronization</span><span class="cv-meta">ISICVA 2026 · Accepted</span></li>
-      <li><span class="t">CycloAI – Cyclone Alert Warning System</span><span class="cv-meta">Registered copyright · deployed</span></li>
+      <li><span class="t">G-SCAN: A Multi-Channel Geophone Data Processing System on a Resource-Constrained Edge Platform</span><span class="cv-meta">RICE, Goa · Presented</span></li>
+      <li><span class="t">Interpretable Spatial-Temporal Deepfake Detection Using 3D Facial Geometry and Sequential Deep Learning</span><span class="cv-meta">ISICVA 2026 · Presented</span></li>
+      <li><span class="t">Towards Robust Deepfake Detection: A Survey on 3D Facial Geometry and Audio-Visual Synchronization</span><span class="cv-meta">ISICVA 2026 · Presented</span></li>
+      <li><span class="t">CycloAI – Cyclone Alert Warning System</span><span class="cv-meta">Copyright · Accepted · deployed system</span></li>
     </ul>
   </section>
 
@@ -699,10 +713,11 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
       <li>Email: <a class="js-email" href="#cvContact">tap to show</a></li>
       <li>Phone: <a class="js-phone" href="#cvContact">tap to show</a></li>
       <li>LinkedIn: <a href="https://www.linkedin.com/in/akshat-rawat-085a9a279/" target="_blank" rel="noopener noreferrer">linkedin.com/in/akshat-rawat-085a9a279</a></li>
+      <li>Résumé: <a href="#TODO-resume" class="todo" data-link="resume" data-label="CV_AkshatRawat.pdf (opens in a new tab)">résumé PDF (#TODO-resume)</a></li>
       <li>Languages spoken: English, Hindi</li>
     </ul>
   </section>
-  <p class="cv-foot">Built as an explorable 3D lab with Three.js — every model is generated from code; no external 3D assets. Mini-games in the lab are illustrative demos, not the production models.</p>
+  <p class="cv-foot">Built as an explorable 3D research lab with Three.js (lab rooms, corridor, commons and reception), and every model is generated from code with no external 3D assets. Mini-games in the lab are illustrative demos, not the production models.</p>
 </main>
 </div>
 
@@ -712,7 +727,7 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
      ===================================================================== -->
 <script type="application/json" id="labLinks">
 {
-  "resume": "#TODO-resume",
+  "resume": "CV_AkshatRawat.pdf",
   "github": "#TODO-github",
   "papers": {
     "cycloai": "#TODO-paper-cycloai",
@@ -748,7 +763,8 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
   var links = {};
   try { links = JSON.parse(document.getElementById('labLinks').textContent) || {}; } catch (e) { links = {}; }
   function pick(path) { var v = links, parts = path.split('.'); for (var k = 0; k < parts.length; k++) { v = v && v[parts[k]]; } return typeof v === 'string' ? v : null; }
-  function safeUrl(u) { return /^(https?:|mailto:|tel:|#)/i.test(u) ? u : '#'; }
+  // absolute web links, mail/phone, in-page anchors, or a plain relative file path such as "CV_AkshatRawat.pdf" (no scheme allowed)
+  function safeUrl(u) { return /^(https?:|mailto:|tel:|#)/i.test(u) || /^\w[\w.\/-]*$/.test(u) ? u : '#'; }
   function fill(root) {
     var a, k, list;
     list = root.querySelectorAll('.js-email');
@@ -758,8 +774,10 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
     list = root.querySelectorAll('[data-link]');
     for (k = 0; k < list.length; k++) {
       a = list[k]; var v = pick(a.getAttribute('data-link')); if (!v) continue;
+      var todo = v.indexOf('#TODO') === 0;
       a.href = safeUrl(v);
-      if (v.indexOf('#TODO') !== 0) { a.classList.remove('todo'); a.target = '_blank'; a.rel = 'noopener noreferrer'; if (a.getAttribute('data-label')) a.textContent = a.getAttribute('data-label'); }
+      if (a.hasAttribute('data-hide-todo')) a.hidden = todo; // buttons that only make sense once the link exists
+      if (!todo) { a.classList.remove('todo'); a.target = '_blank'; a.rel = 'noopener noreferrer'; if (a.getAttribute('data-label')) a.textContent = a.getAttribute('data-label'); }
     }
   }
   fill(document);
@@ -909,11 +927,51 @@ const LAYOUT = {
   storm:    { n: '02', name: 'CycloAI Storm Room', short: 'CycloAI', tag: 'Deployed · cloud–edge LLM', accent: '#3df2ff', counts: true, x: 0, z: -15, rot: 0, iz: 4.6, ir: 4.8, az: 6.2, view: [0, 8.6, 5.4, 0, 0.6, -2.2], tease: "something's brewing in the Bay of Bengal." },
   gscan:    { n: '03', name: 'Smart Village Seismic Lab', short: 'Smart Village', tag: 'Edge sensing · 8 geophones', accent: '#ffb547', counts: true, x: -21, z: -15, rot: 0, iz: 3.4, ir: 5, az: 4.8, view: [0.6, 5.2, 6.4, 0, 0.9, -2.6], tease: 'jump on the sensor field and watch the geophones twitch.' },
   deepfake: { n: '04', name: 'Deepfake Forensics Lab', short: 'Deepfake', tag: 'Thesis · 3D geometry + audio', accent: '#8b7bff', counts: true, x: 21, z: -15, rot: 0, iz: 2.6, ir: 4.6, az: 4.4, view: [-0.3, 2.35, 3.0, 0, 2.0, -2.6], tease: 'can you tell a real face from a fake?' },
-  sports:   { n: '05', name: 'Sports Vision Court', short: 'Sports CV', tag: 'Computer vision · pose', accent: '#42f5b0', counts: true, x: 22, z: 2, rot: -Math.PI / 2, iz: 4.2, ir: 4.8, az: 5.6, view: [0, 3.4, 6.6, 0, 1.0, -0.6], tease: 'somebody is doing squats. Count with them.' },
-  asl:      { n: '06', name: 'ASL Gesture Booth', short: 'ASL', tag: 'Personal project · CNN', accent: '#4d8dff', counts: true, x: 23, z: 16, rot: -Math.PI / 2, iz: 2.2, ir: 4, az: 3.6, view: [0, 1.95, 2.3, 0, 1.75, -2.2], tease: 'the big hand is spelling something.' },
+  sports:   { n: '05', name: 'Sports Vision Court', short: 'Sports CV', tag: 'Computer vision · pose', accent: '#42f5b0', counts: true, x: 22, z: 2, rot: -Math.PI / 2, iz: 4.2, ir: 4.8, az: 5.6, view: [0, 3.2, 5.6, 0, 1.0, -0.6], tease: 'somebody is doing squats. Count with them.' },
+  asl:      { n: '06', name: 'ASL Gesture Booth', short: 'ASL', tag: 'Personal project · CNN', accent: '#4d8dff', counts: true, x: 24, z: 17.5, rot: Math.PI, iz: 2.2, ir: 4, az: 3.6, view: [0, 1.95, 2.3, 0, 1.75, -2.2], tease: 'the big hand is spelling something.' },
   skills:   { n: '07', name: 'Skills Toolbench', short: 'Skills', tag: 'Toolbench', accent: '#ffb547', counts: true, x: -23, z: 1, rot: Math.PI / 2, iz: 0.4, ir: 4.6, az: 1.2, view: [0, 2.3, 1.6, 0, 1.7, -6], tease: 'every tool he works with is on that shelf.' },
   edu:      { n: '08', name: 'Education & Publications Wall', short: 'Edu & Papers', tag: 'Degrees · papers · IP', accent: '#ffd59a', counts: true, x: -18, z: 19.5, rot: Math.PI, iz: 0, ir: 4.6, az: 0.4, view: [-0.5, 2.2, 1.7, -0.5, 2.15, -4.2], tease: 'the corkboard is pinned with papers.' },
   contact:  { n: '09', name: 'Contact Terminal', short: 'Contact', tag: 'Get in touch', accent: '#4dffa6', counts: false, x: 0, z: 3, rot: 0, iz: 2.4, ir: 3.4, az: 4.2, view: [0, 1.7, 2.1, 0, 1.45, -0.4], tease: 'email, LinkedIn, phone and résumé, open any time.' },
+};
+// The building: a high-bay research hall with modular lab rooms. Rooms are numbered like the stations they hold.
+const WALL_H = 3.2, HEAD_H = 2.4, WALL_T = 0.14;
+const LAB_ROOMS = [
+  { id: 'entrance', code: 'RM 01',  name: "Akshat's Room",             x0: 6,     z0: 15,  x1: 18,    z1: 24 },
+  { id: 'storm',    code: 'LAB 02', name: 'CycloAI Operations Room',   x0: -10.3, z0: -24, x1: 10.3,  z1: -9.5, floor: 'raised', signs: ['RF', 'EAR', 'NOFOOD'] },
+  { id: 'gscan',    code: 'LAB 03', name: 'Smart Village Seismic Lab', x0: -30,   z0: -24, x1: -10.3, z1: -9.5, floor: 'esd',    signs: ['ESD', 'EYE', 'NOFOOD'] },
+  { id: 'deepfake', code: 'LAB 04', name: 'Deepfake Forensics Lab',    x0: 10.3,  z0: -24, x1: 30,    z1: -9.5, floor: 'vinyl',  signs: ['AUTH', 'CAM', 'NOFOOD'] },
+  { id: 'sports',   code: 'LAB 05', name: 'Sports Vision Court',       x0: 15.8,  z0: -6,  x1: 30,    z1: 8.5,  floor: 'sport',  signs: ['CAM', 'NOFOOD'] },
+  { id: 'asl',      code: 'LAB 06', name: 'ASL Gesture Booth',         x0: 18,    z0: 11,  x1: 30,    z1: 24,   floor: 'vinyl',  signs: ['CAM', 'NOFOOD'] },
+  { id: 'skills',   code: 'LAB 07', name: 'Hardware & Tools Workshop', x0: -30,   z0: -6,  x1: -18,   z1: 8,    floor: 'esd',    signs: ['ESD', 'EYE', 'HV'] },
+  { id: 'edu',      code: 'RM 08',  name: 'Library & Publications',    x0: -30,   z0: 14,  x1: -11,   z1: 24,   floor: 'carpet', signs: ['QUIET', 'NOFOOD'] },
+];
+const OPEN_ZONES = [['MAIN CORRIDOR', 8.6, -7.75], ['COMMONS', -8.5, 9.6], ['LOBBY', -4.6, 17.6], ['COMPUTE BAY', -24, 12.7]]; // map labels
+// Partition walls. out = which side faces the corridor/commons (+1: +z or +x). Doors are openings: c = centre along the wall, w = width.
+const WALLS = [
+  { a: [-30, -9.5], b: [30, -9.5], glass: true, out: 1, doors: [{ c: -21, w: 3.2, room: 'gscan' }, { c: 0, w: 4.2, room: 'storm' }, { c: 21, w: 3.2, room: 'deepfake' }] },
+  { a: [-10.3, -24], b: [-10.3, -9.5], out: 0 },
+  { a: [10.3, -24], b: [10.3, -9.5], out: 0 },
+  { a: [-30, -6], b: [-18, -6], out: -1 },
+  { a: [-18, -6], b: [-18, 8], glass: true, out: 1, doors: [{ c: 1, w: 3.0, room: 'skills' }] },
+  { a: [-30, 8], b: [-18, 8], out: 1 },
+  { a: [15.8, -6], b: [30, -6], out: -1 },
+  { a: [15.8, -6], b: [15.8, 8.5], glass: true, out: -1, doors: [{ c: 2, w: 3.4, room: 'sports' }] },
+  { a: [15.8, 8.5], b: [30, 8.5], out: 1 },
+  { a: [18, 11], b: [30, 11], glass: true, out: -1, doors: [{ c: 24, w: 3.0, room: 'asl' }] },
+  { a: [18, 11], b: [18, 15], out: -1 },
+  { a: [-30, 14], b: [-11, 14], glass: true, out: -1, doors: [{ c: -18, w: 3.0, room: 'edu' }] },
+  { a: [-11, 14], b: [-11, 24], out: 1, noLine: true },
+];
+// Painted wayfinding lines on the floor: from the Contact Terminal hub to each lab door (world x,z), routed through the doors.
+const ROUTES = {
+  storm:    [[0, -0.6], [0, -9.1]],
+  gscan:    [[-2.55, 0.45], [-10.75, -7.75], [-21, -7.75], [-21, -10.4]],
+  deepfake: [[2.55, 0.45], [10.75, -7.75], [21, -7.75], [21, -10.4]],
+  skills:   [[-3.6, 3], [-5.6, 1], [-19.2, 1]],
+  sports:   [[3.6, 3], [4.6, 2], [17, 2]],
+  asl:      [[2.55, 5.55], [7.5, 10.5], [24, 10.5], [24, 12.2]],
+  edu:      [[-2.55, 5.55], [-8.5, 11.5], [-18, 11.5], [-18, 15.4]],
+  entrance: [[1.8, 6.2], [4.6, 9.0], [4.6, 16.9], [5.75, 16.9]],
 };
 const COUNTED = Object.keys(LAYOUT).filter(k => LAYOUT[k].counts);
 const TOTAL = COUNTED.length; // 7
@@ -1131,25 +1189,302 @@ class Progress {
 }
 
 /* =====================================================================
-   5. WORLD — renderer, post-processing, the lab room, lights and life
+   5. WORLD — renderer, post-processing, the lab building, lights and life
+   The building is laid out like a real research facility: a high-bay
+   steel hall with modular lab rooms (glass fronts, sliding doors, room
+   signs, safety pictograms) along a main corridor, an open commons with
+   the Contact Terminal, a reception lobby by the entrance, a compute bay,
+   and the usual fire / first-aid / exit kit. Static parts are merged per
+   material (class Batch) so the whole building is a few dozen draw calls.
    ===================================================================== */
 const PALETTE = ['#ff6b8b', '#ffb547', '#42f5b0', '#4d8dff', '#8b7bff', '#3df2ff'];
 const Y_AXIS = new THREE.Vector3(0, 1, 0);
 const hexA = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`; };
-function plant(world, x, z, pot = '#ff6b8b', s = 1) {
+const FACE = { px: Math.PI / 2, nx: -Math.PI / 2, pz: 0, nz: Math.PI }; // rotation.y that makes a plane face +x, -x, +z, -z
+function plant(world, x, z, pot = '#e8e4dc', s = 1) {
   const g = new THREE.Group();
   const p = cyl(0.22 * s, 0.16 * s, 0.38 * s, std(pot, { roughness: 0.6 }), 10); p.position.y = 0.19 * s; g.add(p);
   const rim = cyl(0.235 * s, 0.235 * s, 0.05 * s, std(pot, { roughness: 0.5 }), 10); rim.position.y = 0.37 * s; g.add(rim);
-  const m1 = std(0x45c97f, { flatShading: true, roughness: 0.75 }), m2 = std(0x2a9d63, { flatShading: true, roughness: 0.75 });
+  const m1 = std(0x45a86f, { flatShading: true, roughness: 0.75 }), m2 = std(0x2d7f52, { flatShading: true, roughness: 0.75 });
   for (let i = 0; i < 8; i++) { const l = new THREE.Mesh(new THREE.IcosahedronGeometry(0.17 * s, 0), i % 2 ? m1 : m2); const a = i * 2.4; l.position.set(Math.sin(a) * 0.14 * s, (0.5 + i * 0.09) * s, Math.cos(a) * 0.14 * s); l.scale.set(0.7, 1.5, 0.7); l.rotation.set(Math.sin(i) * 0.4, i, Math.cos(i) * 0.4); g.add(l); }
   g.position.set(x, 0, z); world.scene.add(shadow(g)); world.addCollider(x - 0.3 * s, z - 0.3 * s, x + 0.3 * s, z + 0.3 * s, 1.3 * s);
   world.plants.push(g); return g;
 }
+
+/* ---------- static-geometry batching ---------- */
+function mergeGeos(list) {
+  let nv = 0, ni = 0;
+  for (const g of list) { nv += g.attributes.position.count; ni += g.index ? g.index.count : g.attributes.position.count; }
+  const pos = new Float32Array(nv * 3), nor = new Float32Array(nv * 3), uv = new Float32Array(nv * 2), idx = nv > 65535 ? new Uint32Array(ni) : new Uint16Array(ni);
+  let vo = 0, io = 0;
+  for (const g of list) {
+    const p = g.attributes.position, c = p.count;
+    pos.set(p.array, vo * 3); nor.set(g.attributes.normal.array, vo * 3); if (g.attributes.uv) uv.set(g.attributes.uv.array, vo * 2);
+    if (g.index) { const a = g.index.array; for (let i = 0; i < a.length; i++) idx[io + i] = a[i] + vo; io += a.length; }
+    else { for (let i = 0; i < c; i++) idx[io + i] = vo + i; io += c; }
+    vo += c;
+  }
+  const out = new THREE.BufferGeometry();
+  out.setAttribute('position', new THREE.BufferAttribute(pos, 3)); out.setAttribute('normal', new THREE.BufferAttribute(nor, 3)); out.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+  out.setIndex(new THREE.BufferAttribute(idx, 1)); out.computeBoundingSphere(); return out;
+}
+class Batch {
+  constructor() { this.groups = new Map(); }
+  add(geo, mat, cast = false) { const k = mat.uuid + (cast ? '+c' : ''); let g = this.groups.get(k); if (!g) this.groups.set(k, (g = { mat, cast, geos: [] })); g.geos.push(geo); return geo; }
+  /** box w×h×d centred at x,y,z, turned ry around Y */
+  box(w, h, d, x, y, z, mat, ry = 0, cast = false) { const g = new THREE.BoxGeometry(w, h, d); if (ry) g.rotateY(ry); g.translate(x, y, z); return this.add(g, mat, cast); }
+  /** cylinder (bottom radius r, top rt) along Y, optionally tilted by rx / rz first, then turned by ry */
+  cyl(r, h, x, y, z, mat, { rt = r, seg = 12, rx = 0, rz = 0, ry = 0, cast = false } = {}) { const g = new THREE.CylinderGeometry(rt, r, h, seg); if (rx) g.rotateX(rx); if (rz) g.rotateZ(rz); if (ry) g.rotateY(ry); g.translate(x, y, z); return this.add(g, mat, cast); }
+  plane(w, h, x, y, z, ry, mat) { const g = new THREE.PlaneGeometry(w, h); if (ry) g.rotateY(ry); g.translate(x, y, z); return this.add(g, mat); }
+  flush(parent) {
+    for (const g of this.groups.values()) { const m = new THREE.Mesh(mergeGeos(g.geos), g.mat); m.castShadow = g.cast && Q.shadows; m.receiveShadow = Q.shadows && !g.mat.transparent; m.matrixAutoUpdate = false; parent.add(m); g.geos.forEach(x => x.dispose()); }
+    this.groups.clear();
+  }
+}
+/** a local frame for composing props: x,z,ry like a station; box/cyl offsets are local */
+function placer(B, x, z, ry = 0) {
+  const c = Math.cos(ry), s = Math.sin(ry), P = (lx, lz) => [x + lx * c + lz * s, z - lx * s + lz * c];
+  return {
+    P,
+    box: (w, h, d, lx, y, lz, mat, cast = true, ry2 = 0) => { const [px, pz] = P(lx, lz); return B.box(w, h, d, px, y, pz, mat, ry + ry2, cast); },
+    cyl: (r, h, lx, y, lz, mat, o = {}) => { const [px, pz] = P(lx, lz); return B.cyl(r, h, px, y, pz, mat, { cast: true, ...o, ry: (o.ry || 0) + ry }); },
+    plane: (w, h, lx, y, lz, mat, ry2 = 0) => { const [px, pz] = P(lx, lz); return B.plane(w, h, px, y, pz, ry + ry2, mat); },
+  };
+}
+const uvSpan = (g, u0, du, v0 = 0, dv = 1) => { const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, u0 + uv.getX(i) * du, v0 + uv.getY(i) * dv); return g; };
+
+function labMaterials() {
+  const S = (c, r = 0.7, m = 0) => std(c, { roughness: r, metalness: m });
+  const M = {
+    wall: S(0xd2d5d1, 0.92), band: S(0xe5e7e4, 0.85), skirt: S(0x3b424b, 0.6), rail: S(0x9aa4ae, 0.45, 0.3), kick: S(0x4a525c, 0.5, 0.3),
+    alu: S(0xc6cdd4, 0.3, 0.8), steel: S(0x5b6673, 0.4, 0.7), dark: S(0x272c33, 0.55, 0.3), column: S(0x52616f, 0.45, 0.55), beam: S(0x4b5765, 0.5, 0.5),
+    duct: S(0xc9cfd5, 0.36, 0.75), fixture: S(0xe9ecef, 0.4, 0.3), red: S(0xc8232c, 0.45, 0.15), yellow: S(0xf1b51c, 0.5), white: S(0xf2f3f1, 0.6),
+    black: S(0x17191e, 0.45, 0.35), wood: S(0xa8764a, 0.55), woodDark: S(0x5e4129, 0.6), laminate: S(0xe8e4dc, 0.45), cardboard: S(0xb88d5c, 0.9),
+    green: S(0x1d9a52, 0.5), fabric: S(0x3f4d63, 0.95), cushion: S(0x2c8c86, 0.9), rubber: S(0x1b1d21, 0.8), paper: S(0xf5f3ee, 0.8),
+    locker: S(0x8f9cab, 0.5, 0.35), panelGrey: S(0xb3bbc3, 0.5, 0.3), steelDoor: S(0x97a2ad, 0.5, 0.4), orange: S(0xff7a1a, 0.5), instrument: S(0xbcc4cc, 0.5, 0.3),
+    water: new THREE.MeshStandardMaterial({ color: 0x8cc8f0, transparent: true, opacity: 0.55, roughness: 0.1 }),
+    glass: new THREE.MeshStandardMaterial({ color: 0xd2ecf5, transparent: true, opacity: 0.17, roughness: 0.04, metalness: 0.1, depthWrite: false, side: THREE.DoubleSide }),
+    frost: new THREE.MeshStandardMaterial({ color: 0xf6f8fa, transparent: true, opacity: 0.62, roughness: 0.9, depthWrite: false, side: THREE.DoubleSide }),
+    lamp: new THREE.MeshBasicMaterial({ color: new THREE.Color('#fff6e6').multiplyScalar(1.5) }),
+    books: ['#8e2f2f', '#1f4f8a', '#2f6b3a', '#c9a227', '#5b3a7a', '#e8e4dc', '#2b2f36', '#b5542d'].map(c => S(c, 0.75)),
+    acc: {},
+  };
+  M.accent = c => M.acc[c] || (M.acc[c] = S(new THREE.Color(c), 0.5));
+  return M;
+}
+/** small image-based light: a grey room with bright ceiling panels, so metal, glass and the epoxy floor read as real materials */
+function labEnvironment(renderer) {
+  const env = new THREE.Scene(), geo = new THREE.BoxGeometry(1, 1, 1), mats = [];
+  const add = (c, k, side, sx, sy, sz, x, y, z) => { const m = new THREE.MeshBasicMaterial({ color: new THREE.Color(c).multiplyScalar(k), side }); mats.push(m); const o = new THREE.Mesh(geo, m); o.scale.set(sx, sy, sz); o.position.set(x, y, z); env.add(o); };
+  add(0x8d959e, 1, THREE.BackSide, 60, 7, 48, 0, 2, 0);
+  add(0x6c737a, 1, THREE.FrontSide, 60, 0.1, 48, 0, -1.5, 0);
+  for (const x of [-20, -10, 0, 10, 20]) for (const z of [-15, -5, 5, 15]) add(0xffffff, 7, THREE.FrontSide, 4, 0.1, 0.6, x, 5.3, z);
+  for (const z of [-12, 0, 12]) { add(0xbfdcff, 2.4, THREE.FrontSide, 0.1, 1.6, 5, -29.8, 3.5, z); add(0xbfdcff, 2.4, THREE.FrontSide, 0.1, 1.6, 5, 29.8, 3.5, z); }
+  const pm = new THREE.PMREMGenerator(renderer), rt = pm.fromScene(env, 0.035); pm.dispose(); geo.dispose(); mats.forEach(m => m.dispose());
+  return rt.texture;
+}
+
+/* ---------- printed things: signs, posters, screens (canvas textures) ---------- */
+const SIGN_MATS = new Map();
+function signMat(key, cw, ch, draw, { basic = false, k = 1, transparent = false } = {}) {
+  let m = SIGN_MATS.get(key); if (m) return m;
+  const cv = makeCanvas(cw, ch); draw(cv.ctx, cw, ch);
+  m = basic ? new THREE.MeshBasicMaterial({ map: cv.tex, color: new THREE.Color(k, k, k), transparent }) : new THREE.MeshStandardMaterial({ map: cv.tex, roughness: 0.62, transparent });
+  SIGN_MATS.set(key, m); return m;
+}
+/** a one-off canvas-textured plane (its own material) */
+function canvasMesh(w, h, cw, ch, draw, { basic = false, k = 1, transparent = false } = {}) {
+  const cv = makeCanvas(cw, ch); draw(cv.ctx, cw, ch);
+  const mat = basic ? new THREE.MeshBasicMaterial({ map: cv.tex, color: new THREE.Color(k, k, k), transparent }) : new THREE.MeshStandardMaterial({ map: cv.tex, roughness: 0.62, transparent });
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); m.userData.cv = cv; return m;
+}
+function putOn(scene, mesh, x, y, z, ry) { mesh.position.set(x, y, z); mesh.rotation.y = ry; scene.add(mesh); return mesh; }
+function fitFont(ctx, text, maxW, size, weight, family) { let s = size; ctx.font = `${weight} ${s}px ${family}`; while (ctx.measureText(text).width > maxW && s > 8) { s -= 1; ctx.font = `${weight} ${s}px ${family}`; } return s; }
+function hexLogo(ctx, x, y, r) {
+  ctx.save(); ctx.translate(x, y); ctx.beginPath(); for (let i = 0; i < 6; i++) { const a = i * TAU / 6 - Math.PI / 2; ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r); } ctx.closePath();
+  ctx.fillStyle = '#0f3550'; ctx.fill(); ctx.lineWidth = r * 0.1; ctx.strokeStyle = '#3df2ff'; ctx.stroke();
+  ctx.fillStyle = '#e8fbff'; ctx.font = `800 ${r * 0.8}px ${FONT_MONO}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('AR', 0, r * 0.06); ctx.restore();
+}
+/** ISO-style safety pictograms, simplified: yellow triangle = warning, blue disc = mandatory/info, red ring = prohibition */
+function pictogram(ctx, kind, x, y, s) {
+  ctx.save(); ctx.translate(x, y); ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  const tri = () => { ctx.beginPath(); ctx.moveTo(0, -s * 0.48); ctx.lineTo(s * 0.52, s * 0.42); ctx.lineTo(-s * 0.52, s * 0.42); ctx.closePath(); ctx.fillStyle = '#f5c518'; ctx.fill(); ctx.lineWidth = s * 0.07; ctx.strokeStyle = '#111'; ctx.stroke(); };
+  const disc = c => { ctx.beginPath(); ctx.arc(0, 0, s * 0.47, 0, TAU); ctx.fillStyle = c; ctx.fill(); };
+  const txt = (t, c, f, dy = 0) => { ctx.fillStyle = c; ctx.font = `800 ${s * f}px ${FONT_SANS}`; ctx.fillText(t, 0, dy); };
+  ctx.strokeStyle = '#fff'; ctx.fillStyle = '#fff';
+  switch (kind) {
+    case 'ESD': tri(); txt('ESD', '#111', 0.22, s * 0.14); break;
+    case 'HV': tri(); ctx.fillStyle = '#111'; ctx.beginPath(); ctx.moveTo(s * 0.06, -s * 0.24); ctx.lineTo(-s * 0.13, s * 0.08); ctx.lineTo(s * 0.01, s * 0.07); ctx.lineTo(-s * 0.07, s * 0.33); ctx.lineTo(s * 0.15, -s * 0.02); ctx.lineTo(s * 0.0, -s * 0.01); ctx.closePath(); ctx.fill(); break;
+    case 'RF': tri(); ctx.strokeStyle = '#111'; ctx.lineWidth = s * 0.05; for (const r of [0.1, 0.19]) { ctx.beginPath(); ctx.arc(0, s * 0.16, s * r, -Math.PI * 0.8, -Math.PI * 0.2); ctx.stroke(); } txt('RF', '#111', 0.16, s * 0.3); break;
+    case 'EYE': disc('#1f5fbf'); ctx.lineWidth = s * 0.06; for (const d of [-1, 1]) { ctx.beginPath(); ctx.ellipse(d * s * 0.15, 0, s * 0.12, s * 0.09, 0, 0, TAU); ctx.stroke(); } ctx.beginPath(); ctx.moveTo(-s * 0.4, -s * 0.02); ctx.lineTo(-s * 0.27, 0); ctx.moveTo(s * 0.4, -s * 0.02); ctx.lineTo(s * 0.27, 0); ctx.stroke(); break;
+    case 'EAR': disc('#1f5fbf'); ctx.lineWidth = s * 0.06; ctx.beginPath(); ctx.arc(0, s * 0.02, s * 0.22, Math.PI, 0); ctx.stroke(); for (const d of [-1, 1]) { ctx.beginPath(); ctx.ellipse(d * s * 0.22, s * 0.1, s * 0.07, s * 0.12, 0, 0, TAU); ctx.fill(); } break;
+    case 'CAM': ctx.fillStyle = '#1f5fbf'; rr(ctx, -s * 0.47, -s * 0.47, s * 0.94, s * 0.94, s * 0.1); ctx.fill(); ctx.fillStyle = '#fff'; rr(ctx, -s * 0.28, -s * 0.12, s * 0.42, s * 0.26, s * 0.04); ctx.fill(); ctx.beginPath(); ctx.moveTo(s * 0.15, -s * 0.06); ctx.lineTo(s * 0.32, -s * 0.15); ctx.lineTo(s * 0.32, s * 0.17); ctx.lineTo(s * 0.15, s * 0.08); ctx.fill(); break;
+    case 'AUTH': disc('#1f5fbf'); ctx.beginPath(); ctx.arc(0, -s * 0.14, s * 0.1, 0, TAU); ctx.fill(); ctx.beginPath(); ctx.moveTo(-s * 0.18, s * 0.3); ctx.quadraticCurveTo(-s * 0.18, -s * 0.02, 0, -s * 0.02); ctx.quadraticCurveTo(s * 0.18, -s * 0.02, s * 0.18, s * 0.3); ctx.fill(); break;
+    case 'QUIET': disc('#1f5fbf'); txt('SHH', '#fff', 0.22); break;
+    case 'NOFOOD': ctx.beginPath(); ctx.arc(0, 0, s * 0.45, 0, TAU); ctx.fillStyle = '#fff'; ctx.fill(); ctx.fillStyle = '#111'; rr(ctx, -s * 0.12, -s * 0.16, s * 0.2, s * 0.3, s * 0.03); ctx.fill(); ctx.lineWidth = s * 0.04; ctx.strokeStyle = '#111'; ctx.beginPath(); ctx.arc(s * 0.1, -s * 0.01, s * 0.07, -Math.PI / 2, Math.PI / 2); ctx.stroke();
+      ctx.strokeStyle = '#d0202a'; ctx.lineWidth = s * 0.09; ctx.beginPath(); ctx.arc(0, 0, s * 0.42, 0, TAU); ctx.stroke(); ctx.beginPath(); ctx.moveTo(-s * 0.3, -s * 0.3); ctx.lineTo(s * 0.3, s * 0.3); ctx.stroke(); break;
+  }
+  ctx.restore();
+}
+const PICTO_LABEL = { ESD: 'ESD area', HV: 'High voltage', RF: 'RF / 5G', EYE: 'Eye protection', EAR: 'Siren tests', CAM: 'Camera in use', AUTH: 'Authorised staff', QUIET: 'Quiet zone', NOFOOD: 'No food / drink' };
+function drawRoomSign(ctx, W, H, room, accent) {
+  ctx.fillStyle = '#1e2731'; rr(ctx, 0, 0, W, H, H * 0.12); ctx.fill();
+  ctx.fillStyle = accent; rr(ctx, H * 0.1, H * 0.1, H * 0.8, H * 0.8, H * 0.1); ctx.fill();
+  const [kind, num] = room.code.split(' ');
+  ctx.fillStyle = '#0d141b'; ctx.font = `800 ${H * 0.44}px ${FONT_MONO}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(num, H * 0.5, H * 0.54);
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = '#93a5b8'; ctx.font = `700 ${H * 0.17}px ${FONT_MONO}`; ctx.fillText(kind === 'LAB' ? 'LABORATORY ' + num : 'ROOM ' + num, H * 1.08, H * 0.37);
+  fitFont(ctx, room.name, W - H * 1.2, H * 0.34, 700, FONT_SANS); ctx.fillStyle = '#ffffff'; ctx.fillText(room.name, H * 1.08, H * 0.77);
+}
+function drawDoorPlate(ctx, W, H, room, accent) {
+  ctx.fillStyle = '#f4f5f3'; rr(ctx, 0, 0, W, H, 18); ctx.fill(); ctx.fillStyle = accent; ctx.fillRect(0, 26, W, 12);
+  ctx.fillStyle = '#1e2731'; ctx.textAlign = 'left'; ctx.font = `800 52px ${FONT_MONO}`; ctx.fillText(room.code, 18, 96);
+  ctx.font = `600 22px ${FONT_SANS}`; wrap(ctx, room.name, W - 36).slice(0, 3).forEach((l, i) => ctx.fillText(l, 18, 132 + i * 26));
+  (room.signs || []).forEach((k, i) => { const cx = 46 + i * 82, cy = 250; pictogram(ctx, k, cx, cy, 62); ctx.fillStyle = '#39424c'; ctx.font = `600 13px ${FONT_SANS}`; ctx.textAlign = 'center'; wrap(ctx, PICTO_LABEL[k], 78).forEach((l, j) => ctx.fillText(l, cx, 300 + j * 15)); ctx.textAlign = 'left'; });
+}
+function drawExit(ctx, W, H) {
+  ctx.fillStyle = '#0a8a43'; ctx.fillRect(0, 0, W, H); ctx.strokeStyle = '#fff'; ctx.lineWidth = H * 0.05; ctx.strokeRect(H * 0.06, H * 0.06, W - H * 0.12, H - H * 0.12);
+  ctx.save(); ctx.translate(H * 0.55, H * 0.55); const u = H * 0.3; ctx.strokeStyle = '#fff'; ctx.fillStyle = '#fff'; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = u * 0.3;
+  ctx.beginPath(); ctx.arc(u * 0.42, -u * 1.0, u * 0.22, 0, TAU); ctx.fill();
+  const L = pts => { ctx.beginPath(); pts.forEach(([a, b], i) => (i ? ctx.lineTo(a * u, b * u) : ctx.moveTo(a * u, b * u))); ctx.stroke(); };
+  L([[0.25, -0.6], [-0.05, 0.15]]); L([[-0.05, 0.15], [0.4, 0.45], [0.3, 0.95]]); L([[-0.05, 0.15], [-0.4, 0.55], [-0.85, 0.6]]); L([[0.2, -0.5], [0.6, -0.25], [0.9, -0.45]]); L([[0.2, -0.5], [-0.25, -0.35], [-0.5, -0.05]]);
+  ctx.restore();
+  ctx.strokeStyle = '#fff'; ctx.lineWidth = H * 0.05; ctx.strokeRect(H * 1.0, H * 0.22, H * 0.34, H * 0.58);
+  ctx.fillStyle = '#fff'; ctx.font = `800 ${H * 0.48}px ${FONT_SANS}`; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText('EXIT', H * 1.55, H * 0.55);
+}
+/** simple printed sign: optional coloured title bar, then wrapped lines [text, size(×H), weight] */
+function plainSign(ctx, W, H, { bg = '#ffffff', fg = '#1e2731', bar = null, barFg = '#ffffff', title = '', icon = null, lines = [], center = false } = {}) {
+  ctx.fillStyle = bg; rr(ctx, 0, 0, W, H, Math.min(W, H) * 0.05); ctx.fill();
+  const pad = W * 0.07; let y = H * 0.04;
+  if (bar) { const bh = Math.min(H * 0.24, W * 0.2); ctx.fillStyle = bar; ctx.fillRect(0, 0, W, bh); if (icon) pictogram(ctx, icon, pad + bh * 0.38, bh / 2, bh * 0.78); ctx.fillStyle = barFg; ctx.textBaseline = 'middle'; ctx.textAlign = 'left'; fitFont(ctx, title, W - pad * 2 - (icon ? bh : 0), bh * 0.5, 800, FONT_SANS); ctx.fillText(title, pad + (icon ? bh * 0.85 : 0), bh / 2 + 2); y = bh + H * 0.02; }
+  ctx.textBaseline = 'alphabetic'; ctx.textAlign = center ? 'center' : 'left'; ctx.fillStyle = fg;
+  for (const [txt, size = 0.075, weight = 600, col] of lines) { ctx.font = `${weight} ${H * size}px ${FONT_SANS}`; ctx.fillStyle = col || fg; for (const l of wrap(ctx, txt, W - pad * 2)) { y += H * size * 1.22; ctx.fillText(l, center ? W / 2 : pad, y); } y += H * size * 0.3; }
+}
+function skyCanvas(w, h, ground) {
+  const { ctx, tex } = makeCanvas(w, h);
+  const g = ctx.createLinearGradient(0, 0, 0, h * (ground ? 0.55 : 1)); g.addColorStop(0, '#6aa3dd'); g.addColorStop(1, '#d7e8f4'); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+  for (let i = 0; i < (ground ? 9 : 16); i++) {
+    const cx = rand(0, w), cy = rand(h * 0.06, h * (ground ? 0.32 : 0.62)), r = rand(16, 40) * w / 512;
+    for (let k = 0; k < 7; k++) { const x = cx + rand(-r, r) * 1.5, y = cy + rand(-r, r) * 0.25, r2 = r * rand(0.5, 0.95); const gg = ctx.createRadialGradient(x, y, 0, x, y, r2); gg.addColorStop(0, 'rgba(255,255,255,.8)'); gg.addColorStop(1, 'rgba(255,255,255,0)'); ctx.fillStyle = gg; ctx.fillRect(x - r2, y - r2, r2 * 2, r2 * 2); }
+  }
+  const trees = (y0, amp, col, step) => { ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(0, h); for (let x = 0; x <= w + step; x += step) ctx.lineTo(x, y0 - Math.abs(Math.sin(x * 0.045) * amp + Math.sin(x * 0.011 + 1) * amp * 1.3) - rand(0, amp * 0.3)); ctx.lineTo(w, h); ctx.closePath(); ctx.fill(); };
+  if (!ground) { trees(h * 0.9, h * 0.04, '#6d8a62', 5); trees(h * 0.95, h * 0.03, '#4f6e48', 4); return { tex }; }
+  const hz = h * 0.56;
+  for (let x = 0; x < w;) { const bw = rand(70, 160), bh = rand(30, 70); ctx.fillStyle = Math.random() < 0.5 ? '#ddd5c4' : '#cfd5dc'; ctx.fillRect(x, hz - bh, bw, bh); ctx.fillStyle = 'rgba(70,95,125,.55)'; for (let yy = hz - bh + 8; yy < hz - 6; yy += 12) for (let xx = x + 6; xx < x + bw - 8; xx += 14) ctx.fillRect(xx, yy, 8, 6); x += bw + rand(30, 120); }
+  trees(hz + 6, h * 0.05, '#55784c', 6); trees(hz + 14, h * 0.04, '#3f6439', 5);
+  const lg = ctx.createLinearGradient(0, hz + 10, 0, h); lg.addColorStop(0, '#7fa85c'); lg.addColorStop(1, '#6b9a4c'); ctx.fillStyle = lg; ctx.fillRect(0, hz + 12, w, h - hz);
+  ctx.fillStyle = '#cbbfa6'; ctx.beginPath(); ctx.moveTo(w * 0.36, h); ctx.lineTo(w * 0.46, hz + 14); ctx.lineTo(w * 0.5, hz + 14); ctx.lineTo(w * 0.62, h); ctx.closePath(); ctx.fill();
+  return { tex };
+}
+function drawLabSign(ctx, W, H) {
+  const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#28323e'); g.addColorStop(1, '#151c25'); ctx.fillStyle = g; rr(ctx, 0, 0, W, H, H * 0.1); ctx.fill();
+  hexLogo(ctx, H * 0.6, H * 0.5, H * 0.36);
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = '#ffffff'; fitFont(ctx, "AKSHAT'S AI & EDGE LAB", W - H * 1.4, H * 0.42, 700, FONT_SANS); ctx.fillText("AKSHAT'S AI & EDGE LAB", H * 1.15, H * 0.58);
+  ctx.fillStyle = '#9fdcff'; fitFont(ctx, 'EDGE AI · COMPUTER VISION · LLMs  —  RESEARCH & DEPLOYMENT', W - H * 1.4, H * 0.13, 600, FONT_MONO); ctx.fillText('EDGE AI · COMPUTER VISION · LLMs  —  RESEARCH & DEPLOYMENT', H * 1.17, H * 0.82);
+  const cols = ['#ffc27a', '#3df2ff', '#ffb547', '#8b7bff', '#42f5b0', '#4d8dff', '#ffd59a', '#4dffa6'], sw = (W - H * 0.4) / cols.length;
+  cols.forEach((c, i) => { ctx.fillStyle = c; ctx.fillRect(H * 0.2 + i * sw, H * 0.92, sw - 4, H * 0.03); });
+}
+function drawReceptionLogo(ctx, W, H) {
+  ctx.clearRect(0, 0, W, H); hexLogo(ctx, H * 0.42, H * 0.46, H * 0.32);
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.shadowColor = 'rgba(160,230,255,.8)'; ctx.shadowBlur = 12;
+  ctx.fillStyle = '#ffffff'; fitFont(ctx, "AKSHAT'S AI & EDGE LAB", W - H * 0.95, H * 0.26, 700, FONT_SANS); ctx.fillText("AKSHAT'S AI & EDGE LAB", H * 0.88, H * 0.5);
+  ctx.shadowBlur = 0; ctx.fillStyle = '#ffe2b0'; ctx.font = `700 ${H * 0.15}px ${FONT_MONO}`; ctx.fillText('RECEPTION', H * 0.9, H * 0.8);
+}
+function drawNoticeBoard(ctx, W, H) {
+  ctx.fillStyle = '#a77a4f'; ctx.fillRect(0, 0, W, H);
+  for (let i = 0; i < 9000; i++) { ctx.fillStyle = `rgba(${Math.random() < 0.5 ? '70,42,20' : '225,190,140'},${rand(0.08, 0.3)})`; ctx.fillRect(rand(0, W), rand(0, H), rand(1, 3), rand(1, 3)); }
+  const T = (txt, x, y, size, col = '#1e2731', weight = 700, maxW = 0) => { ctx.fillStyle = col; ctx.font = `${weight} ${size}px ${FONT_SANS}`; if (maxW) wrap(ctx, txt, maxW).forEach((l, i) => ctx.fillText(l, x, y + i * size * 1.22)); else ctx.fillText(txt, x, y); };
+  const paper = (x, y, w, h, rot, bg, draw) => {
+    ctx.save(); ctx.translate(x + w / 2, y + h / 2); ctx.rotate(rot); ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 10; ctx.shadowOffsetY = 4; ctx.fillStyle = bg; ctx.fillRect(-w / 2, -h / 2, w, h); ctx.shadowColor = 'transparent';
+    ctx.translate(-w / 2, -h / 2); ctx.textAlign = 'left'; draw(w, h); ctx.fillStyle = '#d23b3b'; ctx.beginPath(); ctx.arc(w / 2, 12, 8, 0, TAU); ctx.fill(); ctx.restore();
+  };
+  ctx.fillStyle = 'rgba(20,28,36,.88)'; ctx.fillRect(0, 0, W, 54); T('NOTICE BOARD', 24, 37, 28, '#ffffff', 800); ctx.textAlign = 'right'; T("Akshat's AI & Edge Lab", W - 24, 37, 21, '#9fdcff', 600); ctx.textAlign = 'left';
+  paper(390, 80, 280, 232, -0.03, '#ffffff', (w, h) => { ctx.fillStyle = '#c0392b'; ctx.fillRect(0, 0, w, 44); T('SEMINAR', 16, 31, 24, '#fff', 800); T('CycloAI: a hybrid cloud–edge LLM framework for cyclone monitoring and multilingual alerts', 16, 76, 18, '#1e2731', 600, w - 32); T('ETTIS 2026 · presented ✓', 16, h - 20, 19, '#1a8a4a', 800); });
+  paper(700, 80, 292, 212, 0.04, '#fff3a6', (w) => { T('PUBLICATIONS', 16, 42, 24, '#1e2731', 800); T('4 papers, all presented ✓', 16, 80, 21, '#1e2731', 700); T('ETTIS 2026 · RICE, Goa · ISICVA 2026 ×2', 16, 112, 18, '#3a4250', 600, w - 30); T('CycloAI copyright: accepted ✓', 16, 178, 19, '#1a8a4a', 800, w - 30); });
+  paper(392, 338, 300, 236, 0.02, '#ffffff', (w) => { ctx.fillStyle = '#1f5fbf'; ctx.fillRect(0, 0, w, 44); T('LAB SAFETY', 16, 31, 24, '#fff', 800); ['ESD wrist strap at the benches in LAB 03 & LAB 07', 'No food or drink inside the labs', 'Keep fire exits and door zones clear', 'Siren test: Mondays 10:00 (LAB 02)'].forEach((l, i) => T('• ' + l, 14, 76 + i * 40, 17, '#1e2731', 600, w - 26)); });
+  paper(728, 318, 262, 160, -0.05, '#c8f2d4', (w) => { T('VISITORS', 16, 42, 24, '#14532d', 800); T('Welcome! Sign in at reception, then follow the coloured floor lines to each lab.', 16, 76, 17, '#1e2731', 600, w - 30); });
+  paper(770, 500, 190, 84, 0.06, '#ffd1dc', () => { T('Contact terminal →', 12, 36, 17, '#1e2731', 700); T('centre of the lab 💬', 12, 64, 16, '#1e2731', 600); });
+}
+function drawResumeSheet(ctx, W, H) {
+  ctx.fillStyle = '#fbfbf8'; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#1e2731'; ctx.fillRect(0, 0, W, 92);
+  ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; ctx.font = `800 36px ${FONT_SANS}`; ctx.fillText('AKSHAT RAWAT', W / 2, 48);
+  ctx.fillStyle = '#9fdcff'; ctx.font = `600 16px ${FONT_MONO}`; ctx.fillText('RÉSUMÉ · AI/ML ENGINEER', W / 2, 76); ctx.textAlign = 'left';
+  const sec = (y, t) => { ctx.fillStyle = '#1f5fbf'; ctx.font = `800 15px ${FONT_MONO}`; ctx.fillText(t, 24, y); ctx.fillRect(24, y + 6, W - 48, 2); };
+  const bars = (y, n) => { for (let i = 0; i < n; i++) { ctx.fillStyle = '#c9ced6'; ctx.fillRect(24, y + i * 15, (W - 48) * (0.55 + Math.random() * 0.45), 6); } };
+  sec(124, 'EXPERIENCE'); bars(140, 5); sec(234, 'PROJECTS'); bars(250, 4); sec(330, 'PUBLICATIONS'); bars(346, 3); sec(408, 'EDUCATION'); bars(424, 2);
+  ctx.fillStyle = '#c0392b'; rr(ctx, 56, H - 72, W - 112, 48, 12); ctx.fill(); ctx.fillStyle = '#fff'; ctx.font = `800 21px ${FONT_SANS}`; ctx.textAlign = 'center'; ctx.fillText('CLICK TO OPEN PDF ↗', W / 2, H - 41);
+}
+function drawDirectory(ctx, W, H) {
+  ctx.fillStyle = '#1b232d'; ctx.fillRect(0, 0, W, H); ctx.textAlign = 'left';
+  ctx.fillStyle = '#ffffff'; ctx.font = `800 34px ${FONT_SANS}`; ctx.fillText('LAB DIRECTORY', 26, 58);
+  ctx.fillStyle = '#9fdcff'; ctx.font = `600 15px ${FONT_MONO}`; ctx.fillText("AKSHAT'S AI & EDGE LAB", 26, 86); ctx.fillStyle = '#3df2ff'; ctx.fillRect(26, 100, W - 52, 3);
+  [['01', 'entrance', "Akshat's Room", '→'], ['02', 'storm', 'CycloAI Operations', '↑'], ['03', 'gscan', 'Seismic Lab', '↖'], ['04', 'deepfake', 'Deepfake Forensics', '↗'], ['05', 'sports', 'Sports Vision Court', '↗'], ['06', 'asl', 'ASL Gesture Booth', '→'], ['07', 'skills', 'Hardware Workshop', '↖'], ['08', 'edu', 'Library & Papers', '←'], ['09', 'contact', 'Contact Terminal', '↑']].forEach(([n, id, name, arrow], i) => {
+    const y = 128 + i * 62; ctx.fillStyle = LAYOUT[id].accent; rr(ctx, 26, y, 50, 44, 8); ctx.fill();
+    ctx.fillStyle = '#0d141b'; ctx.font = `800 22px ${FONT_MONO}`; ctx.textAlign = 'center'; ctx.fillText(n, 51, y + 30);
+    ctx.textAlign = 'left'; ctx.fillStyle = '#eef3f8'; ctx.font = `600 21px ${FONT_SANS}`; ctx.fillText(name, 90, y + 30);
+    ctx.fillStyle = '#9fb0c2'; ctx.font = `700 28px ${FONT_SANS}`; ctx.textAlign = 'right'; ctx.fillText(arrow, W - 26, y + 32); ctx.textAlign = 'left';
+  });
+  ctx.fillStyle = '#8fa1b3'; ctx.font = `500 15px ${FONT_SANS}`; ctx.fillText('Follow the coloured floor lines.', 26, H - 52); ctx.fillText('Reception · résumé on the notice board ←', 26, H - 28);
+}
+function drawKanban(ctx, W, H) {
+  ctx.fillStyle = '#fbfbf8'; ctx.fillRect(0, 0, W, H); const hand = s => `600 ${s}px "Segoe Print","Bradley Hand","Comic Sans MS",cursive`;
+  ctx.textAlign = 'left'; ctx.fillStyle = '#1f4fbf'; ctx.font = hand(34); ctx.fillText('Sprint board · AI & Edge Lab', 30, 52);
+  ctx.strokeStyle = '#2a2f3a'; ctx.lineWidth = 3;
+  [['TO DO', 30], ['DOING', 360], ['DONE ✓', 690]].forEach(([t, x], i) => { ctx.fillStyle = '#2a2f3a'; ctx.font = hand(28); ctx.fillText(t, x + 10, 104); if (i) { ctx.beginPath(); ctx.moveTo(x - 14, 78); ctx.lineTo(x - 14, H - 24); ctx.stroke(); } });
+  const note = (x, y, col, lines, rot) => { ctx.save(); ctx.translate(x + 140, y + 60); ctx.rotate(rot); ctx.shadowColor = 'rgba(0,0,0,.2)'; ctx.shadowBlur = 6; ctx.fillStyle = col; ctx.fillRect(-140, -60, 280, 120); ctx.shadowColor = 'transparent'; ctx.fillStyle = '#1e2731'; ctx.font = `600 21px ${FONT_SANS}`; lines.forEach((l, i) => ctx.fillText(l, -124, -16 + i * 30)); ctx.restore(); };
+  note(30, 130, '#ffe680', ['Meet visitors at the', 'Contact Terminal 💬'], -0.03); note(30, 290, '#cfe3ff', ['Read the résumé on', 'the notice board 📄'], 0.02);
+  note(360, 130, '#c8f2d4', ['Audio-visual deepfake', 'fusion (future work)'], 0.02);
+  note(690, 130, '#c8f2d4', ['CycloAI deployed in', 'Kusumpur, Odisha ✓'], 0.03); note(690, 275, '#ffe680', ['4 papers presented ✓', 'ETTIS · RICE · ISICVA'], -0.02); note(690, 420, '#ffd1dc', ['CycloAI copyright', 'accepted ✓'], 0.02);
+}
+function drawRackDoor(ctx, W, H) {
+  ctx.fillStyle = '#16191e'; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#2d3239'; for (let y = 30; y < H - 12; y += 7) for (let x = 10; x < W - 22; x += 7) ctx.fillRect(x, y, 3, 3);
+  ctx.fillStyle = '#2c3138'; ctx.fillRect(0, 0, W, 22); ctx.fillStyle = '#8d959e'; ctx.fillRect(W - 14, H * 0.4, 5, H * 0.2);
+}
+function drawScreen(ctx, W, H, kind) {
+  ctx.fillStyle = '#071019'; ctx.fillRect(0, 0, W, H); const M2 = s => `600 ${s}px ${FONT_MONO}`;
+  if (kind === 'sat') {
+    const g = ctx.createRadialGradient(W * 0.55, H * 0.55, 4, W * 0.55, H * 0.55, H * 0.5); g.addColorStop(0, '#ffffff'); g.addColorStop(0.25, '#9fd0ff'); g.addColorStop(1, 'rgba(7,16,25,0)'); ctx.fillStyle = '#0d2236'; ctx.fillRect(0, 0, W, H); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = 'rgba(235,248,255,.65)'; ctx.lineWidth = 5; for (let a = 0; a < 3; a++) { ctx.beginPath(); for (let i = 0; i <= 50; i++) { const r = 6 + i * 2.6, t = a * TAU / 3 - Math.log(r / 6) * 1.8; const x = W * 0.55 + Math.cos(t) * r, y = H * 0.55 + Math.sin(t) * r; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); }
+    ctx.strokeStyle = '#ffd27a'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(W * 0.05, H * 0.2); ctx.quadraticCurveTo(W * 0.25, H * 0.32, W * 0.3, H * 0.05); ctx.stroke();
+    ctx.fillStyle = '#e8f6ff'; ctx.font = M2(20); ctx.fillText('SATELLITE IR · BAY OF BENGAL', 14, H - 16); ctx.fillStyle = '#ffd27a'; ctx.fillText('illustrative', W - 150, 28);
+  } else if (kind === 'fixes') {
+    ctx.fillStyle = '#3df2ff'; ctx.font = M2(22); ctx.fillText('3-HOURLY FIXES', 16, 34); ctx.fillStyle = '#cfe3ff'; ctx.font = M2(18);
+    [['T+00', '11.5N 90.5E', '1,060 km'], ['T+03', '13.6N 89.6E', '820 km'], ['T+06', '15.8N 88.7E', '570 km'], ['T+09', '17.8N 87.9E', '330 km'], ['T+12', '19.4N 87.2E', '130 km']].forEach((r, i) => { ctx.fillStyle = i === 4 ? '#ff6b7d' : '#cfe3ff'; ctx.fillText(r.join('   '), 16, 74 + i * 34); });
+    ctx.fillStyle = '#ff6b7d'; ctx.fillText('< 150 km → ALARM', 16, H - 18);
+  } else if (kind === 'status') {
+    ctx.fillStyle = '#4dffa6'; ctx.font = M2(22); ctx.fillText('EDGE NODE · KUSUMPUR', 16, 34); ctx.font = M2(18);
+    [['edge LLM (quantized)', 'OK'], ['5G / LTE uplink', 'OK'], ['relay + siren', 'STANDBY'], ['alert website', 'LIVE'], ['voice: EN · HI · OR', 'ARMED']].forEach(([a, b], i) => { ctx.fillStyle = '#cfe3ff'; ctx.fillText(a, 16, 76 + i * 34); ctx.fillStyle = b === 'STANDBY' ? '#ffb547' : '#4dffa6'; ctx.fillText(b, W - 120, 76 + i * 34); });
+  } else if (kind === 'train') {
+    ctx.fillStyle = '#d6d0ff'; ctx.font = M2(20); ctx.fillText('BiLSTM · 48 geometry features', 16, 30);
+    ctx.strokeStyle = '#1f2a3d'; ctx.lineWidth = 1; for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.moveTo(40, 60 + i * 50); ctx.lineTo(W - 16, 60 + i * 50); ctx.stroke(); }
+    const curve = (col, f) => { ctx.strokeStyle = col; ctx.lineWidth = 3; ctx.beginPath(); for (let i = 0; i <= 60; i++) { const x = 40 + (W - 56) * i / 60, y = f(i / 60); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); };
+    curve('#ff9a6b', k => 70 + 170 * Math.exp(-k * 4) + 8 * Math.sin(k * 40) * (1 - k)); curve('#4dffa6', k => 250 - 160 * (1 - Math.exp(-k * 3.5)));
+    ctx.fillStyle = '#ff9a6b'; ctx.fillText('loss', W - 90, 90); ctx.fillStyle = '#4dffa6'; ctx.fillText('AUC', W - 90, 120);
+  } else if (kind === 'code') {
+    ctx.font = M2(17); [['#6a9955', '# 468 landmarks → depth features'], ['#c586c0', 'import mediapipe as mp'], ['#9cdcfe', 'mesh = mp.solutions.face_mesh'], ['#dcdcaa', 'dz = jaw_z - nose_z'], ['#dcdcaa', 'feats = velocity(dz), accel(dz)'], ['#4ec9b0', 'model.fit(X_seq, y)'], ['#6a9955', '# FF++ · Celeb-DF · FakeAVCeleb']].forEach(([c, t], i) => { ctx.fillStyle = c; ctx.fillText(t, 16, 34 + i * 30); });
+  } else if (kind === 'scope') {
+    ctx.strokeStyle = 'rgba(77,255,166,.18)'; ctx.lineWidth = 1; for (let x = 0; x <= W; x += W / 8) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); } for (let y = 0; y <= H; y += H / 6) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+    ctx.strokeStyle = '#ffd166'; ctx.lineWidth = 3; ctx.beginPath(); for (let x = 0; x <= W; x += 2) { const y = H / 2 - Math.sin(x * 0.09) * Math.exp(-x / W * 2.2) * H * 0.36; x ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke();
+  } else if (kind === 'laptop') {
+    ctx.fillStyle = '#1a2233'; ctx.fillRect(0, 0, W, H); ctx.strokeStyle = '#7fb0ff'; ctx.lineWidth = 4; ctx.strokeRect(W * 0.3, H * 0.2, W * 0.4, H * 0.62); ctx.fillStyle = '#4d8dff'; ctx.fillRect(W * 0.3, H * 0.2 - 26, 110, 26); ctx.fillStyle = '#fff'; ctx.font = M2(17); ctx.fillText('pred: L', W * 0.3 + 8, H * 0.2 - 7);
+  }
+}
+const drawPegboard = (ctx, W, H) => {
+  ctx.fillStyle = '#c9a57a'; ctx.fillRect(0, 0, W, H); ctx.fillStyle = 'rgba(70,45,20,.55)'; for (let y = 12; y < H; y += 20) for (let x = 12; x < W; x += 20) { ctx.beginPath(); ctx.arc(x, y, 3, 0, TAU); ctx.fill(); }
+  ctx.fillStyle = '#2b2f36'; ctx.strokeStyle = '#2b2f36'; ctx.lineCap = 'round';
+  const tool = (x, y, len, w, head) => { ctx.lineWidth = w; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + len); ctx.stroke(); head(x, y); };
+  for (let i = 0; i < 5; i++) tool(60 + i * 40, 60, 180 - i * 18, 10, (x, y) => { ctx.fillStyle = ['#d23b3b', '#f1b51c', '#2f6fd6', '#2b2f36', '#1d9a52'][i]; ctx.fillRect(x - 9, y + 90 - i * 10, 18, 80); });
+  for (let i = 0; i < 3; i++) tool(320 + i * 60, 50, 200, 12, (x, y) => { ctx.beginPath(); ctx.arc(x, y + 6, 20, 0.6, Math.PI * 2 - 0.6); ctx.lineWidth = 10; ctx.stroke(); });
+  ctx.fillStyle = '#f1b51c'; rr(ctx, 540, 60, 120, 200, 14); ctx.fill(); ctx.fillStyle = '#20252b'; ctx.fillRect(560, 80, 80, 50); ctx.beginPath(); ctx.arc(600, 185, 28, 0, TAU); ctx.fill();
+  ctx.fillStyle = '#d23b3b'; for (let i = 0; i < 3; i++) { ctx.save(); ctx.translate(730 + i * 70, 150); ctx.rotate(0.15); ctx.fillRect(-12, 0, 24, 110); ctx.fillStyle = '#9aa4ae'; ctx.fillRect(-6, -90, 12, 90); ctx.fillStyle = '#d23b3b'; ctx.restore(); }
+  ctx.fillStyle = '#1e2731'; ctx.font = `800 26px ${FONT_SANS}`; ctx.fillText('SHADOW BOARD · return every tool', 40, H - 24);
+};
+
 class World {
   constructor() {
     const r = this.renderer = new THREE.WebGLRenderer({ antialias: !Q.bloom, powerPreference: 'high-performance' });
     r.setPixelRatio(Q.pixelRatio); r.setSize(innerWidth, innerHeight);
-    r.toneMapping = THREE.NeutralToneMapping; this.baseExposure = 1.12; r.toneMappingExposure = this.baseExposure;
+    r.toneMapping = THREE.NeutralToneMapping; this.baseExposure = 1.0; r.toneMappingExposure = this.baseExposure;
     r.outputColorSpace = THREE.SRGBColorSpace;
     r.shadowMap.enabled = Q.shadows; r.shadowMap.type = THREE.PCFSoftShadowMap; r.shadowMap.autoUpdate = false;
     $('#app').appendChild(r.domElement);
@@ -1157,8 +1492,9 @@ class World {
     POINT_UNIFORMS.uPR.value = r.getPixelRatio();
 
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x1d2347);
-    this.scene.fog = new THREE.FogExp2(0x262c58, 0.0105);
+    this.scene.background = new THREE.Color(0xc9d2dc);
+    this.scene.fog = new THREE.FogExp2(0xc6ced8, 0.0065);
+    try { this.scene.environment = labEnvironment(r); this.scene.environmentIntensity = 0.5; } catch { /* lighting still works without it */ }
     this.camera = new THREE.PerspectiveCamera(62, innerWidth / innerHeight, 0.05, 140);
     this.camera.rotation.order = 'YXZ';
     this.scene.add(this.camera);
@@ -1172,11 +1508,12 @@ class World {
       const rt = new THREE.WebGLRenderTarget(innerWidth * Q.pixelRatio, innerHeight * Q.pixelRatio, { type: THREE.HalfFloatType, samples: 4 });
       this.composer = new EffectComposer(r, rt);
       this.composer.addPass(new RenderPass(this.scene, this.camera));
-      this.bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.62, 0.55, 0.86);
+      this.bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.5, 0.5, 0.92);
       this.composer.addPass(this.bloom);
       this.composer.addPass(new OutputPass());
     }
-    this.colliders = []; this.traces = []; this.plants = [];
+    this.colliders = []; this.overhead = []; this.traces = []; this.plants = []; this.ledInfo = [];
+    this.roof = new THREE.Group(); this.scene.add(this.roof); // roof structure + services: hidden when the camera rises above the roof
     this.buildLights();
     this.buildRoom();
     this.buildDust();
@@ -1184,8 +1521,10 @@ class World {
     this.buildDrone();
     addEventListener('resize', () => this.resize());
   }
-  /** h = height of the obstacle; the third-person camera only avoids things taller than it is. */
-  addCollider(minX, minZ, maxX, maxZ, h = 1.2) { this.colliders.push({ minX, minZ, maxX, maxZ, h }); }
+  /** h = height of the obstacle; the third-person camera only avoids things taller than it is. kind 'wall' draws as a wall on the map. */
+  addCollider(minX, minZ, maxX, maxZ, h = 1.2, kind = 'prop') { this.colliders.push({ minX, minZ, maxX, maxZ, h, kind }); }
+  /** things overhead (ducts, cable tray) that the camera must not pass through */
+  addOverhead(minX, minY, minZ, maxX, maxY, maxZ) { this.overhead.push({ minX, minY, minZ, maxX, maxY, maxZ }); }
   resize() {
     const w = innerWidth, h = innerHeight;
     this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
@@ -1195,8 +1534,8 @@ class World {
   setBloom(on) { this.bloomOn = on && !!this.composer; }
   buildLights() {
     const s = this.scene;
-    s.add(new THREE.HemisphereLight(0xc4d2ff, 0x5b3f80, Q.low ? 2.2 : 1.7));
-    const key = this.key = new THREE.DirectionalLight(0xfff0e0, 1.35);
+    s.add(new THREE.HemisphereLight(0xf3f6fb, 0x8a8681, Q.low ? 1.8 : 1.35));
+    const key = this.key = new THREE.DirectionalLight(0xfff3e4, 1.3);
     key.position.set(-14, 26, 12); key.target.position.set(0, 0, 0);
     if (Q.shadows) {
       key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
@@ -1204,125 +1543,450 @@ class World {
       key.shadow.bias = -0.0004; key.shadow.normalBias = 0.04; key.shadow.radius = 3;
     }
     s.add(key, key.target);
-    const rim = new THREE.DirectionalLight(0xb08cff, 0.55); rim.position.set(18, 14, -10); s.add(rim);
+    const fill = new THREE.DirectionalLight(0xdbe6ff, 0.35); fill.position.set(18, 14, -10); s.add(fill);
   }
   buildRoom() {
-    const { minX, maxX, minZ, maxZ, h } = ROOM, W = maxX - minX, D = maxZ - minZ, s = this.scene;
-    // ---- floor: tiles + colourful glow under every station + PCB traces to the hub
-    const PX = 34, cw = W * PX, ch = D * PX;
-    const base = makeCanvas(cw, ch), em = makeCanvas(cw, ch);
-    const b = base.ctx, e = em.ctx;
+    const M = this.M = labMaterials(), B = new Batch(), RB = new Batch();
+    this.buildFloor();
+    this.buildShell(B, RB, M);
+    this.buildPartitions(B, M);
+    this.buildLobby(B, M);
+    this.buildCommons(B, M);
+    this.buildLabRooms(B, M);
+    B.flush(this.scene); RB.flush(this.roof);
+    this.buildLeds();
+  }
+
+  /* ---------- floor: epoxy hall, real finishes per room, painted lines ---------- */
+  buildFloor() {
+    const { minX, maxX, minZ, maxZ } = ROOM, W = maxX - minX, D = maxZ - minZ, PX = 34, cw = W * PX, ch = D * PX;
+    const base = makeCanvas(cw, ch), em = makeCanvas(cw, ch), b = base.ctx, e = em.ctx;
     const P = (x, z) => [(x - minX) * PX, (z - minZ) * PX];
-    b.fillStyle = '#212c50'; b.fillRect(0, 0, cw, ch);
-    for (let x = 0; x < W; x += 2) for (let z = 0; z < D; z += 2) { b.fillStyle = `rgba(180,200,255,${Math.random() * 0.04})`; b.fillRect(x * PX + 2, z * PX + 2, 2 * PX - 4, 2 * PX - 4); }
+    const fillR = (ctx, x0, z0, x1, z1) => { const [a, c] = P(x0, z0); ctx.fillRect(a, c, (x1 - x0) * PX, (z1 - z0) * PX); };
+    const clipR = (ctx, x0, z0, x1, z1) => { const [a, c] = P(x0, z0); ctx.save(); ctx.beginPath(); ctx.rect(a, c, (x1 - x0) * PX, (z1 - z0) * PX); ctx.clip(); };
+    const dots = (ctx, x0, z0, x1, z1, per, cols, s0 = 1, s1 = 2) => { const [a, c] = P(x0, z0), w = (x1 - x0) * PX, h = (z1 - z0) * PX, n = Math.round((x1 - x0) * (z1 - z0) * per); for (let i = 0; i < n; i++) { ctx.fillStyle = cols[i % cols.length]; const z = s0 + Math.random() * (s1 - s0); ctx.fillRect(a + Math.random() * w, c + Math.random() * h, z, z); } };
+    const grid = (ctx, x0, z0, x1, z1, step, style, lw = 1, onlyX = false) => { ctx.strokeStyle = style; ctx.lineWidth = lw; ctx.beginPath(); for (let x = x0; x <= x1 + 1e-6; x += step) { ctx.moveTo(...P(x, z0)); ctx.lineTo(...P(x, z1)); } if (!onlyX) for (let z = z0; z <= z1 + 1e-6; z += step) { ctx.moveTo(...P(x0, z)); ctx.lineTo(...P(x1, z)); } ctx.stroke(); };
+    // 1. light-grey epoxy everywhere: soft mottling, flecks, saw-cut joints every 6 m
+    b.fillStyle = '#acb2b8'; b.fillRect(0, 0, cw, ch);
+    for (let i = 0; i < 320; i++) { const x = Math.random() * cw, y = Math.random() * ch, r = rand(40, 160), a = rand(0.02, 0.05), g = b.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, Math.random() < 0.5 ? `rgba(255,255,255,${a})` : `rgba(50,60,70,${a})`); g.addColorStop(1, 'rgba(0,0,0,0)'); b.fillStyle = g; b.fillRect(x - r, y - r, r * 2, r * 2); }
+    dots(b, minX, minZ, maxX, maxZ, 9, ['rgba(70,78,88,.35)', 'rgba(245,248,250,.45)', 'rgba(130,138,146,.3)']);
+    grid(b, minX, minZ, maxX, maxZ, 6, 'rgba(80,88,98,.35)', 1.5);
     e.fillStyle = '#000'; e.fillRect(0, 0, cw, ch);
-    for (const m of Object.values(LAYOUT)) {
-      const c = localToWorld(m, 0, m.iz * 0.45), [x, y] = P(c.x, c.z);
-      for (const [ctx, a, rad] of [[b, 0.34, 7], [e, 0.1, 5]]) { const g = ctx.createRadialGradient(x, y, 0, x, y, rad * PX); g.addColorStop(0, hexA(m.accent, a)); g.addColorStop(1, hexA(m.accent, 0)); ctx.fillStyle = g; ctx.fillRect(x - rad * PX, y - rad * PX, rad * 2 * PX, rad * 2 * PX); }
+    // 2. each room has the floor that lab would really have
+    for (const r of LAB_ROOMS) {
+      if (!r.floor) continue; clipR(b, r.x0, r.z0, r.x1, r.z1);
+      if (r.floor === 'esd') { b.fillStyle = '#5b626b'; fillR(b, r.x0, r.z0, r.x1, r.z1); dots(b, r.x0, r.z0, r.x1, r.z1, 40, ['rgba(180,190,200,.35)', 'rgba(25,30,36,.45)'], 1, 2.5); grid(b, r.x0, r.z0, r.x1, r.z1, 0.6, 'rgba(25,30,36,.5)', 1); }
+      else if (r.floor === 'raised') {
+        b.fillStyle = '#c9cdd1'; fillR(b, r.x0, r.z0, r.x1, r.z1); dots(b, r.x0, r.z0, r.x1, r.z1, 12, ['rgba(120,128,136,.3)', 'rgba(255,255,255,.4)']);
+        b.fillStyle = 'rgba(90,98,106,.55)';
+        for (let i = 0, x = r.x0; x < r.x1 - 0.01; x += 0.6, i++) for (let j = 0, z = r.z0; z < r.z1 - 0.01; z += 0.6, j++) { if ((i * 3 + j) % 7) continue; for (let a = 0; a < 6; a++) for (let c = 0; c < 6; c++) { const [px, py] = P(x + 0.08 + a * 0.087, z + 0.08 + c * 0.087); b.fillRect(px, py, 2, 2); } }
+        grid(b, r.x0, r.z0, r.x1, r.z1, 0.6, '#8e959c', 2);
+      }
+      else if (r.floor === 'vinyl') { b.fillStyle = '#c3bdb1'; fillR(b, r.x0, r.z0, r.x1, r.z1); dots(b, r.x0, r.z0, r.x1, r.z1, 25, ['rgba(120,108,92,.25)', 'rgba(255,252,245,.35)']); grid(b, r.x0, r.z0, r.x1, r.z1, 2, 'rgba(120,110,95,.18)', 1, true); }
+      else if (r.floor === 'sport') { b.fillStyle = '#34505e'; fillR(b, r.x0, r.z0, r.x1, r.z1); dots(b, r.x0, r.z0, r.x1, r.z1, 60, ['rgba(90,150,180,.45)', 'rgba(15,25,32,.5)', 'rgba(210,220,228,.22)'], 1, 2.2); }
+      else if (r.floor === 'carpet') { for (let x = r.x0; x < r.x1; x += 0.5) for (let z = r.z0; z < r.z1; z += 0.5) { b.fillStyle = (Math.round(x * 2) + Math.round(z * 2)) % 2 ? '#5a687d' : '#536177'; fillR(b, x, z, x + 0.5, z + 0.5); } dots(b, r.x0, r.z0, r.x1, r.z1, 80, ['rgba(255,255,255,.07)', 'rgba(0,0,0,.12)'], 1, 1.6); }
+      b.restore();
     }
-    b.strokeStyle = 'rgba(180,210,255,.16)'; b.lineWidth = 2;
-    for (let x = 0; x <= W; x += 2) { b.beginPath(); b.moveTo(x * PX, 0); b.lineTo(x * PX, ch); b.stroke(); }
-    for (let z = 0; z <= D; z += 2) { b.beginPath(); b.moveTo(0, z * PX); b.lineTo(cw, z * PX); b.stroke(); }
-    const hubC = LAYOUT.contact, R0 = 3.6;
-    for (const [id, m] of Object.entries(LAYOUT)) {
-      if (id === 'contact') continue;
-      const end = m.tx != null ? { x: m.tx, z: m.tz } : localToWorld(m, 0, m.az), ang = Math.atan2(end.z - hubC.z, end.x - hubC.x);
-      const sx = hubC.x + Math.cos(ang) * R0, sz = hubC.z + Math.sin(ang) * R0, dx = end.x - sx, dz = end.z - sz;
-      let cx, cz; if (Math.abs(dx) > Math.abs(dz)) { cx = sx + Math.sign(dx) * Math.abs(dz); cz = end.z; } else { cx = end.x; cz = sz + Math.sign(dz) * Math.abs(dx); }
-      this.traces.push({ id, color: m.accent, pts: [[sx, sz], [cx, cz], [end.x, end.z]] });
-    }
-    const drawTraces = (ctx, width, alpha) => {
+    // 3. lobby: large stone tiles + entrance mat
+    clipR(b, -11, 14, 6, 24);
+    for (let x = -11; x < 6; x += 1.2) for (let z = 14; z < 24; z += 1.2) { b.fillStyle = `hsl(36,13%,${74 + Math.random() * 5}%)`; fillR(b, x, z, x + 1.2, z + 1.2); }
+    dots(b, -11, 14, 6, 24, 20, ['rgba(120,110,95,.2)', 'rgba(255,255,255,.3)']); grid(b, -11, 14, 6, 24, 1.2, '#a59c8d', 1.5);
+    b.restore();
+    b.fillStyle = '#2b2f35'; fillR(b, -1.8, 22.3, 1.8, 23.95); b.strokeStyle = 'rgba(255,255,255,.07)'; b.lineWidth = 2; for (let x = -1.7; x < 1.8; x += 0.12) { b.beginPath(); b.moveTo(...P(x, 22.4)); b.lineTo(...P(x, 23.85)); b.stroke(); }
+    b.fillStyle = 'rgba(55,60,68,.6)'; b.font = `700 ${0.3 * PX}px ${FONT_SANS}`; b.textAlign = 'center'; b.textBaseline = 'middle'; b.fillText('WELCOME  ·  VISITORS PLEASE SIGN IN AT RECEPTION  ◂', ...P(-1.6, 16.3));
+    // 4. painted wayfinding lines: Contact Terminal hub → every lab door, one colour per lab
+    const hub = LAYOUT.contact, R0 = 3.6;
+    for (const [id, pts] of Object.entries(ROUTES)) this.traces.push({ id, color: LAYOUT[id].accent, pts });
+    const drawRoutes = (ctx, width, alpha, ends) => {
       ctx.globalAlpha = alpha; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.lineWidth = width;
-      ctx.strokeStyle = '#4dffa6'; ctx.beginPath(); ctx.arc(...P(hubC.x, hubC.z), R0 * PX, 0, TAU); ctx.stroke();
+      ctx.strokeStyle = hub.accent; ctx.beginPath(); ctx.arc(...P(hub.x, hub.z), R0 * PX, 0, TAU); ctx.stroke();
       for (const tr of this.traces) {
         ctx.strokeStyle = tr.color; ctx.beginPath(); tr.pts.forEach(([x, z], i) => (i ? ctx.lineTo(...P(x, z)) : ctx.moveTo(...P(x, z)))); ctx.stroke();
-        ctx.fillStyle = tr.color; ctx.beginPath(); ctx.arc(...P(tr.pts[2][0], tr.pts[2][1]), 0.32 * PX, 0, TAU); ctx.fill();
-        ctx.beginPath(); ctx.arc(...P(tr.pts[0][0], tr.pts[0][1]), 0.18 * PX, 0, TAU); ctx.fill();
+        if (ends) { const L = tr.pts[tr.pts.length - 1]; ctx.fillStyle = tr.color; ctx.beginPath(); ctx.arc(...P(L[0], L[1]), 0.22 * PX, 0, TAU); ctx.fill(); ctx.beginPath(); ctx.arc(...P(tr.pts[0][0], tr.pts[0][1]), 0.13 * PX, 0, TAU); ctx.fill(); }
       }
       ctx.globalAlpha = 1;
     };
-    drawTraces(b, 10, 0.5); drawTraces(e, 4, 0.8);
-    e.globalAlpha = 0.3; e.fillStyle = '#3df2ff'; e.font = `700 ${PX * 0.45}px ${FONT_MONO}`; e.textAlign = 'center';
-    e.fillText('▲  WELCOME TO THE LAB  ▲', ...P(0, 15.6)); e.globalAlpha = 1;
+    drawRoutes(b, 0.13 * PX, 0.92, true); drawRoutes(e, 2, 0.3, false);
+    // 5. safety markings: yellow aisle lines along the partitions, "keep clear" boxes at every door
+    const YEL = '#e2b21d';
+    for (const w of WALLS) {
+      if (!w.out || w.noLine) continue;
+      const horiz = w.a[1] === w.b[1], fixed = horiz ? w.a[1] : w.a[0], ua = horiz ? [w.a[0], w.b[0]] : [w.a[1], w.b[1]], u0 = Math.min(...ua), u1 = Math.max(...ua), off = fixed + w.out * 0.55, doors = [...(w.doors || [])].sort((p, q) => p.c - q.c);
+      const line = (a, c) => { if (c - a < 0.3) return; b.strokeStyle = YEL; b.lineWidth = 0.09 * PX; b.lineCap = 'butt'; b.beginPath(); b.moveTo(...(horiz ? P(a, off) : P(off, a))); b.lineTo(...(horiz ? P(c, off) : P(off, c))); b.stroke(); };
+      let st = u0 + 0.35; for (const d of doors) { line(st, d.c - d.w / 2 - 0.25); st = d.c + d.w / 2 + 0.25; } line(st, u1 - 0.35);
+      for (const d of doors) {
+        const a = d.c - d.w / 2, c = d.c + d.w / 2, n0 = fixed + w.out * (WALL_T / 2), n1 = fixed + w.out * 1.4, lo = Math.min(n0, n1), hi = Math.max(n0, n1);
+        const [x0, z0, x1, z1] = horiz ? [a, lo, c, hi] : [lo, a, hi, c];
+        clipR(b, x0, z0, x1, z1); b.strokeStyle = 'rgba(226,178,29,.3)'; b.lineWidth = 0.05 * PX; b.beginPath(); for (let t = -5; t < 7; t += 0.28) { b.moveTo(...P(x0 + t, z0)); b.lineTo(...P(x0 + t + 5, z0 + 5)); } b.stroke(); b.restore();
+        b.strokeStyle = YEL; b.lineWidth = 0.07 * PX; b.strokeRect(...P(x0, z0), (x1 - x0) * PX, (z1 - z0) * PX);
+        const t0 = fixed + w.out * (WALL_T / 2), t1 = fixed + w.out * 0.32; b.fillStyle = LAYOUT[d.room].accent;
+        fillR(b, horiz ? a : Math.min(t0, t1), horiz ? Math.min(t0, t1) : a, horiz ? c : Math.max(t0, t1), horiz ? Math.max(t0, t1) : c);
+        const room = LAB_ROOMS.find(r => r.id === d.room), [cx, cz] = horiz ? P(d.c, fixed + w.out * 0.95) : P(fixed + w.out * 0.95, d.c);
+        b.save(); b.translate(cx, cz); b.rotate(horiz ? (w.out > 0 ? 0 : Math.PI) : (w.out > 0 ? -Math.PI / 2 : Math.PI / 2));
+        b.fillStyle = 'rgba(226,178,29,.95)'; b.font = `800 ${0.24 * PX}px ${FONT_MONO}`; b.textAlign = 'center'; b.textBaseline = 'middle'; b.fillText(`${room.code} · KEEP CLEAR`, 0, 0); b.restore();
+      }
+    }
+    const hatch = (x0, z0, x1, z1) => { clipR(b, x0, z0, x1, z1); b.fillStyle = YEL; fillR(b, x0, z0, x1, z1); b.strokeStyle = '#1d2026'; b.lineWidth = 0.12 * PX; b.beginPath(); for (let t = -4; t < 8; t += 0.36) { b.moveTo(...P(x0 + t, z0)); b.lineTo(...P(x0 + t + 4, z0 + 4)); } b.stroke(); b.restore(); };
+    hatch(-30, -8.6, -28.8, -6.9); hatch(28.8, -8.6, 30, -6.9); hatch(21.9, -6.95, 23.1, -6.07); hatch(-29.3, 9.15, -26.65, 10.15);
+    b.setLineDash([0.3 * PX, 0.2 * PX]); b.strokeStyle = YEL; b.lineWidth = 0.08 * PX; b.strokeRect(...P(9.4, -4.8), 5.4 * PX, 3.85 * PX); b.setLineDash([]);
+    b.fillStyle = 'rgba(226,178,29,.95)'; b.font = `800 ${0.26 * PX}px ${FONT_MONO}`; b.textAlign = 'center'; b.fillText('FIELD KIT · CYCLOAI SITE', ...P(12.1, -0.6));
     base.tex.anisotropy = 8; em.tex.anisotropy = 8;
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), new THREE.MeshStandardMaterial({ map: base.tex, emissiveMap: em.tex, emissive: 0xffffff, emissiveIntensity: 1.0, roughness: 0.5, metalness: 0.2 }));
-    floor.rotation.x = -Math.PI / 2; floor.receiveShadow = Q.shadows; s.add(floor);
-    this.floor = floor;
-    // ---- walls (indigo) with ribs and colourful acoustic panels
-    const wallMat = std(0x2b3466, { roughness: 0.88, metalness: 0.05 });
-    for (const [w, hh, d, x, y, z] of [[W + 0.8, h, 0.4, 0, h / 2, minZ - 0.2], [W + 0.8, h, 0.4, 0, h / 2, maxZ + 0.2], [0.4, h, D, minX - 0.2, h / 2, 0], [0.4, h, D, maxX + 0.2, h / 2, 0]]) {
-      const m = box(w, hh, d, wallMat); m.position.set(x, y, z); m.receiveShadow = Q.shadows; s.add(m);
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), new THREE.MeshStandardMaterial({ map: base.tex, emissiveMap: em.tex, emissive: 0xffffff, emissiveIntensity: 1.0, roughness: 0.42, metalness: 0 }));
+    floor.rotation.x = -Math.PI / 2; floor.receiveShadow = Q.shadows; this.scene.add(floor); this.floor = floor;
+  }
+
+  /* ---------- the hall: block walls, steel frame, roof deck, high-bay lights, services, windows, entrance ---------- */
+  buildShell(B, RB, M) {
+    const { minX, maxX, minZ, maxZ, h } = ROOM, W = maxX - minX, D = maxZ - minZ, s = this.scene;
+    const wc = makeCanvas(256, 416), w = wc.ctx, py = 416 / h;
+    w.fillStyle = '#c5cace'; w.fillRect(0, 0, 256, 416);
+    for (let row = 0, y = 0; y < 416; row++, y += 0.2 * py) { w.fillStyle = 'rgba(70,80,90,.08)'; w.fillRect(0, y, 256, 1); for (let x = (row % 2) * 12.8; x < 256; x += 25.6) w.fillRect(x, y, 1, 0.2 * py); }
+    const dado = 416 - 1.2 * py; w.fillStyle = '#6d7a87'; w.fillRect(0, dado, 256, 416 - dado); w.fillStyle = '#48535f'; w.fillRect(0, dado - 3, 256, 4); w.fillStyle = '#2d343b'; w.fillRect(0, 416 - 0.12 * py, 256, 0.12 * py);
+    const wallTex = len => { const t = wc.tex.clone(); t.wrapS = THREE.RepeatWrapping; t.repeat.set(len / 4, 1); t.anisotropy = 8; t.needsUpdate = true; return t; };
+    for (const [ww, d, x, z, len] of [[W + 0.8, 0.4, 0, minZ - 0.2, W], [W + 0.8, 0.4, 0, maxZ + 0.2, W], [0.4, D, minX - 0.2, 0, D], [0.4, D, maxX + 0.2, 0, D]]) {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(ww, h, d), new THREE.MeshStandardMaterial({ map: wallTex(len), roughness: 0.9 })); m.position.set(x, h / 2, z); m.receiveShadow = Q.shadows; s.add(m);
     }
-    const ribs = []; for (let x = minX + 4; x < maxX; x += 4) { ribs.push([x, minZ + 0.06, 0]); ribs.push([x, maxZ - 0.06, 0]); }
-    for (let z = minZ + 4; z < maxZ; z += 4) { ribs.push([minX + 0.06, z, 1]); ribs.push([maxX - 0.06, z, 1]); }
-    const ribMesh = new THREE.InstancedMesh(new THREE.BoxGeometry(0.22, h, 0.12), std(0x3a4583, { roughness: 0.8 }), ribs.length);
-    const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), one = new THREE.Vector3(1, 1, 1);
-    ribs.forEach(([x, z, rotY], i) => { q.setFromAxisAngle(Y_AXIS, rotY ? Math.PI / 2 : 0); m4.compose(new THREE.Vector3(x, h / 2, z), q, one); ribMesh.setMatrixAt(i, m4); });
-    s.add(ribMesh);
-    const spots = [];
-    for (const x of [-24, -20, -16, -12, 12, 16, 20, 24]) spots.push([x, minZ + 0.05, 0]);
-    for (const x of [-24, -20, -16, -12, -8, -4, 4, 8, 12, 16, 20, 24]) spots.push([x, maxZ - 0.05, 0]);
-    for (const z of [-21.5, -9.5, 2, 14, 22]) { spots.push([minX + 0.05, z, 1]); spots.push([maxX - 0.05, z, 1]); }
-    const pan = new THREE.InstancedMesh(new THREE.BoxGeometry(2.7, 1.5, 0.07), std(0xffffff, { roughness: 0.85 }), spots.length);
-    spots.forEach(([x, z, side], i) => { q.setFromAxisAngle(Y_AXIS, side ? Math.PI / 2 : 0); m4.compose(new THREE.Vector3(x, 4.4, z), q, one); pan.setMatrixAt(i, m4); pan.setColorAt(i, new THREE.Color(PALETTE[i % PALETTE.length])); });
-    s.add(pan);
-    const skirt = glow('#3df2ff', 1.5);
-    for (const [w, d, x, z] of [[W, 0.05, 0, minZ + 0.03], [W, 0.05, 0, maxZ - 0.03], [0.05, D, minX + 0.03, 0], [0.05, D, maxX - 0.03, 0]]) { const m = box(w, 0.05, d, skirt); m.position.set(x, 0.12, z); s.add(m); }
-    const topStrip = glow('#ff6b8b', 1.3);
-    for (const [w, d, x, z] of [[W, 0.04, 0, minZ + 0.03], [W, 0.04, 0, maxZ - 0.03], [0.04, D, minX + 0.03, 0], [0.04, D, maxX - 0.03, 0]]) { const m = box(w, 0.04, d, topStrip); m.position.set(x, 5.4, z); s.add(m); }
-    // ---- ceiling, beams, light strips (strips power up one by one in the intro)
-    const ceil = new THREE.Mesh(new THREE.PlaneGeometry(W, D), std(0x232a52, { roughness: 1 }));
-    ceil.rotation.x = Math.PI / 2; ceil.position.y = h; s.add(ceil);
-    const beams = new THREE.InstancedMesh(new THREE.BoxGeometry(W, 0.34, 0.26), std(0x30396b, { roughness: 0.8 }), 8);
-    for (let i = 0; i < 8; i++) { m4.makeTranslation(0, h - 0.17, minZ + 3 + i * 6); beams.setMatrixAt(i, m4); }
-    s.add(beams);
-    const strips = this.strips = new THREE.InstancedMesh(new THREE.BoxGeometry(3.4, 0.05, 0.28), new THREE.MeshBasicMaterial({ color: 0xffffff }), 25);
-    this.stripBase = new THREE.Color('#d6e4ff').multiplyScalar(1.5); this.stripDelay = [];
-    let k = 0; for (const x of [-22, -11, 0, 11, 22]) for (const z of [-18, -9, 0, 9, 18]) { m4.makeTranslation(x, h - 0.36, z); strips.setMatrixAt(k, m4); strips.setColorAt(k, this.stripBase); this.stripDelay.push(0.35 + (z - minZ) / D * 1.7 + Math.abs(x) * 0.012 + rand(0, 0.12)); k++; }
-    s.add(strips);
-    // ---- windows: dusk sky + skyline
-    const sky = makeCanvas(512, 192), g = sky.ctx;
-    const grd = g.createLinearGradient(0, 0, 0, 192); grd.addColorStop(0, '#1b1446'); grd.addColorStop(0.45, '#5b2f86'); grd.addColorStop(0.78, '#e0607e'); grd.addColorStop(1, '#ffb36b'); g.fillStyle = grd; g.fillRect(0, 0, 512, 192);
-    for (let i = 0; i < 90; i++) { g.fillStyle = `rgba(255,240,255,${rand(0.2, 0.9)})`; g.fillRect(rand(0, 512), rand(0, 70), rand(0.6, 1.6), rand(0.6, 1.6)); }
-    g.fillStyle = '#ffe2a8'; g.shadowColor = '#ffb36b'; g.shadowBlur = 30; g.beginPath(); g.arc(400, 168, 22, 0, TAU); g.fill(); g.shadowBlur = 0;
-    for (let x = 0; x < 512; x += rand(18, 40)) { const bw = rand(16, 38), bh = rand(20, 70); g.fillStyle = '#2a1840'; g.fillRect(x, 192 - bh, bw, bh); for (let wy = 192 - bh + 6; wy < 188; wy += 8) for (let wx = x + 4; wx < x + bw - 4; wx += 7) if (Math.random() < 0.22) { g.fillStyle = Math.random() < 0.7 ? '#ffcf7a' : '#7fe8ff'; g.fillRect(wx, wy, 2.5, 3); } }
-    const winMat = new THREE.MeshBasicMaterial({ map: sky.tex, toneMapped: false });
-    const frameMat = std(0x3a4583, { metalness: 0.6, roughness: 0.4 });
-    for (const side of [-1, 1]) for (const z of [-16, -3, 10]) {
-      const grp = new THREE.Group(); grp.add(new THREE.Mesh(new THREE.PlaneGeometry(5, 1.9), winMat));
-      for (const [w, hh, x, y] of [[5.2, 0.12, 0, 1.0], [5.2, 0.12, 0, -1.0], [0.12, 2.1, -2.6, 0], [0.12, 2.1, 2.6, 0], [0.08, 1.9, 0, 0]]) { const f = box(w, hh, 0.1, frameMat); f.position.set(x, y, 0.03); grp.add(f); }
-      grp.position.set(side < 0 ? minX + 0.02 : maxX - 0.02, 4.55, z); grp.rotation.y = side < 0 ? Math.PI / 2 : -Math.PI / 2; s.add(grp);
+    // roof deck (corrugated steel)
+    const dc = makeCanvas(64, 64), dx = dc.ctx; dx.fillStyle = '#7d858e'; dx.fillRect(0, 0, 64, 64); for (let x = 0; x < 64; x += 16) { dx.fillStyle = '#5f666e'; dx.fillRect(x, 0, 6, 64); dx.fillStyle = '#939ba3'; dx.fillRect(x + 6, 0, 2, 64); }
+    dc.tex.wrapS = dc.tex.wrapT = THREE.RepeatWrapping; dc.tex.repeat.set(W, D / 4);
+    const ceil = new THREE.Mesh(new THREE.PlaneGeometry(W, D), new THREE.MeshStandardMaterial({ map: dc.tex, roughness: 0.88, metalness: 0.1 })); ceil.rotation.x = Math.PI / 2; ceil.position.y = h; s.add(ceil);
+    // steel frame: I-section columns on the long walls carry east–west roof beams; purlins run north–south
+    const BZ = [-21, -15, -9, -3, 3, 9, 15, 21];
+    for (const z of BZ) for (const side of [-1, 1]) {
+      if (side === 1 && z === 3) continue; // the sports scoreboard hangs there
+      const x = side < 0 ? minX : maxX;
+      B.box(0.03, h, 0.3, x - side * 0.27, h / 2, z, M.column, 0, true); B.box(0.03, h, 0.3, x - side * 0.03, h / 2, z, M.column); B.box(0.24, h, 0.025, x - side * 0.15, h / 2, z, M.column, 0, true);
+      B.box(0.42, 0.03, 0.46, x - side * 0.18, 0.015, z, M.steel);
+      if (z === -9 || z === 9) B.box(0.36, 0.9, 0.38, x - side * 0.15, 0.45, z, M.yellow, 0, true); // column guard where people walk past
+      this.addCollider(Math.min(x, x - side * 0.3), z - 0.2, Math.max(x, x - side * 0.3), z + 0.2, h, 'col');
     }
-    // ---- neon sign on the north wall (pink → amber → cyan)
-    const nc = makeCanvas(1600, 170), n = nc.ctx; n.font = `700 120px ${FONT_SANS}`; n.textAlign = 'center'; n.textBaseline = 'middle';
-    const ng = n.createLinearGradient(200, 0, 1400, 0); ng.addColorStop(0, '#ff7aa8'); ng.addColorStop(0.5, '#ffd27a'); ng.addColorStop(1, '#7ff6ff');
-    n.shadowColor = '#ff9ad0'; n.shadowBlur = 26; n.fillStyle = ng; n.fillText("AKSHAT'S AI & EDGE LAB", 800, 92); n.shadowBlur = 0; n.fillText("AKSHAT'S AI & EDGE LAB", 800, 92);
-    const sign = new THREE.Mesh(new THREE.PlaneGeometry(9.4, 1.0), new THREE.MeshBasicMaterial({ map: nc.tex, transparent: true, depthWrite: false, color: new THREE.Color(1.7, 1.7, 1.7) }));
-    sign.position.set(0, 5.35, minZ + 0.2); s.add(sign);
-    // ---- exit door on the south wall
-    const door = new THREE.Group();
-    const glass = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 3.1), new THREE.MeshStandardMaterial({ color: 0x2a4f80, metalness: 0.8, roughness: 0.15, transparent: true, opacity: 0.85 }));
-    glass.position.y = 1.55; door.add(glass);
-    for (const [w, hh, x, y] of [[3.9, 0.15, 0, 3.15], [0.15, 3.2, -1.9, 1.6], [0.15, 3.2, 1.9, 1.6], [0.08, 3.1, 0, 1.55]]) { const f = box(w, hh, 0.12, frameMat); f.position.set(x, y, 0.04); door.add(f); }
-    const exit = textPlane('EXIT', { height: 0.28, color: '#9dffc8', glowColor: '#4dffa6', bg: 'rgba(0,30,15,.8)' }); exit.position.set(0, 3.55, 0.05); door.add(exit);
-    door.position.set(0, 0, maxZ - 0.02); door.rotation.y = Math.PI; s.add(door);
-    // ---- colourful crates
-    [[-28.4, -22.4, 1.1, 0.75, 1.1, 0.2], [-27.0, -22.8, 0.9, 0.55, 0.9, -0.3], [28.2, -22.6, 1.2, 0.8, 1.0, 0.1], [28.3, 22.5, 1.0, 0.7, 1.0, 0.4]].forEach(([x, z, sx, sy, sz, ry], i) => {
-      const c = box(sx, sy, sz, std(PALETTE[(i + 1) % PALETTE.length], { roughness: 0.75 })); c.position.set(x, sy / 2, z); c.rotation.y = ry; shadow(c); s.add(c);
-      const strip = box(sx * 1.01, 0.05, sz * 1.01, std(0xf2f4ff, { roughness: 0.5 })); strip.position.set(x, sy * 0.75, z); strip.rotation.y = ry; s.add(strip);
+    for (const z of BZ) { RB.box(W, 0.48, 0.025, 0, h - 0.27, z, M.beam); RB.box(W, 0.025, 0.24, 0, h - 0.5, z, M.beam); RB.box(W, 0.025, 0.24, 0, h - 0.035, z, M.beam); }
+    for (let x = -27; x <= 27; x += 6) RB.box(0.1, 0.16, D, x, h - 0.1, 0, M.beam);
+    // high-bay LED fixtures (they power up one by one in the intro)
+    const FX = [-25, -15, -5, 5, 15, 25], FZ = [-18, -12, -6, 0, 6, 12, 18], FY = 5.7, m4 = new THREE.Matrix4();
+    const strips = this.strips = new THREE.InstancedMesh(new THREE.BoxGeometry(2.9, 0.04, 0.24), new THREE.MeshBasicMaterial({ color: 0xffffff }), FX.length * FZ.length);
+    this.stripBase = new THREE.Color('#f1f6ff').multiplyScalar(1.6); this.stripDelay = [];
+    let k = 0;
+    for (const x of FX) for (const z of FZ) {
+      m4.makeTranslation(x, FY, z); strips.setMatrixAt(k, m4); strips.setColorAt(k, this.stripBase);
+      this.stripDelay.push(0.35 + (z - minZ) / D * 1.7 + Math.abs(x) * 0.012 + rand(0, 0.12)); k++;
+      RB.box(3.0, 0.09, 0.32, x, FY + 0.065, z, M.fixture);
+      for (const ddx of [-1.2, 1.2]) RB.cyl(0.008, h - FY - 0.11, x + ddx, (FY + 0.11 + h) / 2, z, M.steel, { seg: 4 });
+    }
+    this.roof.add(strips);
+    // supply-air ducts with square diffusers
+    for (const z of [-7.75, 11.6]) {
+      RB.cyl(0.4, W, 0, 5.15, z, M.duct, { rz: Math.PI / 2, seg: 20 });
+      for (let x = -27; x <= 27; x += 6) { RB.box(0.12, 0.3, 0.12, x, 4.85, z, M.duct); RB.box(0.6, 0.14, 0.6, x, 4.7, z, M.duct); RB.box(0.5, 0.02, 0.5, x, 4.62, z, M.dark); }
+      for (let x = -28; x <= 28; x += 4) RB.cyl(0.012, h - 5.55, x, (5.55 + h) / 2, z, M.steel, { seg: 4 });
+      this.addOverhead(minX, 4.5, z - 0.45, maxX, 5.6, z + 0.45);
+    }
+    // ladder cable tray over the corridor
+    const ty = 3.62, tz = -9.05;
+    for (const dz of [-0.22, 0.22]) B.box(W - 0.4, 0.09, 0.025, 0, ty, tz + dz, M.alu);
+    for (let x = minX + 0.4; x < maxX - 0.3; x += 0.36) B.box(0.03, 0.02, 0.44, x, ty - 0.035, tz, M.alu);
+    [['#2f6fd6', -0.12], ['#e8e8e8', -0.03], ['#f1b51c', 0.06], ['#3a3f46', 0.14]].forEach(([c, dz]) => B.box(W - 0.6, 0.05, 0.05, 0, ty, tz + dz, M.accent(c)));
+    for (let x = -27; x <= 27; x += 3) RB.cyl(0.01, h - ty - 0.05, x, (ty + h) / 2, tz, M.steel, { seg: 4 });
+    this.addOverhead(minX, ty - 0.15, tz - 0.3, maxX, ty + 0.15, tz + 0.3);
+    // sprinkler mains with pendant heads
+    for (const z of [-16.5, -4.5, 7.5, 19.5]) { RB.cyl(0.035, W, 0, 5.9, z, M.red, { rz: Math.PI / 2, seg: 8 }); for (let x = -27; x <= 27; x += 3) { RB.cyl(0.012, 0.12, x, 5.82, z, M.red, { seg: 6 }); RB.cyl(0.03, 0.02, x, 5.75, z, M.alu, { seg: 8 }); } }
+    // clerestory windows (daylight + tree line) on all four walls; picture UVs are offset so no two look the same
+    const hi = skyCanvas(1024, 384, false); hi.tex.wrapS = THREE.RepeatWrapping;
+    const winMat = new THREE.MeshBasicMaterial({ map: hi.tex, color: new THREE.Color(0.96, 0.96, 0.96) });
+    const win = (x, y, z, ww, hh, ry) => {
+      const P = (lx, lz) => [x + lx * Math.cos(ry) + lz * Math.sin(ry), z - lx * Math.sin(ry) + lz * Math.cos(ry)];
+      const g = uvSpan(new THREE.PlaneGeometry(ww, hh), Math.random(), ww / 12); g.rotateY(ry); g.translate(x, y, z); B.add(g, winMat);
+      const fr = (w2, h2, lx, ly) => { const [px, pz] = P(lx, 0.035); B.box(w2, h2, 0.07, px, y + ly, pz, M.alu, ry); };
+      fr(ww + 0.12, 0.08, 0, hh / 2); fr(ww + 0.12, 0.08, 0, -hh / 2); fr(0.08, hh, -ww / 2, 0); fr(0.08, hh, ww / 2, 0);
+      const n = Math.round(ww / 1.5); for (let i = 1; i < n; i++) fr(0.05, hh, -ww / 2 + i * ww / n, 0);
+      const [sx, sz] = P(0, 0.09); B.box(ww + 0.2, 0.05, 0.18, sx, y - hh / 2 - 0.04, sz, M.alu, ry);
+    };
+    for (const z of [-18, -12, -6, 0, 6, 12, 18]) { win(minX + 0.02, 4.9, z, 4.6, 1.6, FACE.px); win(maxX - 0.02, 4.9, z, 4.6, 1.6, FACE.nx); }
+    for (const x of [-25, -19, -13, 13, 19, 25]) win(x, 4.9, minZ + 0.02, 4.4, 1.6, FACE.pz);
+    for (const x of [-26, -20, -14, 9, 15, 21, 27]) win(x, 4.9, maxZ - 0.02, 4.4, 1.6, FACE.nz);
+    // the lab's name on the north wall, above the lab rooms
+    putOn(s, canvasMesh(10, 1.25, 2048, 256, drawLabSign, { basic: true, k: 1.05 }), 0, 5.0, minZ + 0.03, FACE.pz);
+    // main entrance: automatic sliding glass doors with the campus outside, a glass curtain wall either side, EXIT sign above
+    const lo = skyCanvas(1024, 320, true), outMat = new THREE.MeshBasicMaterial({ map: lo.tex, color: new THREE.Color(0.97, 0.97, 0.97) });
+    const view = (x0, x1, y0, y1) => { const g = uvSpan(new THREE.PlaneGeometry(x1 - x0, y1 - y0), (6 - x1) / 17, (x1 - x0) / 17, 0, (y1 - y0) / 3.1); g.rotateY(Math.PI); g.translate((x0 + x1) / 2, (y0 + y1) / 2, maxZ - 0.012); B.add(g, outMat); };
+    view(-1.85, 1.85, 0, 2.9);
+    for (const x of [-1.88, 1.88]) B.box(0.1, 2.95, 0.16, x, 1.475, maxZ - 0.08, M.alu);
+    for (const x of [-0.92, 0.92]) { B.box(1.8, 2.85, 0.02, x, 1.43, maxZ - 0.07, M.glass); B.box(0.05, 2.85, 0.06, x - 0.88 * Math.sign(x), 1.43, maxZ - 0.07, M.alu); B.box(0.05, 2.85, 0.06, x + 0.88 * Math.sign(x), 1.43, maxZ - 0.07, M.alu); }
+    B.box(3.96, 0.4, 0.24, 0, 3.1, maxZ - 0.12, M.alu); B.box(0.3, 0.07, 0.1, 0, 2.86, maxZ - 0.26, M.dark);
+    putOn(s, canvasMesh(1.1, 0.33, 512, 154, drawExit, { basic: true, k: 1.2 }), 0, 3.55, maxZ - 0.05, FACE.nz);
+    const curtain = (x0, x1) => { view(x0, x1, 0, 3.0); const n = Math.round((x1 - x0) / 1.5); for (let i = 0; i <= n; i++) B.box(0.07, 3.0, 0.12, x0 + i * (x1 - x0) / n, 1.5, maxZ - 0.06, M.alu); B.box(x1 - x0, 0.08, 0.14, (x0 + x1) / 2, 3.02, maxZ - 0.07, M.alu); B.box(x1 - x0, 0.1, 0.16, (x0 + x1) / 2, 0.05, maxZ - 0.08, M.dark); };
+    curtain(-10.93, -1.93); curtain(1.93, 5.94);
+    // fire exits at both ends of the main corridor
+    for (const side of [-1, 1]) {
+      const x = side < 0 ? minX + 0.02 : maxX - 0.02, ry = side < 0 ? FACE.px : FACE.nx, p = placer(B, x, -7.75, ry);
+      p.box(1.25, 2.2, 0.06, 0, 1.1, 0.03, M.steelDoor, false); p.box(0.08, 2.3, 0.1, -0.66, 1.15, 0.05, M.steel, false); p.box(0.08, 2.3, 0.1, 0.66, 1.15, 0.05, M.steel, false); p.box(1.4, 0.08, 0.1, 0, 2.27, 0.05, M.steel, false);
+      p.box(0.95, 0.07, 0.07, 0, 1.0, 0.12, M.alu, false); p.box(0.05, 0.12, 0.1, -0.45, 1.0, 0.09, M.alu, false); p.box(0.05, 0.12, 0.1, 0.45, 1.0, 0.09, M.alu, false);
+      p.plane(0.98, 0.3, 0, 2.62, 0.04, signMat('exit', 512, 154, drawExit, { basic: true, k: 1.2 }));
+      p.plane(0.5, 0.24, 0, 1.55, 0.07, signMat('fire-exit-plate', 256, 122, (c, W2, H2) => plainSign(c, W2, H2, { bg: '#0a8a43', fg: '#fff', lines: [['FIRE EXIT', 0.3, 800], ['keep clear', 0.18, 600]], center: true })));
+    }
+  }
+
+  /* ---------- modular lab partitions: glass fronts, solid dividers, sliding doors, signs ---------- */
+  buildPartitions(B, M) {
+    const T = WALL_T, roomAt = (x, z) => LAB_ROOMS.find(r => x > r.x0 && x < r.x1 && z > r.z0 && z < r.z1);
+    for (const w of WALLS) {
+      const horiz = w.a[1] === w.b[1], fixed = horiz ? w.a[1] : w.a[0], ua = horiz ? [w.a[0], w.b[0]] : [w.a[1], w.b[1]], u0 = Math.min(...ua), u1 = Math.max(...ua);
+      const seg = (L, hh, t, u, y, mat, off = 0, cast = false) => horiz ? B.box(L, hh, t, u, y, fixed + off, mat, 0, cast) : B.box(t, hh, L, fixed + off, y, u, mat, 0, cast);
+      const pt = (u, off = 0) => horiz ? [u, fixed + off] : [fixed + off, u];
+      const doors = [...(w.doors || [])].sort((a, b) => a.c - b.c), spans = []; let st = u0;
+      for (const d of doors) { spans.push([st, d.c - d.w / 2]); st = d.c + d.w / 2; } spans.push([st, u1]);
+      for (const [a, b] of spans) {
+        const L = b - a, mid = (a + b) / 2; if (L < 0.02) continue;
+        const [p0, q0] = pt(a, -T / 2), [p1, q1] = pt(b, T / 2); this.addCollider(Math.min(p0, p1), Math.min(q0, q1), Math.max(p0, p1), Math.max(q0, q1), WALL_H, 'wall');
+        if (w.glass) {
+          seg(L, 0.14, T, mid, 0.07, M.kick); seg(L, HEAD_H - 0.14, 0.024, mid, 0.14 + (HEAD_H - 0.14) / 2, M.glass);
+          seg(L, 0.1, 0.034, mid, 1.12, M.frost); seg(L, 0.035, 0.034, mid, 1.32, M.frost);
+          seg(L, 0.05, T + 0.02, mid, HEAD_H, M.alu); seg(L, 0.035, T + 0.02, mid, 0.155, M.alu);
+          const n = Math.max(1, Math.ceil(L / 1.6)); for (let i = 0; i <= n; i++) seg(0.06, HEAD_H, T * 0.9, a + L * i / n, HEAD_H / 2, M.alu);
+        } else {
+          seg(L, HEAD_H, T, mid, HEAD_H / 2, M.wall); seg(L, 0.1, T + 0.02, mid, 0.05, M.skirt); seg(L, 0.08, T + 0.05, mid, 0.95, M.rail);
+        }
+        seg(L, WALL_H - HEAD_H, T, mid, (HEAD_H + WALL_H) / 2, M.band); seg(L, 0.035, T + 0.04, mid, WALL_H, M.alu);
+        if (w.out) { const [rx, rz] = pt(mid, -w.out); const room = roomAt(rx, rz); if (room) seg(L, 0.07, 0.01, mid, HEAD_H + 0.1, M.accent(LAYOUT[room.id].accent), w.out * (T / 2 + 0.006)); }
+      }
+      for (const d of doors) {
+        const room = LAB_ROOMS.find(r => r.id === d.room), accent = LAYOUT[d.room].accent, out = w.out || 1, ry = horiz ? (out > 0 ? 0 : Math.PI) : (out > 0 ? FACE.px : FACE.nx);
+        seg(d.w, WALL_H - HEAD_H, T, d.c, (HEAD_H + WALL_H) / 2, M.band); seg(d.w + 0.1, 0.035, T + 0.04, d.c, WALL_H, M.alu);
+        for (const sg of [-1, 1]) seg(0.09, HEAD_H, T + 0.04, d.c + sg * (d.w / 2 + 0.02), HEAD_H / 2, M.alu);
+        seg(d.w, 0.012, T + 0.18, d.c, 0.006, M.alu);
+        seg(d.w, 0.07, 0.01, d.c, HEAD_H + 0.1, M.accent(accent), out * (T / 2 + 0.006));
+        // two sliding glass leaves, parked open behind the fixed glass on the room side
+        for (const sg of [-1, 1]) {
+          const lc = d.c + sg * (d.w * 0.75 - 0.05), off = -out * 0.1, lw = d.w / 2;
+          seg(lw, HEAD_H - 0.08, 0.02, lc, HEAD_H / 2, M.glass, off); seg(lw, 0.05, 0.05, lc, HEAD_H - 0.06, M.alu, off); seg(lw, 0.06, 0.05, lc, 0.05, M.alu, off);
+          seg(0.05, HEAD_H - 0.08, 0.05, lc - lw / 2, HEAD_H / 2, M.alu, off); seg(0.05, HEAD_H - 0.08, 0.05, lc + lw / 2, HEAD_H / 2, M.alu, off);
+          seg(0.03, 0.9, 0.04, lc - sg * (lw / 2 - 0.12), 1.05, M.steel, off - out * 0.035);
+        }
+        seg(d.w * 2 + 0.2, 0.14, 0.12, d.c, HEAD_H + 0.07, M.alu, -out * 0.14); // sliding-door operator box
+        const sw = Math.min(3.6, d.w + 0.5), [sx, sz] = pt(d.c, out * (T / 2 + 0.012));
+        B.plane(sw, sw * 0.15, sx, (HEAD_H + WALL_H) / 2, sz, ry, signMat('sign-' + room.id, 1024, 154, (c, W2, H2) => drawRoomSign(c, W2, H2, room, accent)));
+        const [px, pz] = pt(d.c + d.w / 2 + 0.42, out * 0.03);
+        B.plane(0.32, 0.45, px, 1.62, pz, ry, signMat('plate-' + room.id, 256, 360, (c, W2, H2) => drawDoorPlate(c, W2, H2, room, accent)));
+      }
+    }
+  }
+
+  /* ---------- small furniture helpers (all merged into the batch) ---------- */
+  chair(B, M, x, z, ry) {
+    const p = placer(B, x, z, ry);
+    for (let i = 0; i < 5; i++) { const a = i * TAU / 5; p.box(0.04, 0.04, 0.3, Math.sin(a) * 0.15, 0.07, Math.cos(a) * 0.15, M.black, false, a); }
+    p.cyl(0.025, 0.36, 0, 0.27, 0, M.steel, { seg: 8 }); p.box(0.5, 0.08, 0.48, 0, 0.49, 0, M.fabric); p.box(0.46, 0.55, 0.06, 0, 0.86, -0.25, M.fabric);
+    this.addCollider(x - 0.3, z - 0.3, x + 0.3, z + 0.3, 1.0);
+  }
+  stool(B, M, x, z, hgt = 0.72) { B.cyl(0.17, 0.05, x, hgt, z, M.black, { seg: 14, cast: true }); B.cyl(0.025, hgt, x, hgt / 2, z, M.steel, { seg: 6 }); B.cyl(0.2, 0.025, x, 0.013, z, M.steel, { seg: 14 }); B.cyl(0.14, 0.02, x, 0.3, z, M.steel, { rt: 0.14, seg: 14 }); }
+  /** desk / table: the user sits on its local +z side; panel = modesty panel on the far side */
+  desk(B, M, x, z, ry, w, d, hgt = 0.75, top = M.laminate, panel = true) {
+    const p = placer(B, x, z, ry); p.box(w, 0.04, d, 0, hgt, 0, top);
+    for (const sx of [-1, 1]) { p.box(0.05, hgt - 0.02, d - 0.08, sx * (w / 2 - 0.05), (hgt - 0.02) / 2, 0, M.steel); }
+    if (panel) p.box(w - 0.1, 0.35, 0.02, 0, hgt - 0.25, -d / 2 + 0.06, M.steel, false);
+    const c = this.colliderBox(x, z, ry, w, d); this.addCollider(...c, hgt + 0.05);
+  }
+  colliderBox(x, z, ry, w, d) { const c = Math.abs(Math.cos(ry)), s = Math.abs(Math.sin(ry)), hw = (w * c + d * s) / 2, hd = (w * s + d * c) / 2; return [x - hw, z - hd, x + hw, z + hd]; }
+  /** flat-screen monitor standing on a desk top at height `top`, screen centre at y, facing local +z */
+  monitor(B, M, x, y, z, ry, mat, w = 0.62, hh = 0.36, top = 0.77) {
+    const p = placer(B, x, z, ry), sh = y - hh / 2 - top;
+    p.box(w + 0.03, hh + 0.03, 0.03, 0, y, 0, M.black); p.box(0.05, sh, 0.05, 0, top + sh / 2, -0.04, M.steel); p.box(0.22, 0.015, 0.16, 0, top + 0.008, -0.04, M.steel);
+    if (mat) p.plane(w, hh, 0, y, 0.017, mat);
+  }
+  shelving(B, M, x, z, ry, w, d, hgt, levels, fill = true) {
+    const p = placer(B, x, z, ry);
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) p.box(0.035, hgt, 0.035, sx * (w / 2 - 0.02), hgt / 2, sz * (d / 2 - 0.02), M.steel, false);
+    for (let i = 0; i < levels; i++) { const y = 0.12 + i * (hgt - 0.2) / (levels - 1); p.box(w, 0.025, d, 0, y, 0, M.panelGrey, false);
+      if (fill && i < levels - 1) for (let bx = -w / 2 + 0.12; bx < w / 2 - 0.2;) { const bw = rand(0.22, 0.42), bh = rand(0.16, 0.3); p.box(bw, bh, d * 0.8, bx + bw / 2, y + 0.013 + bh / 2, 0, Math.random() < 0.55 ? M.cardboard : M.accent(['#2f6fd6', '#d23b3b', '#f1b51c', '#1d9a52'][Math.floor(Math.random() * 4)]), true); bx += bw + rand(0.03, 0.12); } }
+    this.addCollider(...this.colliderBox(x, z, ry, w, d), hgt);
+  }
+  rack(B, M, x, z, ry, hgt = 2.0, w = 0.6, d = 1.0) {
+    const p = placer(B, x, z, ry); p.box(w, hgt, d, 0, hgt / 2, 0, M.black); p.box(w, 0.05, d, 0, hgt + 0.025, 0, M.steel, false);
+    p.plane(w - 0.06, hgt - 0.1, 0, hgt / 2, d / 2 + 0.003, signMat('rack-door', 128, 400, drawRackDoor));
+    for (let k = 0; k < 16; k++) { const [lx, lz] = p.P(-w / 2 + 0.08 + (k % 3) * 0.03, d / 2 + 0.008); this.ledInfo.push({ x: lx, y: 0.25 + Math.floor(k / 3) * ((hgt - 0.45) / 5) + (k % 2) * 0.04, z: lz, col: ['#4dff6a', '#4dff6a', '#3df2ff', '#ffb547'][k % 4], rate: rand(0.05, 0.4), on: true }); }
+  }
+  extinguisher(B, M, x, z, ry) {
+    const p = placer(B, x, z, ry);
+    p.box(0.32, 0.03, 0.3, 0, 0.015, 0, M.dark, false); p.box(0.05, 1.95, 0.05, 0, 0.98, -0.1, M.dark, false);
+    p.cyl(0.085, 0.5, 0, 0.32, 0, M.red, { seg: 14 }); p.cyl(0.03, 0.08, 0, 0.61, 0, M.black, { seg: 8 }); p.box(0.03, 0.03, 0.14, 0, 0.66, 0.03, M.black, false); p.box(0.025, 0.36, 0.025, 0.07, 0.42, 0.06, M.black, false);
+    p.plane(0.3, 0.3, 0, 1.75, -0.07, signMat('ext-sign', 256, 256, (c, W2, H2) => { plainSign(c, W2, H2, { bg: '#c8232c', fg: '#fff', lines: [['FIRE', 0.2, 800], ['EXTINGUISHER', 0.11, 800]], center: true }); c.fillStyle = '#fff'; rr(c, W2 * 0.4, H2 * 0.52, W2 * 0.2, H2 * 0.38, 16); c.fill(); c.fillRect(W2 * 0.46, H2 * 0.45, W2 * 0.08, H2 * 0.08); }));
+    this.addCollider(x - 0.2, z - 0.2, x + 0.2, z + 0.2, 1.95);
+  }
+  softbox(B, M, x, z, tx, tz) {
+    const ry = Math.atan2(tx - x, tz - z), p = placer(B, x, z, ry);
+    for (let i = 0; i < 3; i++) { const a = i * TAU / 3; p.cyl(0.012, 0.9, Math.sin(a) * 0.22, 0.42, Math.cos(a) * 0.22, M.black, { seg: 5, rx: -Math.cos(a) * 0.45, rz: Math.sin(a) * 0.45 }); }
+    p.cyl(0.018, 1.2, 0, 1.3, 0, M.black, { seg: 6 }); p.box(0.66, 0.66, 0.32, 0, 1.95, -0.05, M.black); p.box(0.6, 0.6, 0.02, 0, 1.95, 0.12, M.lamp, false);
+    this.addCollider(x - 0.3, z - 0.3, x + 0.3, z + 0.3, 2.2);
+  }
+  tripod(B, M, x, z, ry, hgt = 1.45) {
+    const p = placer(B, x, z, ry);
+    for (let i = 0; i < 3; i++) { const a = i * TAU / 3; p.cyl(0.012, hgt, Math.sin(a) * 0.2, hgt / 2, Math.cos(a) * 0.2, M.black, { seg: 5, rx: -Math.cos(a) * 0.28, rz: Math.sin(a) * 0.28 }); }
+    p.box(0.26, 0.16, 0.16, 0, hgt + 0.06, 0, M.black); p.cyl(0.055, 0.12, 0, hgt + 0.06, 0.13, M.black, { seg: 12, rx: Math.PI / 2 });
+  }
+
+  /* ---------- reception lobby ---------- */
+  buildLobby(B, M) {
+    const s = this.scene;
+    // wood-slat logo wall behind the reception counter
+    B.box(0.04, WALL_H, 3.8, -10.91, WALL_H / 2, 19.4, M.woodDark);
+    for (let z = 17.56; z < 21.26; z += 0.12) B.box(0.035, WALL_H - 0.1, 0.06, -10.875, WALL_H / 2, z, M.wood);
+    putOn(s, canvasMesh(2.9, 0.84, 1024, 296, drawReceptionLogo, { basic: true, k: 1.1, transparent: true }), -10.84, 2.35, 19.4, FACE.px);
+    // counter: high transaction top for visitors, low work surface behind
+    B.box(0.38, 1.06, 3.3, -8.5, 0.53, 19.4, M.white, 0, true); B.box(0.55, 0.05, 3.42, -8.45, 1.085, 19.4, M.wood, 0, true);
+    B.box(0.75, 0.04, 3.2, -9.05, 0.74, 19.4, M.laminate, 0, true); B.box(0.04, 0.72, 3.1, -9.4, 0.36, 19.4, M.dark);
+    B.box(0.02, 0.05, 3.3, -8.3, 0.12, 19.4, glow('#d9f1ff', 1.3)); // LED kick light
+    this.monitor(B, M, -8.9, 1.0, 19.0, FACE.nx, signMat('scr-visitors', 512, 296, (c, W2, H2) => plainSign(c, W2, H2, { bg: '#0b1a2b', fg: '#cfe3ff', bar: '#1f5fbf', title: 'VISITOR LOG', lines: [['Today: welcome!', 0.09, 700], ['Badge: ACCESS · ALL STATIONS', 0.07, 600]] })));
+    B.box(0.32, 0.03, 0.42, -8.45, 1.125, 20.45, M.paper); B.box(0.2, 0.06, 0.24, -8.45, 1.14, 18.4, M.black); B.box(0.04, 0.05, 0.2, -8.42, 1.18, 18.4, M.black);
+    this.chair(B, M, -9.95, 19.4, FACE.px);
+    this.addCollider(-9.45, 17.7, -8.22, 21.1, 1.1);
+    // notice board with the résumé (the sheet is its own mesh so it can be clicked)
+    B.box(0.05, 1.38, 2.28, -10.905, 1.65, 16.1, M.woodDark);
+    putOn(s, canvasMesh(2.2, 1.3, 1024, 605, drawNoticeBoard), -10.877, 1.65, 16.1, FACE.px);
+    const sheet = this.resumeSheet = canvasMesh(0.5, 0.68, 400, 544, drawResumeSheet); putOn(s, sheet, -10.866, 1.6, 16.72, FACE.px); sheet.rotation.z = 0.025;
+    const pin = new THREE.Mesh(new THREE.SphereGeometry(0.022, 10, 8), std(0xd23b3b, { roughness: 0.3 })); pin.position.set(-10.85, 1.92, 16.72); s.add(pin);
+    // lockers
+    for (let i = 0; i < 5; i++) { const z = 21.85 + i * 0.4; B.box(0.48, 1.9, 0.39, -10.68, 0.95, z, M.locker, 0, true); B.box(0.01, 0.3, 0.22, -10.435, 1.62, z, M.dark); B.box(0.02, 0.12, 0.03, -10.43, 1.0, z + 0.13, M.alu); B.box(0.01, 0.06, 0.12, -10.435, 1.82, z, M.paper); }
+    this.addCollider(-10.95, 21.6, -10.4, 23.9, 1.9);
+    // directory totem facing the entrance
+    putOn(s, canvasMesh(0.95, 1.9, 384, 768, drawDirectory), -2.6, 1.17, 15.272, FACE.pz);
+    B.box(1.05, 2.05, 0.12, -2.6, 1.13, 15.2, M.dark, 0, true); B.box(1.15, 0.1, 0.45, -2.6, 0.05, 15.2, M.steel, 0, true);
+    this.addCollider(-3.15, 15.0, -2.05, 15.4, 2.1);
+    // waiting bench under the mural, water cooler, plants, extinguisher, call point
+    B.box(0.5, 0.06, 2.8, 5.45, 0.45, 21.0, M.wood, 0, true); for (const z of [19.8, 22.2]) B.box(0.44, 0.42, 0.06, 5.45, 0.21, z, M.steel, 0, true);
+    for (const z of [20.1, 21.0, 21.9]) B.box(0.42, 0.08, 0.8, 5.45, 0.52, z, M.cushion, 0, true);
+    this.addCollider(5.15, 19.55, 5.94, 22.45, 0.55);
+    B.box(0.32, 1.0, 0.32, 5.5, 0.5, 14.5, M.white, 0, true); B.cyl(0.14, 0.42, 5.5, 1.22, 14.5, M.water, { seg: 16 }); B.box(0.06, 0.04, 0.05, 5.5, 0.85, 14.32, M.accent('#2f6fd6'));
+    this.addCollider(5.3, 14.3, 5.7, 14.7, 1.4);
+    plant(this, -4.4, 23.25, '#e8e4dc', 1.1); plant(this, 4.4, 23.25, '#3b4048', 1.1);
+    this.extinguisher(B, M, 2.75, 23.55, FACE.nz);
+    B.box(0.05, 0.13, 0.13, 5.915, 1.4, 23.3, M.red);
+  }
+
+  /* ---------- commons, corridor, compute bay, field-kit corner ---------- */
+  buildCommons(B, M) {
+    const s = this.scene;
+    for (const [x, z, ry] of [[-17.45, -5.45, FACE.px], [15.25, -5.45, FACE.nx], [-10.3, -8.95, FACE.pz], [10.3, -8.95, FACE.pz]]) this.extinguisher(B, M, x, z, ry);
+    for (const [x, z] of [[-19.0, -6.1], [16.8, -6.1]]) B.box(0.13, 0.13, 0.05, x, 1.4, z, M.red);
+    // electrical distribution board in the corridor
+    B.box(0.8, 1.0, 0.18, 22.5, 1.5, -6.16, M.panelGrey, 0, true); B.box(0.04, 0.16, 0.04, 22.82, 1.5, -6.27, M.dark);
+    B.plane(0.36, 0.3, 22.4, 1.72, -6.255, FACE.nz, signMat('hv-label', 256, 213, (c, W2, H2) => { plainSign(c, W2, H2, { bg: '#f5c518', fg: '#111', lines: [['DANGER 415 V', 0.13, 800], ['authorised electricians only', 0.08, 600]], center: true }); pictogram(c, 'HV', W2 / 2, H2 * 0.72, H2 * 0.4); }));
+    B.plane(0.9, 0.6, -24, 1.6, -6.075, FACE.nz, signMat('esd-sign', 384, 256, (c, W2, H2) => plainSign(c, W2, H2, { bg: '#f5c518', fg: '#111', bar: '#111', barFg: '#f5c518', title: 'ESD PROTECTED AREA', icon: 'ESD', lines: [['Wear a wrist strap at the benches.', 0.1, 700], ['Static can destroy the ADCs and Pi boards in LAB 03 & LAB 07.', 0.075, 600]] })));
+    // first aid + lab rules on the workshop wall facing the compute bay
+    B.box(0.45, 0.45, 0.15, -19.6, 1.5, 8.15, M.green, 0, true);
+    B.plane(0.4, 0.4, -19.6, 1.5, 8.227, FACE.pz, signMat('first-aid', 256, 256, (c, W2, H2) => { c.fillStyle = '#0a8a43'; c.fillRect(0, 0, W2, H2); c.fillStyle = '#fff'; c.fillRect(W2 * 0.38, H2 * 0.14, W2 * 0.24, H2 * 0.52); c.fillRect(W2 * 0.14, H2 * 0.28, W2 * 0.72, H2 * 0.24); c.font = `800 ${H2 * 0.13}px ${FONT_SANS}`; c.textAlign = 'center'; c.fillText('FIRST AID', W2 / 2, H2 * 0.88); }));
+    B.plane(0.8, 1.1, -22.2, 1.55, 8.077, FACE.pz, signMat('lab-rules', 384, 528, (c, W2, H2) => plainSign(c, W2, H2, { bar: '#1f5fbf', title: 'LAB SAFETY RULES', lines: [['1. No food or drink in the labs.', 0.042, 600], ['2. ESD strap on at every bench.', 0.042, 600], ['3. Eye protection when soldering.', 0.042, 600], ['4. Report faults to the lab in-charge.', 0.042, 600], ['5. Keep fire exits & door zones clear.', 0.042, 600], ['6. Siren test: Mondays 10:00.', 0.042, 600], ['In an emergency: leave by the nearest green EXIT, assemble outside the main entrance.', 0.036, 500, '#3a4250']] })));
+    // compute bay: three racks + UPS
+    for (const x of [-28.95, -28.3, -27.65]) this.rack(B, M, x, 8.6, FACE.pz);
+    B.box(0.45, 0.9, 0.8, -26.95, 0.45, 8.5, M.black, 0, true); B.plane(0.2, 0.08, -26.95, 0.75, 8.903, FACE.pz, signMat('ups', 128, 52, (c, W2, H2) => { c.fillStyle = '#05140b'; c.fillRect(0, 0, W2, H2); c.fillStyle = '#4dffa6'; c.font = `700 22px ${FONT_MONO}`; c.fillText('UPS 100%', 8, 34); }, { basic: true }));
+    B.plane(2.4, 0.5, -28.0, 2.6, 8.077, FACE.pz, signMat('compute-bay', 768, 160, (c, W2, H2) => { c.fillStyle = '#1b232d'; rr(c, 0, 0, W2, H2, 18); c.fill(); c.fillStyle = '#3df2ff'; c.fillRect(24, H2 - 26, W2 - 48, 6); c.fillStyle = '#fff'; c.font = `800 60px ${FONT_SANS}`; c.fillText('COMPUTE BAY', 28, 76); c.fillStyle = '#9fdcff'; c.font = `600 28px ${FONT_MONO}`; c.fillText('GPU · EDGE NODES · NAS', 30, 116); }));
+    this.addCollider(-29.3, 8.07, -26.65, 9.15, 2.1);
+    // sprint whiteboard on wheels
+    const kb = placer(B, -13.5, -2.6, FACE.px);
+    kb.box(2.1, 1.3, 0.05, 0, 1.55, -0.03, M.alu, true); kb.box(1.6, 0.03, 0.09, 0, 0.92, 0.03, M.alu);
+    for (const sx of [-1, 1]) { kb.box(0.05, 1.72, 0.05, sx * 1.06, 0.88, -0.03, M.alu); kb.box(0.06, 0.05, 0.6, sx * 1.06, 0.07, -0.03, M.alu); for (const sz of [-0.27, 0.21]) kb.cyl(0.035, 0.03, sx * 1.06, 0.035, sz, M.black, { seg: 10, rz: Math.PI / 2 }); }
+    putOn(s, canvasMesh(2.0, 1.2, 1024, 614, drawKanban), -13.475, 1.55, -2.6, FACE.px);
+    this.addCollider(-13.8, -3.75, -13.2, -1.45, 1.9);
+    // high table with stools
+    B.cyl(0.55, 0.04, -11.5, 1.05, 6.2, M.laminate, { seg: 24, cast: true }); B.cyl(0.04, 1.03, -11.5, 0.52, 6.2, M.steel, { seg: 8 }); B.cyl(0.3, 0.03, -11.5, 0.015, 6.2, M.steel, { seg: 16 });
+    for (let i = 0; i < 4; i++) { const a = i * TAU / 4 + 0.4; this.stool(B, M, -11.5 + Math.sin(a) * 0.95, 6.2 + Math.cos(a) * 0.95); }
+    this.addCollider(-12.6, 5.1, -10.4, 7.3, 1.05);
+    // field-kit corner: pallet, cartons, flight cases, 5G antenna mast (the CycloAI site kit)
+    for (let i = 0; i < 5; i++) B.box(1.2, 0.03, 0.16, 10.6, 0.13, -4.1 + i * 0.22, M.wood, 0, true);
+    for (const z of [-4.05, -3.6, -3.15]) B.box(1.2, 0.1, 0.1, 10.6, 0.06, z, M.wood, 0, true);
+    for (const [x, y, z, w2, h2, d2] of [[10.3, 0.35, -3.85, 0.55, 0.4, 0.45], [10.9, 0.33, -3.8, 0.5, 0.36, 0.5], [10.35, 0.75, -3.8, 0.5, 0.4, 0.42], [10.95, 0.33, -3.3, 0.45, 0.36, 0.4]]) B.box(w2, h2, d2, x, y, z, M.cardboard, 0, true);
+    B.plane(0.42, 0.3, 10.35, 0.76, -3.588, FACE.pz, signMat('kit-label', 256, 183, (c, W2, H2) => plainSign(c, W2, H2, { bg: '#d7b88a', fg: '#2b1c0e', lines: [['CycloAI · SITE KIT', 0.13, 800], ['Kusumpur, Kendrapara (Odisha)', 0.085, 600], ['FRAGILE  ↑↑', 0.11, 800, '#b0302f']] })));
+    for (const [x, y, z, w2, h2, d2, ry] of [[12.4, 0.25, -3.9, 0.9, 0.5, 0.6, 0], [12.45, 0.7, -3.85, 0.8, 0.4, 0.5, 0.12], [12.6, 0.32, -2.35, 0.7, 0.64, 0.45, -0.2]]) { B.box(w2, h2, d2, x, y, z, M.black, ry, true); B.box(w2 + 0.02, 0.03, d2 + 0.02, x, y + h2 / 2 - 0.02, z, M.alu, ry); B.box(w2 + 0.02, 0.03, d2 + 0.02, x, y - h2 / 2 + 0.02, z, M.alu, ry); }
+    B.plane(0.6, 0.18, 12.4, 0.3, -3.595, FACE.pz, signMat('field-kit', 384, 115, (c, W2, H2) => { c.fillStyle = '#16191e'; c.fillRect(0, 0, W2, H2); c.fillStyle = '#f1b51c'; c.font = `800 34px ${FONT_SANS}`; c.fillText('FIELD DEPLOYMENT', 16, 50); c.font = `600 24px ${FONT_MONO}`; c.fillStyle = '#e8e8e8'; c.fillText('edge node · relay · siren', 16, 90); }));
+    const mast = placer(B, 14.0, -3.0, 0.3);
+    for (let i = 0; i < 3; i++) { const a = i * TAU / 3; mast.cyl(0.014, 1.0, Math.sin(a) * 0.3, 0.45, Math.cos(a) * 0.3, M.alu, { seg: 5, rx: -Math.cos(a) * 0.55, rz: Math.sin(a) * 0.55 }); }
+    mast.cyl(0.025, 2.4, 0, 1.25, 0, M.alu, { seg: 8 }); mast.box(0.24, 0.5, 0.07, 0, 2.35, 0.06, M.white); mast.box(0.24, 0.5, 0.07, 0, 2.35, -0.06, M.white, true, Math.PI);
+    B.add(new THREE.TorusGeometry(0.22, 0.03, 6, 20).rotateX(Math.PI / 2).translate(13.55, 0.03, -2.4), M.black, true);
+    this.addCollider(9.95, -4.4, 13.1, -1.95, 1.0); this.addCollider(13.6, -3.4, 14.4, -2.6, 2.6);
+    // recycling bins
+    [['#2f6fd6', 15.25], ['#1d9a52', 15.85], ['#f1b51c', 16.45]].forEach(([c, x]) => { B.box(0.5, 0.75, 0.45, x, 0.375, 14.45, M.accent(c), 0, true); B.box(0.52, 0.05, 0.47, x, 0.77, 14.45, M.dark); });
+    this.addCollider(14.95, 14.2, 16.75, 14.7, 0.8);
+    plant(this, -12.2, 13.3, '#e8e4dc', 1.15); plant(this, -17.3, -3.4, '#3b4048', 1.0); plant(this, 15.2, -3.4, '#3b4048', 1.0);
+  }
+
+  /* ---------- the inside of each lab room, around its station ---------- */
+  buildLabRooms(B, M) {
+    const s = this.scene, screenMat = kind => signMat('scr-' + kind, 512, 296, (c, W2, H2) => drawScreen(c, W2, H2, kind), { basic: true, k: 1.05 });
+    // cartons / equipment cases in corners (the rubber duck sits on the first one)
+    [[-28.4, -22.4, 1.1, 0.75, 1.1, 0.2, M.cardboard], [-27.0, -22.8, 0.9, 0.55, 0.9, -0.3, M.cardboard], [28.2, -22.6, 1.2, 0.8, 1.0, 0.1, M.black], [28.3, 22.5, 1.0, 0.7, 1.0, 0.4, M.cardboard]].forEach(([x, z, sx, sy, sz, ry, mat]) => {
+      B.box(sx, sy, sz, x, sy / 2, z, mat, ry, true); B.box(sx * 1.01, 0.05, sz * 0.2, x, sy, z, M.accent('#c9a46c'), ry);
       this.addCollider(x - sx * 0.62, z - sz * 0.62, x + sx * 0.62, z + sz * 0.62, sy);
     });
-    plant(this, -3.3, 23.2, '#8b7bff'); plant(this, 3.3, 23.2, '#42f5b0');
-    plant(this, -28.6, 23.0, '#ff6b8b', 1.2); plant(this, 28.6, -12.6, '#ffb547', 1.1); plant(this, -28.6, -12.4, '#4d8dff', 1.1);
+    // LAB 03 seismic: parts shelving, oscilloscope on the bench, stool
+    this.shelving(B, M, -14, -23.5, 0, 3.6, 0.5, 2.0, 4);
+    B.box(0.42, 0.26, 0.32, -19.15, 1.12, -20.75, M.instrument, 0, true); B.plane(0.22, 0.15, -19.22, 1.14, -20.588, FACE.pz, screenMat('scope'));
+    for (let i = 0; i < 4; i++) B.cyl(0.018, 0.02, -19.0 + (i % 2) * 0.06, 1.18 - Math.floor(i / 2) * 0.07, -20.585, M.dark, { seg: 8, rx: Math.PI / 2 });
+    this.stool(B, M, -18.3, -19.55);
+    // LAB 02 CycloAI operations: operator console along the west wall, two racks in the corner (raised floor)
+    this.desk(B, M, -9.8, -16.5, FACE.px, 3.2, 0.8);
+    ['sat', 'fixes', 'status'].forEach((k, i) => this.monitor(B, M, -10.0, 1.1, -17.5 + i * 1.0, FACE.px, screenMat(k), 0.82, 0.48));
+    this.chair(B, M, -9.0, -16.5, FACE.nx);
+    for (const x of [-9.6, -8.95]) this.rack(B, M, x, -23.4, FACE.pz);
+    this.addCollider(-9.95, -23.95, -8.6, -22.85, 2.1);
+    // LAB 04 deepfake: GPU workstation + NAS
+    this.desk(B, M, 28.1, -23.35, 0, 3.0, 0.8);
+    this.monitor(B, M, 27.5, 1.1, -23.55, 0, screenMat('train')); this.monitor(B, M, 28.75, 1.1, -23.55, 0, screenMat('code'));
+    B.box(0.22, 0.48, 0.5, 29.3, 0.24, -23.3, M.black, 0, true); B.box(0.005, 0.38, 0.01, 29.24, 0.26, -23.04, glow('#8b7bff', 2));
+    this.chair(B, M, 28.1, -22.4, FACE.nz);
+    this.rack(B, M, 29.38, -18.0, FACE.nx, 1.4, 1.2, 0.6); this.addCollider(29.05, -18.65, 29.7, -17.35, 1.4);
+    // LAB 05 sports vision: team bench, second camera, camera-zone sign
+    B.box(3.0, 0.06, 0.42, 20.6, 0.45, 8.05, M.wood, 0, true); for (const x of [19.3, 21.9]) B.box(0.06, 0.42, 0.38, x, 0.21, 8.05, M.steel, 0, true);
+    this.addCollider(19.05, 7.8, 22.15, 8.4, 0.5);
+    this.tripod(B, M, 28.4, 7.4, -2.6); this.addCollider(28.1, 7.1, 28.7, 7.7, 1.6);
+    B.plane(1.1, 0.55, 25, 2.0, -5.92, FACE.pz, signMat('cam-zone', 384, 192, (c, W2, H2) => plainSign(c, W2, H2, { bg: '#1f5fbf', fg: '#fff', lines: [['CAMERA ZONE', 0.17, 800], ['pose estimation demo · players, shuttle, form', 0.09, 600]] })));
+    // LAB 06 ASL: studio lights on the hand, a desk with laptop + webcam, an alphabet chart
+    this.softbox(B, M, 21.3, 17.0, 24.7, 19.0); this.softbox(B, M, 28.1, 17.0, 24.7, 19.0);
+    this.desk(B, M, 28.3, 23.4, Math.PI, 2.2, 0.8);
+    const lp = placer(B, 28.3, 23.3, Math.PI); lp.box(0.36, 0.02, 0.25, 0, 0.78, 0, M.dark); lp.box(0.36, 0.24, 0.015, 0, 0.9, -0.12, M.dark); lp.plane(0.33, 0.21, 0, 0.9, -0.111, screenMat('laptop')); lp.box(0.07, 0.035, 0.035, 0, 1.04, -0.12, M.black);
+    this.chair(B, M, 28.3, 22.5, Math.PI);
+    B.plane(1.2, 1.6, 29.97, 1.7, 18.0, FACE.nx, signMat('asl-chart', 384, 512, (c, W2, H2) => { c.fillStyle = '#fbfbf8'; c.fillRect(0, 0, W2, H2); c.fillStyle = '#4d8dff'; c.fillRect(0, 0, W2, 70); c.fillStyle = '#fff'; c.font = `800 36px ${FONT_SANS}`; c.textAlign = 'center'; c.fillText('ASL ALPHABET', W2 / 2, 48); c.font = `800 30px ${FONT_MONO}`; for (let i = 0; i < 26; i++) { const x = 20 + (i % 5) * 69, y = 86 + Math.floor(i / 5) * 70; c.fillStyle = '#e6eeff'; rr(c, x, y, 60, 60, 8); c.fill(); c.fillStyle = '#1f3f7a'; c.fillText(String.fromCharCode(65 + i), x + 30, y + 42); } }));
+    // LAB 07 workshop: 3D printer cart, soldering bench with fume extractor, tool shadow board, parts cabinet
+    B.box(0.7, 0.75, 0.6, -19.6, 0.375, -4.7, M.steel, 0, true);
+    const pr = placer(B, -19.6, -4.7, 0); for (const sx of [-1, 1]) for (const sz of [-1, 1]) pr.box(0.03, 0.55, 0.03, sx * 0.24, 1.03, sz * 0.24, M.black); pr.box(0.52, 0.04, 0.52, 0, 1.31, 0, M.black); pr.box(0.36, 0.02, 0.36, 0, 0.86, 0, M.dark); pr.box(0.09, 0.09, 0.09, 0.05, 1.18, 0, M.orange); pr.box(0.1, 0.08, 0.1, -0.03, 0.91, 0.03, M.accent('#3df2ff'));
+    this.addCollider(-20.0, -5.05, -19.2, -4.35, 1.35);
+    this.desk(B, M, -20.3, 7.45, Math.PI, 2.6, 0.8);
+    B.box(0.22, 0.1, 0.18, -21.0, 0.82, 7.4, M.accent('#2f6fd6'), 0, true); B.box(0.3, 0.3, 0.25, -19.4, 0.92, 7.55, M.panelGrey, 0, true); B.cyl(0.03, 0.6, -19.55, 1.2, 7.3, M.dark, { seg: 8, rz: 0.6 });
+    B.add(new THREE.TorusGeometry(0.1, 0.012, 6, 20).translate(-20.3, 1.1, 7.25), M.alu, true);
+    this.stool(B, M, -20.3, 6.65);
+    B.plane(2.4, 1.2, -24.5, 1.65, -5.92, FACE.pz, signMat('pegboard', 1024, 512, drawPegboard));
+    this.desk(B, M, -24.5, -5.5, 0, 2.6, 0.7, 0.9, M.wood);
+    B.box(0.5, 1.1, 0.9, -29.45, 0.55, 7.3, M.panelGrey, 0, true);
+    B.plane(0.85, 1.0, -29.195, 0.58, 7.3, FACE.px, signMat('drawers', 256, 300, (c, W2, H2) => { c.fillStyle = '#c3cad1'; c.fillRect(0, 0, W2, H2); for (let i = 0; i < 4; i++) for (let j = 0; j < 6; j++) { const x = 8 + i * 61, y = 8 + j * 48; c.fillStyle = '#e9edf1'; c.fillRect(x, y, 56, 42); c.fillStyle = '#1e2731'; c.font = `600 11px ${FONT_MONO}`; c.fillText(['RES', 'CAP', 'IC', 'LED', 'HDR', 'USB'][j] + '-' + (i + 1), x + 5, y + 14); c.fillStyle = '#5b6673'; c.fillRect(x + 18, y + 28, 20, 6); } }));
+    this.addCollider(-29.72, 6.85, -29.18, 7.75, 1.1);
+    // RM 08 library: bookshelves along the west wall, reading table with chairs
+    for (const zc of [17.15, 21.05]) {
+      const w2 = 3.5; B.box(0.4, 2.2, 0.04, -29.46, 1.1, zc - w2 / 2, M.woodDark, 0, true); B.box(0.4, 2.2, 0.04, -29.46, 1.1, zc + w2 / 2, M.woodDark, 0, true); B.box(0.03, 2.2, w2, -29.65, 1.1, zc, M.woodDark);
+      for (let i = 0; i < 5; i++) { const y = 0.1 + i * 0.5; B.box(0.4, 0.03, w2, -29.46, y, zc, M.woodDark); if (i < 4) for (let z = zc - w2 / 2 + 0.06; z < zc + w2 / 2 - 0.08;) { const t = rand(0.04, 0.08), bh = rand(0.28, 0.42); if (Math.random() < 0.06) { z += 0.2; continue; } B.box(0.26, bh, t, -29.5, y + 0.015 + bh / 2, z + t / 2, M.books[Math.floor(Math.random() * M.books.length)], 0, false); z += t + 0.005; } }
+      this.addCollider(-29.68, zc - w2 / 2, -29.24, zc + w2 / 2, 2.2);
+    }
+    this.desk(B, M, -25.0, 18.6, 0, 2.4, 1.1, 0.75, M.wood, false);
+    for (const [dx, dz, ry] of [[-0.6, -0.85, 0], [0.6, -0.85, 0], [-0.6, 0.85, Math.PI], [0.6, 0.85, Math.PI]]) this.chair(B, M, -25.0 + dx, 18.6 + dz, ry);
+    plant(this, -11.6, 14.7, '#e8e4dc', 1.1);
+  }
+  buildLeds() {
+    const n = this.ledInfo.length; if (!n) return;
+    const leds = this.leds = new THREE.InstancedMesh(new THREE.BoxGeometry(0.022, 0.014, 0.014), new THREE.MeshBasicMaterial({ color: 0xffffff }), n), m4 = new THREE.Matrix4(), c = new THREE.Color();
+    this.ledInfo.forEach((L, i) => { m4.makeTranslation(L.x, L.y, L.z); leds.setMatrixAt(i, m4); leds.setColorAt(i, c.set(L.col).multiplyScalar(2.4)); });
+    this.scene.add(leds);
+  }
+  updateLeds(dt) {
+    if (!this.leds || (this.ledT = (this.ledT || 0) - dt) > 0) return; this.ledT = 0.12;
+    const c = new THREE.Color();
+    this.ledInfo.forEach((L, i) => { if (Math.random() < L.rate) { L.on = !L.on; this.leds.setColorAt(i, c.set(L.col).multiplyScalar(L.on ? 2.4 : 0.12)); } });
+    this.leds.instanceColor.needsUpdate = true;
   }
   buildDust() {
-    const n = Q.dust, pos = new Float32Array(n * 3), sc = new Float32Array(n), col = new Float32Array(n * 3), c = new THREE.Color();
-    for (let i = 0; i < n; i++) { pos[i * 3] = rand(ROOM.minX, ROOM.maxX); pos[i * 3 + 1] = rand(0.2, ROOM.h - 0.4); pos[i * 3 + 2] = rand(ROOM.minZ, ROOM.maxZ); sc[i] = rand(0.5, 1.5); c.set(PALETTE[i % PALETTE.length]); col.set([c.r, c.g, c.b], i * 3); }
-    const mat = pointsMaterial({ size: 0.04, color: 0xffffff, drift: REDUCED ? 0 : 0.6, opacity: 0.6 });
-    const pts = new THREE.Points(pointsGeometry(pos, { scales: sc, colors: col }), mat); pts.frustumCulled = false;
+    const n = Q.dust, pos = new Float32Array(n * 3), sc = new Float32Array(n);
+    for (let i = 0; i < n; i++) { pos[i * 3] = rand(ROOM.minX, ROOM.maxX); pos[i * 3 + 1] = rand(0.2, ROOM.h - 0.4); pos[i * 3 + 2] = rand(ROOM.minZ, ROOM.maxZ); sc[i] = rand(0.5, 1.4); }
+    const mat = pointsMaterial({ size: 0.03, color: 0xfff8ec, drift: REDUCED ? 0 : 0.5, opacity: 0.35 });
+    const pts = new THREE.Points(pointsGeometry(pos, { scales: sc }), mat); pts.frustumCulled = false;
     this.scene.add(pts); this.dust = mat;
   }
-  /** glowing data packets that travel along the floor traces from the hub to each station */
+  /** glowing data packets that travel along the painted floor lines from the hub to each lab */
   buildPulses() {
     const per = 3, list = [];
     for (const tr of this.traces) {
@@ -1335,7 +1999,7 @@ class World {
     list.forEach((p, i) => { c.set(p.tr.color).multiplyScalar(2.2); col.set([c.r, c.g, c.b], i * 3); });
     this.pulseList = list;
     this.pulseGeo = pointsGeometry(pos, { colors: col });
-    const pts = new THREE.Points(this.pulseGeo, pointsMaterial({ size: 0.15, opacity: 1 })); pts.frustumCulled = false; this.scene.add(pts);
+    const pts = new THREE.Points(this.pulseGeo, pointsMaterial({ size: 0.12, opacity: 1 })); pts.frustumCulled = false; this.scene.add(pts);
   }
   updatePulses(t) {
     const arr = this.pulseGeo.attributes.position.array;
@@ -1358,19 +2022,18 @@ class World {
       const blade = box(0.32, 0.005, 0.03, dark); blade.position.set(x, 0.09, z); d.add(blade); this.rotors.push(blade);
     }
     this.droneLeds = [['#ff4057', 0, -0.2], ['#4dffa6', 0, 0.2]].map(([c, x, z]) => { const l = new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 6), glow(c, 3)); l.position.set(x, -0.03, z); d.add(l); return l; });
-    const beam = new THREE.Mesh(new THREE.ConeGeometry(0.5, 1.6, 20, 1, true), new THREE.MeshBasicMaterial({ color: new THREE.Color('#3df2ff').multiplyScalar(0.6), transparent: true, opacity: 0.06, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
-    beam.position.y = -0.85; d.add(beam);
     this.scene.add(d); this.dPrev = new THREE.Vector3();
   }
   updateDrone(t) {
-    const a = t * 0.16, x = Math.sin(a) * 19, z = Math.cos(a) * 13 - 1, y = 4.6 + Math.sin(t * 0.8) * 0.25, d = this.drone;
+    // a test flight over the commons, below the ducts and above the lab partitions
+    const a = t * 0.16, x = Math.sin(a) * 12.5, z = 3 + Math.cos(a) * 7.5, y = 4.15 + Math.sin(t * 0.8) * 0.2, d = this.drone;
     d.position.set(x, y, z);
     const dx = x - this.dPrev.x, dz = z - this.dPrev.z; if (dx * dx + dz * dz > 1e-8) d.rotation.y = Math.atan2(dx, dz);
     d.rotation.x = 0.12; this.dPrev.set(x, y, z);
     this.rotors.forEach((r, i) => (r.rotation.y = t * 40 * (i % 2 ? 1 : -1)));
     this.droneLeds.forEach((l, i) => (l.visible = Math.sin(t * 6 + i * Math.PI) > 0));
   }
-  /** intro "power-up": exposure ramps up and the ceiling strips flicker on one after another */
+  /** intro "power-up": exposure ramps up and the high-bay lights flicker on one after another */
   setPower(t) {
     const k = clamp(t / 2.8, 0, 1);
     this.renderer.toneMappingExposure = lerp(0.12, this.baseExposure, k * k * (3 - 2 * k));
@@ -1379,7 +2042,7 @@ class World {
     this.strips.instanceColor.needsUpdate = true;
   }
   finalize() { if (Q.shadows) this.renderer.shadowMap.needsUpdate = true; }
-  update(dt, t) { this.dust.uniforms.uTime.value = t; this.updatePulses(t); this.updateDrone(t); }
+  update(dt, t) { this.dust.uniforms.uTime.value = t; this.updatePulses(t); this.updateDrone(t); this.updateLeds(dt); }
   render() {
     if (this.composer && this.bloomOn !== false) this.composer.render(); else this.renderer.render(this.scene, this.camera);
     this.labels.render(this.scene, this.camera);
@@ -1581,6 +2244,7 @@ class Player {
   settle(dt) { this.speed = damp(this.speed, 0, 10, dt); this.vel.set(0, 0); this.animate(dt); }
   camBlocked(p) {
     for (const b of this.game.world.colliders) if (p.y < b.h + 0.2 && p.x > b.minX - 0.25 && p.x < b.maxX + 0.25 && p.z > b.minZ - 0.25 && p.z < b.maxZ + 0.25) return true;
+    for (const b of this.game.world.overhead) if (p.x > b.minX && p.x < b.maxX && p.y > b.minY - 0.2 && p.y < b.maxY + 0.2 && p.z > b.minZ - 0.2 && p.z < b.maxZ + 0.2) return true;
     return p.x < ROOM.minX + 0.3 || p.x > ROOM.maxX - 0.3 || p.z < ROOM.minZ + 0.3 || p.z > ROOM.maxZ - 0.3 || p.y > ROOM.h - 0.3;
   }
   /** third-person rig: over-the-shoulder, pulls in when something tall is behind the boy */
@@ -1894,15 +2558,8 @@ class StormRoom extends Station {
   build() {
     const g = this.group, A = this.meta.accent;
     this.labelDist = 70; this.label(6.05, 0, -2);
-    // --- glass partitions that make the room
-    const glassMat = new THREE.MeshStandardMaterial({ color: 0x1a4a66, transparent: true, opacity: 0.14, roughness: 0.1, metalness: 0.8, depthWrite: false, side: THREE.DoubleSide });
-    for (const sx of [-10, 10]) {
-      const p = box(0.08, 3.4, 11.6, glassMat); p.position.set(sx, 1.7, -3.2); g.add(p);
-      for (const y of [0.05, 3.42]) { const s = box(0.1, 0.06, 11.6, glow(A, 1.4)); s.position.set(sx, y, -3.2); g.add(s); }
-      const post = box(0.18, 3.5, 0.18, std(0x1b2a44, { metalness: 0.6 })); post.position.set(sx, 1.75, 2.6); g.add(shadow(post));
-      this.solid(sx, -3.2, 0.3, 11.6, 3.4);
-    }
-    for (const r of [5.3, 6.5, 7.7]) {
+    // (the room's walls, door and sign come from the building: LAB 02 in LAB_ROOMS / WALLS)
+    for (const r of [5.3, 6.4]) {
       const ring = new THREE.Mesh(new THREE.RingGeometry(r - 0.03, r + 0.03, 120), new THREE.MeshBasicMaterial({ color: this.accent.clone().multiplyScalar(0.8), transparent: true, opacity: 0.3, depthWrite: false }));
       ring.rotation.x = -Math.PI / 2; ring.position.set(0, 0.012, -2); g.add(ring);
     }
@@ -1985,7 +2642,7 @@ class StormRoom extends Station {
     const wcol = [0x2a2f3a, 0xd23b3b, 0xd23b3b, 0xd8a72c, 0xd8a72c];
     wires.forEach((w, i) => g.add(wire(w, wcol[i], 0.014)));
     this.alarmLight = this.light(0xff2030, 0, 2.3, 3.4, -7.4, 16, 1.4, true);
-    this.light(0x3df2ff, 26, 0, 4.4, -2, 15, 1.5, true);
+    this.light(0x3df2ff, 18, 0, 4.4, -2, 13, 1.5, true);
     // --- alert website monitor (auto-refreshing dashboard)
     this.dash = screen(2.7, 1.6, 1024, 608); this.dash.grp.position.set(-6.0, 2.35, wz + 0.04); g.add(this.dash.grp);
     const dl = textPlane('ALERT WEBSITE · AUTO-REFRESH', { height: 0.12, color: '#cfe3ff' }); dl.position.set(-6.0, 1.36, wz + 0.04); g.add(dl);
@@ -2089,7 +2746,7 @@ class StormRoom extends Station {
     }
     this.pi.userData.led.visible = Math.sin(t * 6) > -0.2;
     this.ring500.material.opacity = this.zone === 'near' ? 0.7 + Math.sin(t * 5) * 0.3 : 0.95;
-    this.kTag.visible = this.dist < 30 && this.game.state !== 'map';
+    this.kTag.visible = this.dist < 15 && this.game.state !== 'map';
     this.handle.material.opacity = this.game.active === this ? 0.4 + Math.sin(t * 4) * 0.25 : 0;
     // throttled redraws
     this.dashT -= dt; if (near && this.dashT < 0) { this.dashT = 0.5; this.drawDash(); }
@@ -2162,7 +2819,7 @@ const ROOM_BOX = { x0: 6, x1: 18, z0: 15, z1: 24, h: 3.2 };
 const CHAIR = { x: 12, z: 22.05 };
 class MyRoom extends Station {
   put(obj, x, y, z, ry = 0) { obj.position.set(x, y, z); obj.rotation.y = ry; this.game.world.scene.add(obj); return obj; }
-  block(x0, z0, x1, z1, h = 1.2) { this.game.world.addCollider(Math.min(x0, x1), Math.min(z0, z1), Math.max(x0, x1), Math.max(z0, z1), h); }
+  block(x0, z0, x1, z1, h = 1.2, kind) { this.game.world.addCollider(Math.min(x0, x1), Math.min(z0, z1), Math.max(x0, x1), Math.max(z0, z1), h, kind); }
   build() {
     const W = this.game.world, R = ROOM_BOX, A = this.meta.accent;
     this.label(3.95, 0, -0.5);
@@ -2182,14 +2839,14 @@ class MyRoom extends Station {
     const wall = (x, z, w, d, h = R.h, y = h / 2) => { const m = box(w, h, d, wallM); this.put(m, x, y, z); m.receiveShadow = Q.shadows; m.castShadow = Q.shadows; return m; };
     wall(R.x0, 15.5, 0.12, 1.0); wall(R.x0, 20.9, 0.12, 6.2); wall(R.x0, 16.9, 0.12, 1.8, 0.8, 2.8);
     wall(R.x1, 19.5, 0.12, 9.0);
-    this.block(5.94, 15, 6.06, 16, R.h); this.block(5.94, 17.8, 6.06, 24, R.h); this.block(17.94, 15, 18.06, 24, R.h);
+    this.block(5.94, 15, 6.06, 16, R.h, 'wall'); this.block(5.94, 17.8, 6.06, 24, R.h, 'wall'); this.block(17.94, 15, 18.06, 24, R.h, 'wall');
     const accent = box(11.75, R.h, 0.06, std(0x2f5d62, { roughness: 0.85 })); this.put(accent, 12, R.h / 2, 23.85);
     for (const [x, z, w, d] of [[R.x0, 19.5, 0.16, 9.0], [R.x1, 19.5, 0.16, 9.0], [12, 23.83, 12, 0.1]]) { const s = box(w, 0.12, d, trimM); this.put(s, x, 0.06, z); }
     const glassM = new THREE.MeshStandardMaterial({ color: 0x9fd8ff, transparent: true, opacity: 0.13, roughness: 0.05, metalness: 0.6, depthWrite: false, side: THREE.DoubleSide });
     this.put(new THREE.Mesh(new THREE.PlaneGeometry(12, R.h), glassM), 12, R.h / 2, R.z0);
     for (let x = R.x0; x <= R.x1 + 0.01; x += 2) this.put(box(0.07, R.h, 0.09, trimM), x, R.h / 2, R.z0);
     for (const y of [0.05, R.h - 0.04, 1.05]) this.put(box(12, 0.06, 0.09, trimM), 12, y, R.z0);
-    this.block(6, 14.94, 18, 15.06, R.h);
+    this.block(6, 14.94, 18, 15.06, R.h, 'wall');
     // animated RGB strip along the top of the room
     this.rgbMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
     for (const [x, z, w, d] of [[R.x0, 19.5, 0.14, 9.0], [R.x1, 19.5, 0.14, 9.0], [12, R.z0, 12.1, 0.14]]) this.put(box(w, 0.05, d, this.rgbMat), x, R.h + 0.03, z);
@@ -2374,7 +3031,7 @@ class MyRoom extends Station {
     d.textAlign = 'left'; d.fillStyle = '#ffffff'; d.font = `700 34px ${FONT_SANS}`; d.fillText('Akshat Rawat', 28, 66);
     d.fillStyle = '#7ff6ff'; d.font = `700 18px ${FONT_MONO}`; d.fillText('AI/ML ENGINEER', 28, 98);
     d.fillStyle = '#d3e3f8'; d.font = `500 19px ${FONT_SANS}`; d.fillText('Edge AI · Computer Vision · LLMs', 28, 132); d.fillText('CSIR–CSIO, Chandigarh', 28, 160);
-    const hl = ['CycloAI · deployed in Odisha', '4 papers + 1 copyright', 'M.Tech AI & ML · CGPA 8.8', 'Smart Village · 8 geophones'][this.hiIdx % 4];
+    const hl = ['CycloAI · deployed in Odisha', '4 papers presented', 'CycloAI copyright accepted', 'M.Tech AI & ML · CGPA 8.8', 'Smart Village · 8 geophones'][this.hiIdx % 5];
     d.fillStyle = 'rgba(255,255,255,.1)'; rr(d, 24, 200, 464, 60, 14); d.fill(); d.fillStyle = '#ffd27a'; d.font = `700 22px ${FONT_SANS}`; d.fillText('★ ' + hl, 42, 238);
     b.tex.needsUpdate = true;
   }
@@ -2406,7 +3063,8 @@ class MyRoom extends Station {
       <h3>Welcome to my room 👋</h3>
       <p><b>I'm Akshat Rawat, an AI/ML engineer working on edge AI, computer vision and LLMs for real-world, deployed systems.</b></p>
       <p>I'm a Project Associate I at CSIR–CSIO, Chandigarh, where my <b>CycloAI</b> cyclone alert system is deployed in a village in Odisha.</p>
-      <div class="row"><a class="btn small primary" href="mailto:${esc(L.email)}">✉ Email me</a><a class="btn small" href="${esc(L.linkedin)}" target="_blank" rel="noopener noreferrer">in LinkedIn</a><button class="btn small" type="button" data-term="1">💬 Contact terminal</button></div>
+      <div class="row"><a class="btn small primary" href="mailto:${esc(L.email)}">✉ Email me</a><a class="btn small" href="${esc(L.linkedin)}" target="_blank" rel="noopener noreferrer">in LinkedIn</a>${resumeBtn()}<button class="btn small" type="button" data-term="1">💬 Contact terminal</button></div>
+      <p class="demo-note">The lab is laid out like a real research facility: lab rooms line the main corridor, the Contact Terminal sits in the commons, and reception (with my résumé on the notice board) is by the main entrance. Coloured floor lines lead to every lab door.</p>
       <h3 style="margin-top:16px">Explore the lab · ${p.count}/${TOTAL}</h3>
       <div class="list-btns">${COUNTED.map(id => `<button type="button" data-go="${id}"><b style="color:${LAYOUT[id].accent}">${LAYOUT[id].n}</b>&nbsp; ${LAYOUT[id].name}${p.has(id) ? ' &nbsp;✓' : ''}</button>`).join('')}</div>
       <h3 style="margin-top:16px">How to play</h3>
@@ -3083,7 +3741,7 @@ class ASLBooth extends Station {
   }
   update(dt, t, near) {
     super.update(dt, t, near);
-    const vis = near && this.dist < 20 && this.game.state !== 'map'; this.bbox.visible = vis; this.pred.visible = vis;
+    const vis = near && this.dist < 13 && this.game.state !== 'map'; this.bbox.visible = vis; this.pred.visible = vis;
     if (!near) return;
     if (!this.pinned) { this.hold += dt; if (this.hold > 2.1) { this.hold = 0; this.li = (this.li + 1) % ASL_ORDER.length; this.setLetter(ASL_ORDER[this.li]); } }
     this.hand.blend(ASL_POSES[this.letter], 1 - Math.exp(-7 * dt));
@@ -3204,10 +3862,10 @@ class SkillsShelf extends Station {
    --------------------------------------------------------------------- */
 const PUB_CARDS = [
   { kind: 'paper', venue: 'ETTIS 2026', status: 'Presented', title: 'Hybrid Cloud–Edge LLM Framework for Real-Time Cyclone Monitoring and Multilingual Disaster Alert Generation', link: (LL.papers && LL.papers.cycloai) || '#TODO-paper-cycloai' },
-  { kind: 'paper', venue: 'RICE, Goa', status: 'Accepted', title: 'G-SCAN: A Multi-Channel Geophone Data Processing System on a Resource-Constrained Edge Platform', link: (LL.papers && LL.papers.gscan) || '#TODO-paper-gscan' },
-  { kind: 'paper', venue: 'ISICVA 2026', status: 'Accepted', title: 'Interpretable Spatial-Temporal Deepfake Detection Using 3D Facial Geometry and Sequential Deep Learning', link: (LL.papers && LL.papers.deepfake1) || '#TODO-paper-deepfake-1' },
-  { kind: 'paper', venue: 'ISICVA 2026', status: 'Accepted', title: 'Towards Robust Deepfake Detection: A Survey on 3D Facial Geometry and Audio-Visual Synchronization', link: (LL.papers && LL.papers.deepfake2) || '#TODO-paper-deepfake-2' },
-  { kind: 'ip', venue: 'Copyright', status: 'Registered', title: 'CycloAI – Cyclone Alert Warning System', link: null },
+  { kind: 'paper', venue: 'RICE, Goa', status: 'Presented', title: 'G-SCAN: A Multi-Channel Geophone Data Processing System on a Resource-Constrained Edge Platform', link: (LL.papers && LL.papers.gscan) || '#TODO-paper-gscan' },
+  { kind: 'paper', venue: 'ISICVA 2026', status: 'Presented', title: 'Interpretable Spatial-Temporal Deepfake Detection Using 3D Facial Geometry and Sequential Deep Learning', link: (LL.papers && LL.papers.deepfake1) || '#TODO-paper-deepfake-1' },
+  { kind: 'paper', venue: 'ISICVA 2026', status: 'Presented', title: 'Towards Robust Deepfake Detection: A Survey on 3D Facial Geometry and Audio-Visual Synchronization', link: (LL.papers && LL.papers.deepfake2) || '#TODO-paper-deepfake-2' },
+  { kind: 'ip', venue: 'Copyright', status: 'Accepted', title: 'CycloAI – Cyclone Alert Warning System', link: null },
 ];
 class EduWall extends Station {
   build() {
@@ -3244,7 +3902,7 @@ class EduWall extends Station {
       ctx.fillStyle = ip ? '#fff6dc' : '#f2f5fb'; ctx.fillRect(0, 0, 420, 280);
       if (ip) { ctx.strokeStyle = '#c99a2e'; ctx.lineWidth = 10; ctx.strokeRect(8, 8, 404, 264); }
       ctx.fillStyle = ip ? '#c99a2e' : '#1d3b6e'; ctx.fillRect(ip ? 14 : 0, ip ? 14 : 0, ip ? 392 : 420, 46);
-      ctx.fillStyle = '#ffffff'; ctx.font = `800 22px ${FONT_MONO}`; ctx.textAlign = 'left'; ctx.fillText(ip ? 'REGISTERED COPYRIGHT' : p.venue.toUpperCase(), ip ? 28 : 16, ip ? 45 : 31);
+      ctx.fillStyle = '#ffffff'; ctx.font = `800 22px ${FONT_MONO}`; ctx.textAlign = 'left'; ctx.fillText(ip ? 'COPYRIGHT' : p.venue.toUpperCase(), ip ? 28 : 16, ip ? 45 : 31);
       ctx.fillStyle = '#141a26'; ctx.font = `700 22px ${FONT_SANS}`; wrap(ctx, p.title, 384).slice(0, 5).forEach((l, k) => ctx.fillText(l, 18, 92 + k * 28));
       ctx.save(); ctx.translate(320, 240); ctx.rotate(-0.12); ctx.strokeStyle = p.status === 'Presented' ? '#1a8a4a' : ip ? '#a0761c' : '#b0302f'; ctx.lineWidth = 4; ctx.strokeRect(-78, -22, 156, 40);
       ctx.fillStyle = ctx.strokeStyle; ctx.font = `800 22px ${FONT_MONO}`; ctx.textAlign = 'center'; ctx.fillText(p.status.toUpperCase(), 0, 6); ctx.restore();
@@ -3261,18 +3919,18 @@ class EduWall extends Station {
     this.sel = -1;
   }
   details() { const d = document.createElement('div'); const e = cloneSection('edu'); if (e) d.append(e); return d; }
-  hoverInfo(obj) { if (obj.userData.card == null) return null; const p = PUB_CARDS[obj.userData.card]; return { title: p.kind === 'ip' ? 'Registered copyright · CycloAI' : `Paper · ${p.venue}`, sub: p.status, hot: true, key: 'E', onUse: () => { this.game.openStation(this); setTimeout(() => this.select(obj.userData.card), 50); } }; }
+  hoverInfo(obj) { if (obj.userData.card == null) return null; const p = PUB_CARDS[obj.userData.card]; return { title: p.kind === 'ip' ? 'Copyright · CycloAI' : `Paper · ${p.venue}`, sub: p.status, hot: true, key: 'E', onUse: () => { this.game.openStation(this); setTimeout(() => this.select(obj.userData.card), 50); } }; }
   select(i) {
     this.sel = i; this.game.audio.blip();
     if (this.ro && this.ro.isConnected) {
       this.ro.querySelectorAll('[data-c]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.c === i)));
       const p = PUB_CARDS[i], box = this.ro.querySelector('[data-k=sel]');
-      box.innerHTML = `<span class="pill ${p.status === 'Presented' ? 'green' : 'amber'}">${p.venue} · ${p.status}</span><h4 style="margin:.5em 0 .3em;font-size:15.5px;line-height:1.35">${p.title}</h4>${p.link ? (p.link.startsWith('#TODO') ? `<a href="${p.link}" class="todo">paper link (${p.link})</a>` : `<a href="${p.link}" target="_blank" rel="noopener noreferrer">Read the paper ↗</a>`) :'<span class="demo-note">Copyright registration for the deployed CycloAI system.</span>'}`;
+      box.innerHTML = `<span class="pill ${p.status === 'Presented' || p.status === 'Accepted' ? 'green' : 'amber'}">${p.venue} · ${p.status}</span><h4 style="margin:.5em 0 .3em;font-size:15.5px;line-height:1.35">${p.title}</h4>${p.link ? (p.link.startsWith('#TODO') ? `<a href="${p.link}" class="todo">paper link (${p.link})</a>` : `<a href="${p.link}" target="_blank" rel="noopener noreferrer">Read the paper ↗</a>`) :'<span class="demo-note">Copyright accepted for the deployed CycloAI alert warning system.</span>'}`;
     }
   }
   panelGame(el) {
     el.innerHTML = `
-      <h3>Corkboard · 4 papers + 1 copyright</h3>
+      <h3>Corkboard · 4 presented papers + 1 copyright</h3>
       <p>Click a card on the board (or a button below) to read it.</p>
       <div class="list-btns" data-k="list">${PUB_CARDS.map((p, i) => `<button type="button" data-c="${i}" aria-pressed="false"><b>${p.venue}</b> · ${p.status}<br><span style="color:var(--muted)">${p.title}</span></button>`).join('')}</div>
       <div class="minicard" data-k="sel" aria-live="polite"><span class="demo-note">No card selected yet.</span></div>`;
@@ -3313,12 +3971,12 @@ class ContactStation extends Station {
     this.solid(0, -0.55, 1.7, 1.3, 2.0);
     // always open: three holo contact icons orbit the terminal
     this.orbit = new THREE.Group(); this.orbit.position.set(0, 2.35, -0.5); g.add(this.orbit);
-    this.icons = [['✉ EMAIL', '#4dffa6'], ['in LINKEDIN', '#4d8dff'], ['☎ PHONE', '#ffb547']].map(([txt, c], i) => {
+    this.icons = [['✉ EMAIL', '#4dffa6'], ['in LINKEDIN', '#4d8dff'], ['☎ PHONE', '#ffb547'], ['⬇ RÉSUMÉ', '#ff7aa8']].map(([txt, c], i, all) => {
       const p = textPlane(txt, { height: 0.22, color: '#ffffff', bg: hexA(c, 0.55), border: c, pad: 0.4 }); p.material.side = THREE.DoubleSide;
-      p.userData.a = i * TAU / 3; this.orbit.add(p); return p;
+      p.userData.a = i * TAU / all.length; this.orbit.add(p); return p;
     });
     const halo = new THREE.Mesh(new THREE.TorusGeometry(1.15, 0.015, 6, 80), glow(A, 1.8)); halo.rotation.x = Math.PI / 2; this.orbit.add(halo);
-    this.light(0x4dffa6, 16, 0, 2.8, 0.6, 10, 1.6, true);
+    this.light(0x4dffa6, 10, 0, 2.2, 0.6, 4.5, 1.6, true); // short range: lights the kiosk, not the roof deck
     this.locked = false; this.scrT = 0;
   }
   setLocked() { /* the terminal is open to everyone from the start */ }
@@ -3369,7 +4027,7 @@ class UI {
     $('#panelClose').addEventListener('click', () => game.closeStation());
     $('#resumeBtn').addEventListener('click', e => { e.stopPropagation(); game.resume(); });
     $('#pauseMap').addEventListener('click', e => { e.stopPropagation(); game.openMap(); });
-    this.el.pause.addEventListener('click', e => { if (e.target === this.el.pause || e.target.closest('.card') && !e.target.closest('button')) game.resume(); });
+    this.el.pause.addEventListener('click', e => { if (e.target === this.el.pause || e.target.closest('.card') && !e.target.closest('button, a')) game.resume(); });
     $('#mapClose').addEventListener('click', () => game.closeMap());
     $('#resetBtn').addEventListener('click', () => { if (confirm('Reset your lab progress?')) { game.progress.reset(); game.syncProgress(); this.buildMapList(); this.drawMap(this.el.mapCanvas, true); } });
     this.el.mapCanvas.addEventListener('click', e => this.mapClick(e));
@@ -3437,7 +4095,7 @@ class UI {
     const d = st.details(); if (d) el.panelDetails.append(d);
     // footer: keep visitors moving (or let them bail to the classic view)
     const nx = this.g.nextStationFor(st), foot = document.createElement('div'); foot.className = 'row panel-next';
-    foot.innerHTML = (nx ? `<button class="btn small" type="button" data-next="${nx}">Next: ${LAYOUT[nx].name} →</button>` : `<button class="btn small" type="button" data-term="1">💬 Contact Terminal →</button>`) + '<button class="btn small ghost" type="button" data-classic>Classic view</button>';
+    foot.innerHTML = (nx ? `<button class="btn small" type="button" data-next="${nx}">Next: ${LAYOUT[nx].name} →</button>` : `<button class="btn small" type="button" data-term="1">💬 Contact Terminal →</button>`) + resumeBtn('btn small') + '<button class="btn small ghost" type="button" data-classic>Classic view</button>';
     foot.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.next) this.g.teleport(b.dataset.next); else if (b.dataset.term) this.g.openTerminal(true); });
     el.panelDetails.append(foot); el.panelDetails.hidden = false;
     [el.panelGame, ...el.panelDetails.querySelectorAll(':scope > div > *, :scope > .panel-next')].forEach((n, i) => { n.classList.remove('rise'); n.style.setProperty('--i', Math.min(i, 12)); void n.offsetWidth; n.classList.add('rise'); });
@@ -3468,14 +4126,28 @@ class UI {
     const ox = (W - s * 60) / 2, oz = (H - s * 48) / 2;
     const P = (x, z) => [ox + (x - ROOM.minX) * s, oz + (z - ROOM.minZ) * s];
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = '#060b16'; ctx.fillRect(0, 0, W, H);
-    ctx.strokeStyle = 'rgba(120,190,255,.08)'; ctx.lineWidth = 1;
-    for (let x = ROOM.minX; x <= ROOM.maxX; x += 4) { ctx.beginPath(); ctx.moveTo(...P(x, ROOM.minZ)); ctx.lineTo(...P(x, ROOM.maxZ)); ctx.stroke(); }
-    for (let z = ROOM.minZ; z <= ROOM.maxZ; z += 4) { ctx.beginPath(); ctx.moveTo(...P(ROOM.minX, z)); ctx.lineTo(...P(ROOM.maxX, z)); ctx.stroke(); }
-    ctx.strokeStyle = 'rgba(160,210,255,.5)'; ctx.lineWidth = full ? 3 : 2; ctx.strokeRect(...P(ROOM.minX, ROOM.minZ), 60 * s, 48 * s);
-    ctx.fillStyle = 'rgba(120,170,230,.22)';
-    for (const b of g.world.colliders) { const [x, y] = P(b.minX, b.minZ); ctx.fillRect(x, y, (b.maxX - b.minX) * s, (b.maxZ - b.minZ) * s); }
-    // door
-    ctx.fillStyle = '#4dffa6'; const [dx, dy] = P(-1.8, ROOM.maxZ); ctx.fillRect(dx, dy - 2, 3.6 * s, 4);
+    // floor plan: tinted lab rooms + the lobby, a faint 2 m grid, then walls on top
+    const rect = (x0, z0, x1, z1) => { const [x, y] = P(x0, z0); ctx.fillRect(x, y, (x1 - x0) * s, (z1 - z0) * s); };
+    for (const r of LAB_ROOMS) { ctx.fillStyle = hexA(LAYOUT[r.id].accent, full ? 0.1 : 0.13); rect(r.x0, r.z0, r.x1, r.z1); }
+    ctx.fillStyle = 'rgba(255,226,176,.07)'; rect(-11, 14, 6, 24);
+    ctx.strokeStyle = 'rgba(120,190,255,.06)'; ctx.lineWidth = 1;
+    for (let x = ROOM.minX; x <= ROOM.maxX; x += 2) { ctx.beginPath(); ctx.moveTo(...P(x, ROOM.minZ)); ctx.lineTo(...P(x, ROOM.maxZ)); ctx.stroke(); }
+    for (let z = ROOM.minZ; z <= ROOM.maxZ; z += 2) { ctx.beginPath(); ctx.moveTo(...P(ROOM.minX, z)); ctx.lineTo(...P(ROOM.maxX, z)); ctx.stroke(); }
+    for (const b of g.world.colliders) {
+      ctx.fillStyle = b.kind === 'wall' ? 'rgba(205,225,250,.85)' : b.kind === 'col' ? 'rgba(160,190,225,.6)' : 'rgba(120,170,230,.2)';
+      const [x, y] = P(b.minX, b.minZ); ctx.fillRect(x, y, Math.max(1.5, (b.maxX - b.minX) * s), Math.max(1.5, (b.maxZ - b.minZ) * s));
+    }
+    ctx.strokeStyle = 'rgba(205,225,250,.9)'; ctx.lineWidth = full ? 4 : 2.5; ctx.strokeRect(...P(ROOM.minX, ROOM.minZ), 60 * s, 48 * s);
+    if (full) {
+      ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+      for (const r of LAB_ROOMS) { const [x, y] = P(r.x0 + 0.5, r.z0 + 0.5); ctx.fillStyle = LAYOUT[r.id].accent; ctx.font = `800 12px ${FONT_MONO}`; ctx.fillText(r.code, x, y); ctx.fillStyle = 'rgba(220,235,255,.7)'; ctx.font = `600 11px ${FONT_SANS}`; ctx.fillText(r.name, x, y + 15); }
+      ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(180,205,235,.45)'; ctx.font = `700 11px ${FONT_MONO}`;
+      for (const [name, x, z] of OPEN_ZONES) { const [px, py] = P(x, z); ctx.fillText(name, px, py - 6); }
+    }
+    // main entrance (green) and the two corridor fire exits (red)
+    ctx.fillStyle = '#4dffa6'; const [dx, dy] = P(-1.8, ROOM.maxZ); ctx.fillRect(dx, dy - 3, 3.6 * s, 5);
+    ctx.fillStyle = '#ff6b7d'; for (const ex of [ROOM.minX, ROOM.maxX]) { const [x, y] = P(ex, -8.35); ctx.fillRect(x - 3, y, 5, 1.2 * s); }
+    if (full) { ctx.fillStyle = '#4dffa6'; ctx.font = `700 11px ${FONT_MONO}`; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillText('MAIN ENTRANCE', dx + 1.8 * s, dy - 8); }
     for (const [id, m] of Object.entries(LAYOUT)) {
       const st = g.stations[id], p = st.interactPoint, [x, y] = P(p.x, p.z); const done = g.progress.has(id);
       ctx.globalAlpha = 0.18; ctx.fillStyle = m.accent; ctx.beginPath(); ctx.arc(x, y, st.radius * s, 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
@@ -3523,6 +4195,9 @@ const LINKS = {
   resume: LL.resume || '#TODO-resume', github: LL.github || '#TODO-github',
 };
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const hasResume = () => !!LINKS.resume && !LINKS.resume.startsWith('#TODO');
+/** "📄 Résumé (PDF)" link button for panels; empty until the résumé link is set in the labLinks block */
+const resumeBtn = (cls = 'btn small') => (hasResume() ? `<a class="${cls}" href="${esc(LINKS.resume)}" target="_blank" rel="noopener noreferrer">📄 Résumé (PDF)</a>` : '');
 class Terminal {
   constructor(game) {
     this.g = game; this.el = $('#terminal'); this.out = $('#termOut'); this.input = $('#termInput'); this.hist = []; this.hi = -1; this.booted = false;
@@ -3578,16 +4253,16 @@ class Terminal {
         P(`<a href="${LINKS.linkedin}" target="_blank" rel="noopener noreferrer">${LINKS.linkedinLabel} ↗</a> ${cp(LINKS.linkedin)}`); this.g.audio.blip(); break;
       case 'phone': case 'call': case 'cat phone.txt':
         P(`${LINKS.phone} ${cp(LINKS.phone)} <a href="${LINKS.phoneHref}">call ↗</a>`); this.g.audio.blip(); break;
-      case 'resume': case 'cv': case 'résumé': case 'open resume.pdf':
-        P(this.link(LINKS.resume, 'Download résumé (PDF)')); break;
+      case 'resume': case 'cv': case 'résumé': case 'open resume.pdf': case 'cat resume.pdf':
+        P(this.link(LINKS.resume, 'Open résumé (PDF)') + (hasResume() ? ` <a href="${esc(LINKS.resume)}" download>download ⬇</a>` : '')); break;
       case 'github': case 'git':
         P(this.link(LINKS.github, 'GitHub profile')); break;
       case 'whoami': case 'about':
         P('<b>Akshat Rawat</b>: AI/ML engineer working on edge AI, computer vision and LLMs for real-world, deployed systems.\nProject Associate I · CSIR–Central Scientific Instruments Organisation (CSIO), Chandigarh.\nM.Tech AI &amp; ML, C-DAC Mohali (CGPA 8.8) · Languages: English, Hindi.'); break;
       case 'projects': case 'ls stations':
-        P('  02 CycloAI      deployed cloud–edge cyclone alerts, Kusumpur (Odisha) · registered copyright\n  03 Smart Village  8 geophones · 2× ADS131A04 · Raspberry Pi edge processing\n  04 Deepfakes    3D facial geometry + audio-visual cues (thesis, 2 ISICVA papers)\n  05 Sports CV    pose estimation · rep counting · shuttle trajectory (STPI Mohali)\n  06 ASL          real-time A–Z CNN, ~80% accuracy, webcam inference'); break;
+        P('  02 CycloAI      deployed cloud–edge cyclone alerts, Kusumpur (Odisha) · copyright accepted\n  03 Smart Village  8 geophones · 2× ADS131A04 · Raspberry Pi edge processing\n  04 Deepfakes    3D facial geometry + audio-visual cues (thesis, 2 ISICVA papers)\n  05 Sports CV    pose estimation · rep counting · shuttle trajectory (STPI Mohali)\n  06 ASL          real-time A–Z CNN, ~80% accuracy, webcam inference'); break;
       case 'ls': P('email.txt  linkedin.url  phone.txt  resume.pdf  stations/  papers/'); break;
-      case 'ls papers': case 'papers': P('ETTIS 2026 (presented) · RICE, Goa (accepted) · ISICVA 2026 ×2 (accepted) · + CycloAI registered copyright'); break;
+      case 'ls papers': case 'papers': P('ETTIS 2026 · RICE, Goa · ISICVA 2026 ×2: all 4 papers presented · + CycloAI copyright (accepted)'); break;
       case 'classic': window.LabShell && LabShell.openClassic(); break;
       case 'clear': case 'cls': this.out.innerHTML = ''; break;
       case 'exit': case 'quit': case 'q': this.g.closeTerminal(); break;
@@ -3653,9 +4328,17 @@ class Game {
     const hit = new THREE.Mesh(new THREE.SphereGeometry(0.4, 8, 6), new THREE.MeshBasicMaterial({ visible: false })); d.add(hit);
     hit.userData.owner = { hoverInfo: () => ({ title: this.progress.duck ? 'Squeak the duck again' : 'A rubber duck? Squeeze it', sub: 'rubber-duck debugger · click', hot: true, onUse: () => this.squeezeDuck() }) };
     this.extraHoverables.push(hit); this.duckSquash = 0; this.duckNear = false;
+    // the résumé pinned on the lobby notice board opens the PDF
+    const rs = this.world.resumeSheet;
+    if (rs && hasResume()) { rs.userData.owner = { hoverInfo: () => ({ title: "Akshat's résumé (PDF)", sub: 'pinned on the lobby notice board · click to open', hot: true, onUse: () => this.openResume() }) }; this.extraHoverables.push(rs); }
     $('#mapTerm').addEventListener('click', () => this.openTerminal());
     $('#contactBtn').addEventListener('click', () => this.openTerminal());
     $('#introSkip').addEventListener('click', () => this.skipIntro());
+  }
+  openResume() {
+    if (!hasResume()) return;
+    window.open(LINKS.resume, '_blank', 'noopener'); this.audio.blip();
+    this.ui.toast('📄 Opening the résumé (PDF) in a new tab');
   }
   squeezeDuck() {
     this.audio.squeak(); this.duckSquash = 0.35;
@@ -4008,6 +4691,8 @@ class Game {
       if (n) tips.push(`Try the ${n.meta.name}: ${n.meta.tease}`);
       tips.push('Press M for the map, then click any station to jump straight to it.');
       tips.push('Want to get in touch? The 💬 Contact button (top-right) opens the terminal any time.');
+      if (hasResume()) tips.push('Need the résumé? It is pinned on the notice board at reception, and the 📄 button (top-right) opens the PDF.');
+      tips.push('Every lab has a room sign over its door. Follow the coloured floor lines from the Contact Terminal to reach it.');
       if (IS_TOUCH) tips.push('Drag your right thumb to turn the camera; the left thumb walks.');
       else tips.push(this.player.mouseLook ? 'The camera follows your cursor: rest it at the left or right edge to keep turning. Scroll to zoom.' : 'Drag the mouse to look around, and scroll to zoom the camera.');
       tips.push('Short on time? "Classic view" (top-right) has everything on one page.');
@@ -4033,6 +4718,7 @@ class Game {
     if (s === 'play') this.updateInteraction(dt);
     this.labE.update(dt, t);
     this.updateExtras(dt, t);
+    this.world.roof.visible = cp.y < ROOM.h - 0.3; // cut-away: overhead cameras look straight into the rooms
     this.world.update(dt, t);
     this.ui.update(dt);
     this.updateHints(dt);
