@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <!-- Security: only this page's own (hash-pinned) scripts and the pinned Three.js CDN may run.
      After editing any inline script block, run:  node tools/update-csp.mjs  -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-AHCbxAbDnQF+V02stJsqA8ZF+sGVoEeYlKf4Ml5KNyw=' 'sha256-ueH8OSDifxjjmjdL28XzrljvlMjPfFeZanwyLcsCwa8=' 'sha256-Vis6kD6D/MZojRA1KOlSho2vz51u6kPKrpeMmdl/mk0='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; manifest-src 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-AHCbxAbDnQF+V02stJsqA8ZF+sGVoEeYlKf4Ml5KNyw=' 'sha256-ueH8OSDifxjjmjdL28XzrljvlMjPfFeZanwyLcsCwa8=' 'sha256-UKB1PPwYSuujlGbUzsJ9jHEBu7fZKBesu1XIL7nxNiM='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; manifest-src 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Akshat Rawat — AI/ML Engineer (Edge AI · Computer Vision · LLMs) | Akshat's AI &amp; Edge Lab</title>
@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+Devanagari:wght@600&family=Noto+Sans+Oriya:wght@600&display=swap">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Akshat Rawat","jobTitle":"Project Associate I","description":"AI/ML engineer working on edge AI, computer vision and LLMs for real-world, deployed systems.","sameAs":["https://www.linkedin.com/in/akshat-rawat-085a9a279/"],"worksFor":{"@type":"Organization","name":"CSIR–Central Scientific Instruments Organisation (CSIO), Chandigarh"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"C-DAC Mohali"},{"@type":"CollegeOrUniversity","name":"Dehradun Institute of Technology"}],"knowsLanguage":["English","Hindi"]}
+{"@context":"https://schema.org","@type":"Person","name":"Akshat Rawat","jobTitle":"Project Associate I","description":"AI/ML engineer working on edge AI, computer vision and LLMs for real-world, deployed systems.","sameAs":["https://www.linkedin.com/in/akshat-rawat-085a9a279/"],"worksFor":{"@type":"Organization","name":"CSIR–Central Scientific Instruments Organisation (CSIO), Chandigarh"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"C-DAC Mohali"},{"@type":"CollegeOrUniversity","name":"Dehradun Institute of Technology"}],"award":["Certificate of Appreciation – Technical Reviewer, WcAISR-2027 (World Conference on Autonomous Intelligent Systems & Robotics, technically co-sponsored by IEEE RAS)"],"knowsLanguage":["English","Hindi"]}
 </script>
 <script type="importmap">
 {
@@ -489,6 +489,120 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
   /* classic view: keep the text clear of the notch */
   .cv{padding:18px max(20px,env(safe-area-inset-right)) 60px max(20px,env(safe-area-inset-left))}
 }
+
+/* =====================================================================
+   11. GUIDED TOUR (invitation + tour card), CHARACTER MOVES, CERTIFICATE
+   ===================================================================== */
+/* "Shall I show you around?" — asked once the intro ends */
+#tourAsk{position:fixed;inset:0;z-index:47;display:grid;place-items:center;padding:16px;overflow:auto;background:radial-gradient(ellipse at 50% 45%,rgba(6,10,22,.3),rgba(3,6,12,.72))}
+.ask-card{width:min(480px,100%);padding:22px 22px 16px;text-align:center;animation:bootIn .55s cubic-bezier(.2,.8,.2,1) both}
+.ask-card .labe-ico{margin:8px auto 20px;transform:scale(1.7)}
+.ask-card h2{margin:0 0 8px;font-size:clamp(22px,3.4vw,27px);line-height:1.15;background:linear-gradient(90deg,#ff7aa8,#ffd27a 45%,#7ff6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ask-card p{margin:0 0 16px;color:#dbe7fb;font-size:15px;line-height:1.55}
+.ask-card p b{color:#7ff6ff}
+.ask-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.ask-actions .btn{font-size:14px;padding:.75em 1.15em}
+#tourYes{animation:glowPulse 1.8s ease-in-out infinite}
+.ask-note{display:block;margin-top:14px;color:var(--muted);font-size:12.5px;line-height:1.45}
+
+/* tour card: same glass frame as the station panel */
+#tour{--c:#3df2ff;position:fixed;top:68px;right:14px;width:min(410px,calc(100vw - 28px));max-height:calc(100vh - 82px);max-height:calc(100dvh - 82px);z-index:41;display:flex;flex-direction:column;overflow:hidden;transform:translateX(112%);opacity:0;visibility:hidden;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .35s,visibility 0s .5s}
+#tour.open{transform:none;opacity:1;visibility:visible;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .35s,visibility 0s}
+.tour-bar{flex:none;height:3px;background:rgba(255,255,255,.08)}
+.tour-bar i{display:block;height:100%;width:0;background:var(--c);box-shadow:0 0 10px var(--c)}
+.tour-head{flex:none;display:flex;gap:10px;align-items:center;padding:10px 12px 9px 14px;border-bottom:1px solid var(--line)}
+.tour-who{display:flex;flex-direction:column;gap:1px;min-width:0}
+.tour-who b{font:800 11px var(--mono);letter-spacing:.14em;color:var(--cyan);text-transform:uppercase}
+.tour-who span{font:12px var(--mono);color:var(--muted)}
+.tour-body{flex:1 1 auto;overflow:auto;padding:13px 16px 8px;overscroll-behavior:contain}
+.tour-body::-webkit-scrollbar{width:8px}.tour-body::-webkit-scrollbar-thumb{background:rgba(120,190,255,.2);border-radius:4px}
+.tour-body .tag{font:800 11px var(--mono);letter-spacing:.13em;color:var(--c);text-transform:uppercase}
+.tour-body h2{margin:5px 0 7px;font-size:21px;line-height:1.2}
+.tour-lead{margin:0 0 8px;font-size:15px;line-height:1.5;color:var(--text)}
+.tour-pts{margin:6px 0 8px;padding-left:18px;font-size:13.5px;line-height:1.5;color:#d5e3f7}
+.tour-pts li{margin:.32em 0}
+.tour-pts b,.tour-out b,.tour-try b{color:var(--text)}
+.tour-out{margin:8px 0;padding:7px 10px;font-size:13.5px;line-height:1.45;color:#d5e3f7;border-left:3px solid var(--c);border-radius:0 8px 8px 0;background:color-mix(in srgb,var(--c) 10%,transparent)}
+.tour-chips{display:flex;flex-wrap:wrap;gap:5px;margin:9px 0 4px}
+.tour-try{display:flex;gap:8px 10px;align-items:center;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:13px;line-height:1.45;color:var(--muted)}
+.tour-try span{flex:1 1 180px}
+.tour-dots{flex:none;display:flex;gap:2px;justify-content:center;padding:8px 12px 0;flex-wrap:wrap}
+.tour-dots button{--d:#3df2ff;width:26px;height:18px;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.tour-dots button::before{content:"";width:20px;height:6px;border-radius:3px;background:rgba(255,255,255,.16);transition:background .3s,box-shadow .3s}
+.tour-dots button.seen::before{background:color-mix(in srgb,var(--d) 45%,transparent)}
+.tour-dots button[aria-current="step"]::before{background:var(--d);box-shadow:0 0 8px var(--d)}
+.tour-foot{flex:none;display:flex;gap:8px;align-items:center;padding:8px 14px 12px}
+#tourNext{margin-left:auto}
+#tourBtn[aria-pressed="true"]{border-color:var(--amber);color:#ffd9a0}
+.cert-thumb{display:block;margin:10px 0 6px;border-radius:9px;overflow:hidden;border:1px solid var(--line);box-shadow:0 6px 22px rgba(0,0,0,.35);transition:transform .2s,border-color .2s}
+.cert-thumb:hover{transform:translateY(-2px);border-color:var(--c,var(--cyan))}
+.cert-thumb img{display:block;width:100%;height:auto}
+
+/* character moves: an emoji dock on the right edge (keys 1–6) */
+#emotes{position:fixed;right:max(12px,env(safe-area-inset-right));top:max(64px,calc(50% - 190px));z-index:12;display:flex;flex-direction:column;align-items:center;gap:6px;padding:7px 6px;border-radius:16px}
+.emo-tg{appearance:none;border:0;background:none;color:var(--muted);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;padding:2px 3px;border-radius:8px;font:800 9.5px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.emo-tg:hover{color:var(--text)}
+.emo-tg .ic{font-size:17px;line-height:1.1}
+#emoteList{display:flex;flex-direction:column;gap:6px}
+#emotes[data-open="false"] #emoteList{display:none}
+.emo-b{position:relative;width:46px;height:46px;padding:0;border-radius:12px;border:1px solid rgba(120,200,255,.22);background:rgba(255,255,255,.05);cursor:pointer;display:grid;place-items:center;font-size:24px;line-height:1;transition:transform .15s,border-color .2s,background .2s,box-shadow .2s}
+.emo-b:hover,.emo-b:focus-visible{transform:scale(1.08);border-color:var(--cyan);background:rgba(61,242,255,.12)}
+.emo-b.on{border-color:var(--amber);background:rgba(255,181,71,.2);box-shadow:0 0 14px rgba(255,181,71,.45)}
+.emo-b kbd{position:absolute;right:2px;bottom:2px;font-size:9px;line-height:1.25;padding:0 3px;border-width:1px;opacity:.8}
+.emo-b::after{content:attr(data-label);position:absolute;right:calc(100% + 10px);top:50%;transform:translate(6px,-50%);white-space:nowrap;font:600 12px var(--mono);color:var(--text);background:rgba(8,14,28,.92);border:1px solid var(--line);padding:5px 9px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}
+.emo-b:hover::after,.emo-b:focus-visible::after{opacity:1;transform:translate(0,-50%)}
+@media (hover:none){.emo-b kbd,.emo-b::after{display:none}}
+/* the emoji that pops up over the character's head (outer element is placed by CSS2DRenderer) */
+.emo-bubble{font-size:34px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.45));animation:bubblePop .45s cubic-bezier(.2,.9,.3,1.5) both}
+.emo-bubble i{display:block;font-style:normal;animation:bubbleBob 1s .45s ease-in-out infinite}
+@keyframes bubblePop{from{opacity:0;transform:translateY(12px) scale(.4)}to{opacity:1;transform:none}}
+@keyframes bubbleBob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-6px) rotate(6deg)}}
+@media (max-height:760px){
+  #emotes{top:max(60px,calc(50% - 200px))}
+  .emo-b{width:40px;height:40px;font-size:21px;border-radius:11px}
+  #emoteList{gap:5px}
+}
+/* short screens: the dock lies down as a row in the middle of the right edge, clear of the minimap and buttons */
+@media (max-height:640px){
+  #emotes{top:50%;transform:translateY(-50%);flex-direction:row-reverse;padding:5px;gap:5px}
+  #emoteList{flex-direction:row;gap:5px}
+  .emo-b{width:38px;height:38px;font-size:20px}
+  .emo-tg .lb{display:none}
+  .emo-b::after{right:auto;left:50%;top:auto;bottom:calc(100% + 8px);transform:translate(-50%,4px)}
+  .emo-b:hover::after,.emo-b:focus-visible::after{transform:translate(-50%,0)}
+}
+
+/* certificate block in the classic view (and cloned into the Edu wall panel) */
+.cv-cert{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:18px;align-items:start}
+.cv-cert h3 .pill{margin-left:4px}
+.cv-cert .cert-thumb{margin:2px 0 0}
+.details .cv-cert{grid-template-columns:1fr;gap:6px}
+@media(max-width:640px){.cv-cert{grid-template-columns:1fr}}
+
+/* tour + invitation on phones and narrow windows: bottom sheet, like the station panel */
+@media (max-width:760px),(hover:none) and (pointer:coarse){
+  #tour{top:auto;left:0;right:0;bottom:0;width:auto;max-height:56vh;max-height:56dvh;border-radius:18px 18px 0 0;transform:translateY(105%)}
+  #tour.open{transform:none}
+  body[data-state="tour"] #mission,body[data-state="tour"] #hint{display:none}
+  .tour-body h2{font-size:19px}
+}
+@media (orientation:landscape) and (max-height:500px){
+  body[data-state="tour"] #topbar,body[data-state="ask"] #topbar{display:none}
+  #tour{top:max(8px,env(safe-area-inset-top));bottom:max(8px,env(safe-area-inset-bottom));left:auto;right:max(8px,env(safe-area-inset-right));width:min(400px,52vw);max-height:none;border-radius:14px;transform:translateX(112%)}
+  #tour.open{transform:none}
+  .tour-head{padding:7px 10px 6px 12px}
+  .tour-body{padding:9px 12px 6px}
+  .tour-body h2{font-size:17px;margin:3px 0 5px}
+  .tour-lead{font-size:13.5px}
+  .tour-pts,.tour-out{font-size:12.5px}
+  .tour-dots{padding-top:4px}
+  .tour-foot{padding:6px 10px 8px}
+  .ask-card{padding:12px 18px 10px}
+  .ask-card .labe-ico{margin:4px auto 12px;transform:scale(1.25)}
+  .ask-card h2{font-size:21px}
+  .ask-card p{font-size:13.5px;margin-bottom:12px}
+  .ask-note{margin-top:8px}
+}
 </style>
 </head>
 <body>
@@ -500,6 +614,7 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
   <button id="soundBtn" class="btn small" type="button" aria-pressed="false" title="Toggle sound"><span aria-hidden="true">🔇</span><span class="lbl">Sound off</span></button>
   <button id="lookBtn" class="btn small" type="button" aria-pressed="true" title="Mouse look: the camera follows your cursor" hidden><span aria-hidden="true">🖱</span><span class="lbl">Mouse look on</span></button>
   <button id="fsBtn" class="btn small" type="button" aria-pressed="false" title="Full screen" aria-label="Full screen" hidden><span aria-hidden="true">⛶</span></button>
+  <button id="tourBtn" class="btn small" type="button" title="Guided tour (T)" aria-label="Guided tour (T)" aria-pressed="false" hidden><span aria-hidden="true">🧭</span><span class="lbl">Tour <kbd>T</kbd></span></button>
   <button id="mapBtn" class="btn small" type="button" title="Map (M)" hidden><span aria-hidden="true">🗺</span><span class="lbl">Map <kbd>M</kbd></span></button>
   <button id="contactBtn" class="btn small" type="button" title="Contact (C)" hidden><span aria-hidden="true">💬</span><span class="lbl">Contact</span></button>
   <button id="avatarBtn" class="btn small" type="button" title="Customise your avatar (V)" aria-label="Customise your avatar (V)" aria-pressed="false" hidden><span aria-hidden="true">👕</span><span class="lbl">Avatar <kbd>V</kbd></span></button>
@@ -533,6 +648,11 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
   <canvas id="minimap" width="420" height="336" aria-hidden="true"></canvas>
 </div>
 <button id="inspectBtn" class="btn primary" type="button" hidden>Inspect</button>
+<!-- Character moves: the buttons are filled in from the EMOTES list in the lab script -->
+<div id="emotes" class="glass" role="toolbar" aria-label="Character moves" data-open="true" hidden>
+  <button id="emoteToggle" class="emo-tg" type="button" aria-expanded="true" aria-controls="emoteList" title="Hide moves"><span class="ic" aria-hidden="true">🕺</span><span class="lb">Moves</span></button>
+  <div id="emoteList"></div>
+</div>
 <div id="touch" hidden><div id="joyBase"><div id="joyKnob"></div></div><div id="touchHelp">Left: move · Right: look</div></div>
 <div id="toast" class="glass" role="status" aria-live="polite"></div>
 <div id="flash" aria-hidden="true"></div>
@@ -584,6 +704,35 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
   </div>
 </aside>
 
+<!-- ================= Guided tour: the invitation (after the intro) and the tour card ================= -->
+<div id="tourAsk" hidden role="dialog" aria-modal="true" aria-labelledby="tourAskTitle" aria-describedby="tourAskText">
+  <div class="ask-card glass">
+    <div class="labe-ico" aria-hidden="true"></div>
+    <h2 id="tourAskTitle">Welcome to the lab!</h2>
+    <p id="tourAskText">I'm <b>LAB-E</b>, Akshat's lab assistant. Want a quick guided tour? I'll fly you to every project and explain what it does, how it works and what came out of it. It takes about <b>2 minutes</b>, and you can skip ahead or stop any time.</p>
+    <div class="ask-actions">
+      <button id="tourYes" class="btn primary" type="button">🚀 Yes, show me around</button>
+      <button id="tourNo" class="btn" type="button">🧭 I'll explore on my own</button>
+    </div>
+    <small class="ask-note">Turn on 🔊 sound and I'll narrate. The <b>🧭 Tour</b> button starts the tour again any time.</small>
+  </div>
+</div>
+<aside id="tour" class="glass" aria-label="Guided tour" aria-hidden="true">
+  <div class="tour-bar" aria-hidden="true"><i id="tourBar"></i></div>
+  <div class="tour-head">
+    <div class="labe-ico" aria-hidden="true"></div>
+    <div class="tour-who"><b>LAB-E · guided tour</b><span id="tourStep">Stop 1</span></div>
+    <button class="xbtn" id="tourClose" type="button" aria-label="End the tour (Esc)" title="End the tour (Esc)">✕</button>
+  </div>
+  <div class="tour-body" id="tourBody" aria-live="polite"></div>
+  <div class="tour-dots" id="tourDots" role="group" aria-label="Tour stops"></div>
+  <div class="tour-foot">
+    <button class="btn small" type="button" id="tourPrev">◀ Back</button>
+    <button class="btn small ghost" type="button" id="tourPlay" aria-pressed="true" title="Pause or resume auto-play (P)">⏸ Pause</button>
+    <button class="btn small primary" type="button" id="tourNext">Next ▶</button>
+  </div>
+</aside>
+
 <!-- ================= Avatar studio (the look is saved in this browser) ================= -->
 <aside id="studio" class="glass" role="dialog" aria-modal="false" aria-labelledby="studioTitle" aria-hidden="true" tabindex="-1">
   <div class="panel-head">
@@ -617,6 +766,7 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
       <ul class="map-list" id="mapList"></ul>
       <div class="row">
         <button id="mapClose" class="btn" type="button">Close map</button>
+        <button id="mapTour" class="btn" type="button">🧭 Guided tour</button>
         <button id="mapTerm" class="btn" type="button">💬 Contact Terminal</button>
         <button id="mapAvatar" class="btn" type="button">👕 Avatar</button>
         <a class="btn" data-link="resume" data-hide-todo href="#TODO-resume" hidden>📄 Résumé (PDF)</a>
@@ -676,6 +826,7 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
       <div><b>Deployed: CycloAI</b><span>Hybrid cloud–edge cyclone monitoring and multilingual alert system for Kusumpur Village, Odisha · copyright accepted.</span></div>
       <div><b>4 papers presented + 1 copyright</b><span>ETTIS 2026 · RICE, Goa · ISICVA 2026 ×2 (all presented) · CycloAI copyright accepted.</span></div>
       <div><b>M.Tech AI &amp; ML · C-DAC Mohali</b><span>CGPA 8.8 · Now Project Associate I at CSIR–CSIO, Chandigarh.</span></div>
+      <div><b>Technical Reviewer · WcAISR-2027</b><span>Certificate of Appreciation for peer review · conference technically co-sponsored by IEEE RAS.</span></div>
     </div>
   </header>
 
@@ -751,6 +902,22 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
     </ul>
   </section>
 
+  <section aria-labelledby="cvCerts" data-src="certs">
+    <h2 id="cvCerts">Certificates &amp; recognition</h2>
+    <article class="cv-cert">
+      <a class="cert-thumb" href="certificates/WcAISR-2027-Technical-Reviewer-Certificate.pdf" data-link="certificates.wcaisr" target="_blank" rel="noopener noreferrer"><img src="certificates/WcAISR-2027-Technical-Reviewer-Certificate.jpg" width="1600" height="1132" loading="lazy" alt="Certificate of Appreciation presented to Mr. Akshat Rawat as Technical Reviewer of WcAISR-2027, Chandigarh University, technically co-sponsored by IEEE Robotics and Automation Society"></a>
+      <div>
+        <h3>Technical Reviewer — WcAISR-2027 <span class="pill green">Certificate of Appreciation</span></h3>
+        <p class="cv-meta">World Conference on Autonomous Intelligent Systems &amp; Robotics · Chandigarh University, Mohali</p>
+        <ul>
+          <li>Peer-reviewed submissions for WcAISR-2027, technically co-sponsored by the IEEE Robotics and Automation Society (RAS) · IEEE Record No. 72076.</li>
+          <li>Recognised for expert evaluations and constructive feedback that helped uphold the conference's academic quality and technical standards.</li>
+        </ul>
+        <p class="cv-paper"><a href="certificates/WcAISR-2027-Technical-Reviewer-Certificate.pdf" data-link="certificates.wcaisr" data-label="View the certificate (PDF) ↗" target="_blank" rel="noopener noreferrer">View the certificate (PDF) ↗</a></p>
+      </div>
+    </article>
+  </section>
+
   <section aria-labelledby="cvEdu" data-src="edu">
     <h2 id="cvEdu">Education</h2>
     <div class="cv-job"><div class="cv-job-head"><h3>M.Tech, Artificial Intelligence &amp; Machine Learning — C-DAC Mohali</h3><span class="cv-meta">Aug 2024 – Aug 2026 · CGPA 8.8</span></div></div>
@@ -797,7 +964,10 @@ html.rotate-blocked #intro *{animation-play-state:paused!important}
     "deepfake1": "#TODO-paper-deepfake-1",
     "deepfake2": "#TODO-paper-deepfake-2"
   },
-  "asl": { "code": "#TODO-github-asl", "demo": "#TODO-demo-asl" }
+  "asl": { "code": "#TODO-github-asl", "demo": "#TODO-demo-asl" },
+  "certificates": {
+    "wcaisr": "certificates/WcAISR-2027-Technical-Reviewer-Certificate.pdf"
+  }
 }
 </script>
 
@@ -992,7 +1162,7 @@ const LAYOUT = {
   sports:   { n: '05', name: 'Sports Vision Court', short: 'Sports CV', tag: 'Computer vision · pose', accent: '#42f5b0', counts: true, x: 22, z: 2, rot: -Math.PI / 2, iz: 4.2, ir: 4.8, az: 5.6, view: [0, 3.2, 5.6, 0, 1.0, -0.6], tease: 'somebody is doing squats. Count with them.' },
   asl:      { n: '06', name: 'ASL Gesture Booth', short: 'ASL', tag: 'Personal project · CNN', accent: '#4d8dff', counts: true, x: 24, z: 17.5, rot: Math.PI, iz: 2.2, ir: 4, az: 3.6, view: [0, 1.95, 2.3, 0, 1.75, -2.2], tease: 'the big hand is spelling something.' },
   skills:   { n: '07', name: 'Skills Toolbench', short: 'Skills', tag: 'Toolbench', accent: '#ffb547', counts: true, x: -23, z: 1, rot: Math.PI / 2, iz: 0.4, ir: 4.6, az: 1.2, view: [0, 2.3, 1.6, 0, 1.7, -6], tease: 'every tool he works with is on that shelf.' },
-  edu:      { n: '08', name: 'Education & Publications Wall', short: 'Edu & Papers', tag: 'Degrees · papers · IP', accent: '#ffd59a', counts: true, x: -18, z: 19.5, rot: Math.PI, iz: 0, ir: 4.6, az: 0.4, view: [-0.5, 2.2, 1.7, -0.5, 2.15, -4.2], tease: 'the corkboard is pinned with papers.' },
+  edu:      { n: '08', name: 'Education & Publications Wall', short: 'Edu & Papers', tag: 'Degrees · papers · IP · reviewer', accent: '#ffd59a', counts: true, x: -18, z: 19.5, rot: Math.PI, iz: 0, ir: 4.6, az: 0.4, view: [-0.5, 2.2, 1.7, -0.5, 2.15, -4.2], tease: 'the corkboard is pinned with papers, and a framed reviewer certificate hangs beside it.' },
   contact:  { n: '09', name: 'Contact Terminal', short: 'Contact', tag: 'Get in touch', accent: '#4dffa6', counts: false, x: 0, z: 3, rot: 0, iz: 2.4, ir: 3.4, az: 4.2, view: [0, 1.7, 2.1, 0, 1.45, -0.4], tease: 'email, LinkedIn, phone and résumé, open any time.' },
 };
 // The building: a high-bay research hall with modular lab rooms. Rooms are numbered like the stations they hold.
@@ -1229,6 +1399,20 @@ class AudioEngine {
   speak(text, lang) {
     if (!this.on || !('speechSynthesis' in window)) return;
     try { const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = 0.95; const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.toLowerCase().startsWith(lang.slice(0, 2))); if (v) u.voice = v; else if (lang !== 'en-IN') return; speechSynthesis.speak(u); } catch {}
+  }
+  /** LAB-E reads one line of the guided tour (only with sound on); any earlier line is cut off */
+  narrate(text) { if (!this.on) return; this.hush(); this.speak(text, 'en-IN'); }
+  hush() { try { if ('speechSynthesis' in window) speechSynthesis.cancel(); } catch {} }
+  /** a little soundtrack for each character move */
+  emote(id) {
+    if (!this.on || !this.ctx) return;
+    const T = o => this.tone(o), N = o => this.noiseBurst(o);
+    if (id === 'wave') { T({ f: 660, f2: 990, dur: 0.12, type: 'triangle', vol: 0.06 }); T({ f: 880, f2: 1320, dur: 0.12, type: 'triangle', vol: 0.05, delay: 0.14 }); }
+    else if (id === 'namaste') [523, 784, 1046].forEach((f, i) => T({ f, dur: 0.9, vol: 0.05, delay: i * 0.18 }));
+    else if (id === 'dance') for (let i = 0; i < 9; i++) { const d = i / 2.2; T({ f: 130, f2: 45, dur: 0.16, vol: 0.3, delay: d }); N({ dur: 0.05, freq: 7000, vol: 0.05, delay: d + 0.227, type: 'highpass' }); T({ f: [392, 494, 587, 659][i % 4], dur: 0.18, type: 'square', vol: 0.025, delay: d + 0.227 }); }
+    else if (id === 'robot') for (let i = 0; i < 12; i++) T({ f: 220 + ((i * 7) % 5) * 110, dur: 0.07, type: 'square', vol: 0.035, delay: i * 0.3 });
+    else if (id === 'flip') { N({ dur: 0.45, freq: 1400, vol: 0.12, delay: 0.25, type: 'bandpass' }); T({ f: 300, f2: 900, dur: 0.4, type: 'triangle', vol: 0.04, delay: 0.28 }); T({ f: 140, f2: 40, dur: 0.3, vol: 0.35, delay: 1.16 }); }
+    else if (id === 'cheer') { this.success(); N({ dur: 0.9, freq: 2500, vol: 0.06, delay: 0.1, type: 'bandpass' }); }
   }
 }
 
@@ -2381,6 +2565,25 @@ function randomLook() {
   });
 }
 const loadLook = () => sanitizeLook(store.get(AVATAR_KEY, null));
+// the character's moves: keys 1–6 or the emoji dock on the right edge. dur = seconds
+const EMOTES = [
+  { id: 'wave', emoji: '👋', name: 'Wave', dur: 2.4, quip: 'Hi there! 👋 Glad you dropped by the lab.' },
+  { id: 'namaste', emoji: '🙏', name: 'Namaste', dur: 2.7, quip: 'Namaste! 🙏 Thanks for visiting.' },
+  { id: 'dance', emoji: '💃', name: 'Dance', dur: 4.4, quip: "Nice moves! Akshat's models don't dance, but they do run in real time." },
+  { id: 'robot', emoji: '🤖', name: 'Robot dance', dur: 3.6, quip: "Hey, that's my dance! 🤖 Beep boop." },
+  { id: 'flip', emoji: '🤸', name: 'Backflip', dur: 1.55, quip: 'A backflip! The geophones in the Seismic Lab would love that landing.' },
+  { id: 'cheer', emoji: '🎉', name: 'Cheer', dur: 2.6, quip: 'Woo! 🎉 Celebrating already?' },
+];
+const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+// robot dance key poses. L / R arm: [shoulder x, shoulder z, elbow x, elbow z]; hy / hz head turn & tilt; sy chest twist
+const ROBOT_POSES = [
+  { L: [-0.15, 0.12, -1.57, 0], R: [-0.15, -0.12, -1.57, 0], hy: 0, hz: 0, sy: 0 },
+  { L: [-0.1, 0.1, -1.57, 0], R: [0, -1.57, 0, -1.57], hy: -0.5, hz: 0, sy: -0.25 },
+  { L: [0, 1.57, 0, 1.57], R: [-0.1, -0.1, -1.57, 0], hy: 0.5, hz: 0, sy: 0.25 },
+  { L: [-1.57, 0.05, 0, 0], R: [-1.57, -0.05, 0, 0], hy: 0, hz: 0.25, sy: 0 },
+  { L: [0, 1.57, 0, -1.57], R: [0, -1.57, 0, 1.57], hy: 0, hz: -0.25, sy: 0 },
+];
+const ROBOT_SEQ = [0, 1, 0, 2, 3, 0, 1, 2, 4, 3, 0, 0]; // one pose every 0.3 s
 let TEE_TEX = null;
 class Avatar {
   constructor(look) {
@@ -2580,6 +2783,70 @@ class Avatar {
   /** free the GPU copies of this outfit (the shared tee print texture stays cached) */
   dispose() { const seen = new Set(); this.root.traverse(o => { if (!o.isMesh) return; o.geometry.dispose(); if (!seen.has(o.material)) { seen.add(o.material); o.material.dispose(); } }); }
   wave(d = 2.4) { this.waveT = d; }
+  /** start one of the EMOTES moves (it blends over the idle / walk pose and fades out by itself) */
+  playEmote(E) { this.em = { id: E.id, t: 0, dur: E.dur }; if (E.id === 'wave') this.wave(E.dur); }
+  /** walking away ends a move early (a backflip always lands first) */
+  stopEmote() { if (this.em && this.em.id !== 'flip') this.em.dur = Math.min(this.em.dur, this.em.t + 0.22); }
+  updateEmote(dt, t, w, airborne) {
+    const Hp = this.hips, B = this.body, SP = this.spine, HD = this.head, arms = this.arms, legs = this.legs, [AL, AR] = arms;
+    // joints that only the moves turn go back to rest every frame; the active move sets them again below
+    Hp.rotation.set(0, 0, 0); B.rotation.y = 0; SP.rotation.z = 0; HD.rotation.z = 0; AL.el.rotation.z = 0;
+    for (const A of arms) A.sh.rotation.y = 0;
+    for (const L of legs) L.hip.rotation.z = 0;
+    const em = this.em; if (!em) return;
+    em.t += dt;
+    if (w > 0.35 || airborne) this.stopEmote();
+    if (em.t >= em.dur) { this.em = null; return; }
+    const p = em.t, e = clamp(Math.min(p / (em.id === 'flip' ? 0.08 : 0.22), (em.dur - p) / 0.25), 0, 1);
+    const R = (o, ax, v) => { o.rotation[ax] = lerp(o.rotation[ax], v, e); };
+    switch (em.id) {
+      case 'wave': // the right arm waves (see wave()); the left hand goes to the hip
+        R(AL.sh, 'z', 0.6); R(AL.sh, 'x', 0.1); R(AL.el, 'z', -1.55); R(AL.el, 'x', -0.25); R(HD, 'z', 0.12 * Math.sin(p * 3)); R(SP, 'z', -0.05);
+        break;
+      case 'namaste': { // palms together at the chest, then a small bow
+        for (const A of arms) { R(A.sh, 'x', -0.42); R(A.sh, 'z', A.s * 0.14); R(A.el, 'x', -2.3); R(A.el, 'z', -A.s * 0.8); }
+        const bow = smooth(0.55, 1.0, p) * (1 - smooth(1.7, 2.2, p));
+        R(SP, 'x', 0.42 * bow); R(HD, 'x', 0.1 + 0.3 * bow); R(HD, 'y', 0);
+        break;
+      }
+      case 'dance': { // ~132 bpm: bounce on every beat, sway the hips, pump the arms, spin in the middle
+        const ph = Math.PI * 2.2 * p, sw = Math.sin(ph), up = Math.abs(sw), spin = smooth(1.9, 2.6, p);
+        B.position.y += 0.05 * up * e;
+        for (const L of legs) { R(L.knee, 'x', 0.45 * (1 - up)); R(L.hip, 'x', -0.25 * (1 - up)); }
+        R(Hp, 'z', 0.1 * sw); R(SP, 'z', -0.16 * sw); R(HD, 'z', 0.1 * sw); R(HD, 'x', -0.06 + 0.12 * up); R(SP, 'y', 0.2 * Math.sin(ph * 0.5));
+        for (const A of arms) { const k = 0.5 + 0.5 * Math.sin(ph + (A.s > 0 ? 0 : Math.PI)); R(A.sh, 'z', A.s * (0.35 + 2.0 * k)); R(A.sh, 'x', -0.35); R(A.el, 'x', -0.25 - 1.1 * (1 - k)); }
+        R(B, 'y', spin < 1 ? TAU * spin : 0);
+        break;
+      }
+      case 'robot': { // snap from key pose to key pose every 0.3 s
+        const i = Math.min(ROBOT_SEQ.length - 1, Math.floor(p / 0.3)), m = smooth(0, 0.3, p / 0.3 - i);
+        const a = ROBOT_POSES[i ? ROBOT_SEQ[i - 1] : 0], b = ROBOT_POSES[ROBOT_SEQ[i]], mix = (u, v) => lerp(u, v, m);
+        [[AL, 'L'], [AR, 'R']].forEach(([A, k]) => { R(A.sh, 'x', mix(a[k][0], b[k][0])); R(A.sh, 'z', mix(a[k][1], b[k][1])); R(A.el, 'x', mix(a[k][2], b[k][2])); R(A.el, 'z', mix(a[k][3], b[k][3])); });
+        R(HD, 'y', mix(a.hy, b.hy)); R(HD, 'z', mix(a.hz, b.hz)); R(SP, 'y', mix(a.sy, b.sy));
+        for (const L of legs) R(L.knee, 'x', 0.12);
+        B.position.y += 0.025 * (1 - m) * e;
+        break;
+      }
+      case 'flip': { // crouch, jump, full backward somersault around the hips, land in a crouch
+        const u = clamp((p - 0.28) / 0.88, 0, 1), air = u > 0 && u < 1, tk = air ? Math.sin(u * Math.PI) : 0;
+        const c = air ? 0 : p < 0.28 ? smooth(0, 0.24, p) : 1 - smooth(1.16, 1.5, p);
+        B.position.y += (4 * u * (1 - u) - 0.16 * c) * e;
+        Hp.rotation.x = air ? -TAU * smooth(0, 1, u) : 0;
+        for (const L of legs) { R(L.hip, 'x', -0.8 * c - 1.7 * tk); R(L.knee, 'x', 1.3 * c + 2.1 * tk); }
+        for (const A of arms) { R(A.sh, 'x', air ? lerp(-2.8, -1.1, smooth(0.08, 0.35, u)) : 0.7 * c); R(A.sh, 'z', A.s * 0.15); R(A.el, 'x', air ? -0.9 * tk : -0.2 * c); }
+        R(SP, 'x', 0.3 * c + 0.4 * tk); R(HD, 'x', 0.3 * tk);
+        break;
+      }
+      case 'cheer': { // both fists up, pumping, with little hops
+        const hop = Math.max(0, Math.sin(p * TAU * 1.3));
+        B.position.y += 0.2 * hop * e;
+        for (const A of arms) { const pump = Math.sin(p * 14 + A.s); R(A.sh, 'z', A.s * (2.45 + 0.12 * pump)); R(A.sh, 'x', -0.25); R(A.el, 'x', -0.25 - 0.35 * (0.5 + 0.5 * pump)); }
+        for (const L of legs) { R(L.knee, 'x', 0.5 * hop); R(L.hip, 'x', -0.25 * hop); }
+        R(HD, 'x', -0.22); R(HD, 'y', 0); R(SP, 'x', -0.06);
+        break;
+      }
+    }
+  }
   update(dt, speed, airborne, jumpY, t) {
     const w = clamp(speed / 3, 0, 1), run = clamp((speed - 4.6) / 2.4, 0, 1), idle = 1 - w;
     if (w > 0.02) this.phase += dt * (3.0 + speed * 1.9);
@@ -2606,8 +2873,9 @@ class Avatar {
     this.torso.scale.y = 1 + Math.sin(t * 2.2) * 0.018 * idle;
     this.head.rotation.y = lerp(this.head.rotation.y, (REDUCED ? 0 : Math.sin(t * 0.5) * 0.35) * idle + (this.waveT > 0 ? 0.2 : 0), k);
     this.head.rotation.x = Math.sin(t * 0.37) * 0.05 * idle;
+    this.updateEmote(dt, t, w, airborne);
     this.blinkT -= dt; const bl = this.blinkT < 0.1 ? 0.12 : 1; if (this.blinkT < 0) this.blinkT = rand(2.5, 5); for (const e of this.eyes) e.scale.y = bl;
-    const sh = clamp(1 - jumpY * 0.6, 0.4, 1); this.shadow.scale.setScalar(sh); this.shadow.material.opacity = 0.32 * sh;
+    const sh = clamp(1 - Math.max(jumpY, this.body.position.y - 0.05) * 0.6, 0.4, 1); this.shadow.scale.setScalar(sh); this.shadow.material.opacity = 0.32 * sh;
     this.sitK = damp(this.sitK || 0, this.sitTarget || 0, 6, dt);
     if (this.sitK > 0.001) { // seated at the desk: thighs forward, shins down, hands on the keyboard
       const s = this.sitK;
@@ -2642,7 +2910,7 @@ class Player {
   /** swap in a newly dressed avatar, carrying over its pose */
   setLook(look) {
     const old = this.avatar, nu = new Avatar(look), scene = this.game.world.scene;
-    nu.sitTarget = old.sitTarget; nu.sitK = old.sitK; nu.phase = old.phase; nu.blinkT = old.blinkT; nu.root.visible = old.root.visible;
+    nu.sitTarget = old.sitTarget; nu.sitK = old.sitK; nu.phase = old.phase; nu.blinkT = old.blinkT; nu.root.visible = old.root.visible; nu.em = old.em; nu.waveT = old.waveT;
     scene.remove(old.root); old.dispose(); scene.add(nu.root); this.avatar = nu; this.animate(0);
     return nu;
   }
@@ -2653,12 +2921,18 @@ class Player {
     this.avatar.sitTarget = 0; clearTimeout(this.standTimer);
     this.standTimer = setTimeout(() => { this.pos.set(x, 0, z); }, 450);
   }
-  teleport(x, z, faceX, faceZ) {
+  /** snapCam = false leaves the camera where it is (the guided tour flies it separately) */
+  teleport(x, z, faceX, faceZ, snapCam = true) {
     clearTimeout(this.standTimer); this.avatar.sitTarget = 0; this.avatar.sitK = 0;
-    this.pos.set(x, 0, z); this.vel.set(0, 0); this.jumpY = 0; this.vy = 0; this.grounded = true;
+    this.pos.set(x, 0, z); this.vel.set(0, 0); this.jumpY = 0; this.vy = 0; this.grounded = true; this.faceTarget = null;
     // face the station even if the cursor is off-centre: the base angles absorb the current mouse-look offset
     const dx = faceX - x, dz = faceZ - z; this.facing = Math.atan2(dx, dz); this.yaw = Math.atan2(-dx, -dz) - this.aimYaw(); this.pitch = 0.3 - this.aimPitch();
-    this.animate(0); this.updateCamera(0, true);
+    this.animate(0); if (snapCam) this.updateCamera(0, true);
+  }
+  /** play a move from EMOTES, turned towards the camera so the visitor sees it from the front */
+  emote(E) {
+    this.vel.set(0, 0); this.faceTarget = new THREE.Vector3(this.cam.position.x, 0, this.cam.position.z);
+    this.avatar.playEmote(E);
   }
   headPos(v = new THREE.Vector3()) { return v.set(this.pos.x, 1.5 + this.jumpY, this.pos.z); }
   look(dx, dy) { this.yaw -= dx; this.pitch = clamp(this.pitch + dy, -0.25, 1.15); }
@@ -2767,8 +3041,14 @@ class LabE {
     const away = this.game.state === 'custom'; // in the avatar studio LAB-E hangs back so the camera sees the face
     this._o.set(away ? -0.8 : -0.62, (away ? 2.3 : 2.05) + (REDUCED ? 0 : Math.sin(t * 1.7) * 0.07), away ? -1.3 : -0.15).applyAxisAngle(Y_AXIS, P.facing);
     this.target.set(P.pos.x, P.jumpY * 0.5, P.pos.z).add(this._o);
+    // LAB-E joins in when the character does a move: bops to the dances, spins with a backflip, nods to a wave or namaste
+    const em = REDUCED ? null : P.avatar.em, party = em && (em.id === 'dance' || em.id === 'robot' || em.id === 'cheer');
+    if (party) this.target.y += Math.abs(Math.sin(t * 7)) * 0.18;
     const k = this.snap ? 1 : 1 - Math.exp(-3.5 * dt); g.position.lerp(this.target, k); this.snap = false;
     g.lookAt(cam.position);
+    if (party) g.rotateZ(Math.sin(t * 7) * 0.35);
+    else if (em && em.id === 'flip') g.rotateY(TAU * smooth(0.28, 1.16, em.t));
+    else if (em) g.rotateX(Math.sin(em.t * 5) * 0.22);
     this.ring.rotation.z += dt * 1.4;
     this.blinkT -= dt; const blink = this.blinkT < 0.12 ? 0.15 : 1; if (this.blinkT < 0) this.blinkT = rand(2.5, 5.5);
     for (const eye of this.eyes) eye.scale.y = blink;
@@ -2855,7 +3135,8 @@ class Station {
       const bv = this.game.state === 'play' && this.armed !== false && this.dist < 20; this.beacon.visible = bv;
       if (bv) { this.beacon.position.y = (this.zoneY > 0.1 ? 2.1 : 1.9) + (REDUCED ? 0 : Math.sin(t * 2.6 + this.meta.x) * 0.14); this.beacon.rotation.y += dt * 1.6; }
     }
-    if (this.labelObj) this.labelObj.visible = (this.game.state === 'play' || this.game.state === 'paused') && this.dist < (this.labelDist || 30);
+    const gs = this.game.state; // the guided tour's opening bird's-eye shot names every room
+    if (this.labelObj) this.labelObj.visible = ((gs === 'play' || gs === 'paused') && this.dist < (this.labelDist || 30)) || (gs === 'tour' && this.game.tourI === 0 && !this.game.tourTw);
   }
   panelGame(el) { el.innerHTML = `<h3>Station online</h3><p>Mini-game for this station is being wired up.</p>`; }
   details() { return null; }
@@ -3540,8 +3821,8 @@ class MyRoom extends Station {
   panelGame(el) {
     const p = this.game.progress, L = LINKS;
     const ctr = IS_TOUCH
-      ? '<dt>Walk</dt><dd>left thumb joystick</dd><dt>Camera</dt><dd>drag on the right</dd><dt>Open a station</dt><dd>walk onto its glowing circle</dd>'
-      : '<dt>Walk</dt><dd><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> · <kbd>Shift</kbd> run · <kbd>Space</kbd> jump</dd><dt>Camera</dt><dd>follows the mouse · screen edge keeps turning · drag to turn · scroll to zoom</dd><dt>Open a station</dt><dd>walk onto its glowing circle</dd><dt>Map · Contact</dt><dd><kbd>M</kbd> · <kbd>C</kbd></dd>';
+      ? '<dt>Walk</dt><dd>left thumb joystick</dd><dt>Camera</dt><dd>drag on the right</dd><dt>Open a station</dt><dd>walk onto its glowing circle</dd><dt>Moves</dt><dd>the emoji buttons on the right</dd><dt>Guided tour</dt><dd>tap 🧭</dd>'
+      : '<dt>Walk</dt><dd><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> · <kbd>Shift</kbd> run · <kbd>Space</kbd> jump</dd><dt>Camera</dt><dd>follows the mouse · screen edge keeps turning · drag to turn · scroll to zoom</dd><dt>Open a station</dt><dd>walk onto its glowing circle</dd><dt>Moves</dt><dd><kbd>1</kbd>–<kbd>6</kbd> or the emoji dock on the right</dd><dt>Tour · Map · Contact</dt><dd><kbd>T</kbd> · <kbd>M</kbd> · <kbd>C</kbd></dd>';
     el.innerHTML = `
       <h3>Welcome to my room 👋</h3>
       <p><b>I'm Akshat Rawat, an AI/ML engineer working on edge AI, computer vision and LLMs for real-world, deployed systems.</b></p>
@@ -4349,7 +4630,30 @@ const PUB_CARDS = [
   { kind: 'paper', venue: 'ISICVA 2026', status: 'Presented', title: 'Interpretable Spatial-Temporal Deepfake Detection Using 3D Facial Geometry and Sequential Deep Learning', link: (LL.papers && LL.papers.deepfake1) || '#TODO-paper-deepfake-1' },
   { kind: 'paper', venue: 'ISICVA 2026', status: 'Presented', title: 'Towards Robust Deepfake Detection: A Survey on 3D Facial Geometry and Audio-Visual Synchronization', link: (LL.papers && LL.papers.deepfake2) || '#TODO-paper-deepfake-2' },
   { kind: 'ip', venue: 'Copyright', status: 'Accepted', title: 'CycloAI – Cyclone Alert Warning System', link: null },
+  { kind: 'cert', venue: 'WcAISR-2027', status: 'Technical Reviewer', title: 'Certificate of Appreciation for peer review · IEEE RAS technically co-sponsored conference', link: null },
 ];
+// Technical Reviewer certificate (WcAISR-2027): PDF from the labLinks block, plus a JPG of it for the wall frame and the panels
+const CERT = {
+  pdf: (LL.certificates && LL.certificates.wcaisr) || 'certificates/WcAISR-2027-Technical-Reviewer-Certificate.pdf',
+  img: 'certificates/WcAISR-2027-Technical-Reviewer-Certificate.jpg',
+  alt: 'Certificate of Appreciation presented to Mr. Akshat Rawat as Technical Reviewer of WcAISR-2027',
+};
+const CERT_SPOT = { x: 5.75, y: 2.2 }; // on the Edu wall (station-local), right of the corkboard
+/** stand-in drawn on a canvas until the real certificate image has loaded (or if it can't) */
+function drawCertCard(ctx, W, H) {
+  ctx.fillStyle = '#fbf8f1'; ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = '#1b2b49'; ctx.lineWidth = W * 0.016; ctx.strokeRect(W * 0.02, W * 0.02, W * 0.96, H - W * 0.04);
+  ctx.strokeStyle = '#c49a45'; ctx.lineWidth = W * 0.003; ctx.strokeRect(W * 0.045, W * 0.045, W * 0.91, H - W * 0.09);
+  ctx.textAlign = 'center'; ctx.fillStyle = '#1b2b49';
+  ctx.font = `700 ${W * 0.022}px ${FONT_SANS}`; ctx.fillText('WORLD CONFERENCE ON AUTONOMOUS INTELLIGENT SYSTEMS & ROBOTICS', W / 2, H * 0.2);
+  ctx.font = `700 ${W * 0.062}px Georgia, serif`; ctx.fillText('CERTIFICATE OF APPRECIATION', W / 2, H * 0.37);
+  ctx.font = `italic ${W * 0.024}px Georgia, serif`; ctx.fillText('This certificate is proudly presented to', W / 2, H * 0.46);
+  ctx.font = `700 ${W * 0.052}px Georgia, serif`; ctx.fillText('Mr. Akshat Rawat', W / 2, H * 0.57);
+  ctx.fillStyle = '#c49a45'; ctx.fillRect(W * 0.3, H * 0.6, W * 0.4, H * 0.004);
+  ctx.fillStyle = '#1b2b49'; ctx.font = `700 ${W * 0.03}px ${FONT_SANS}`; ctx.fillText('TECHNICAL REVIEWER', W / 2, H * 0.68);
+  ctx.font = `${W * 0.022}px Georgia, serif`; ctx.fillText('WcAISR-2027 · technically co-sponsored by IEEE RAS', W / 2, H * 0.76);
+  ctx.font = `${W * 0.018}px ${FONT_SANS}`; ctx.fillText('Chandigarh University, Mohali, Punjab, India', W / 2, H * 0.9);
+}
 class EduWall extends Station {
   build() {
     const g = this.group, A = this.meta.accent, wz = -4.2;
@@ -4381,6 +4685,7 @@ class EduWall extends Station {
     this.cards = [];
     const spots = [[0.6, 2.82], [2.35, 2.85], [0.55, 1.62], [2.3, 1.6], [3.75, 2.25]];
     PUB_CARDS.forEach((p, i) => {
+      if (p.kind === 'cert') { const c = this.buildCert(i, wz); this.cards.push(c); this.hoverables.push(c); return; }
       const { ctx, tex } = makeCanvas(420, 280), ip = p.kind === 'ip';
       ctx.fillStyle = ip ? '#fff6dc' : '#f2f5fb'; ctx.fillRect(0, 0, 420, 280);
       if (ip) { ctx.strokeStyle = '#c99a2e'; ctx.lineWidth = 10; ctx.strokeRect(8, 8, 404, 264); }
@@ -4401,20 +4706,47 @@ class EduWall extends Station {
     this.solid(0, -2.6, 2.3, 0.6, 0.6);
     this.sel = -1;
   }
-  details() { const d = document.createElement('div'); const e = cloneSection('edu'); if (e) d.append(e); return d; }
-  hoverInfo(obj) { if (obj.userData.card == null) return null; const p = PUB_CARDS[obj.userData.card]; return { title: p.kind === 'ip' ? 'Copyright · CycloAI' : `Paper · ${p.venue}`, sub: p.status, hot: true, key: 'E', onUse: () => { this.game.openStation(this); setTimeout(() => this.select(obj.userData.card), 50); } }; }
+  /** the framed reviewer certificate to the right of the corkboard. Returns the picture (the clickable part; the frame rides on it) */
+  buildCert(i, wz) {
+    const g = this.group, X = CERT_SPOT.x, Y = CERT_SPOT.y, w = 1.5, h = w * 1132 / 1600;
+    const cv = makeCanvas(1024, 724); drawCertCard(cv.ctx, 1024, 724);
+    const picMat = new THREE.MeshStandardMaterial({ map: cv.tex, roughness: 0.55 });
+    const pic = new THREE.Mesh(new THREE.PlaneGeometry(w, h), picMat); pic.position.set(X, Y, wz + 0.07); g.add(pic);
+    const frame = box(w + 0.16, h + 0.16, 0.05, std(0x1c2a44, { roughness: 0.45, metalness: 0.35 })); frame.position.z = -0.03; pic.add(frame);
+    const gilt = box(w + 0.05, h + 0.05, 0.01, std(0xc9a24a, { roughness: 0.35, metalness: 0.6 })); gilt.position.z = -0.009; pic.add(gilt);
+    new THREE.TextureLoader().load(CERT.img, tex => { tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8; picMat.map = tex; picMat.needsUpdate = true; cv.tex.dispose(); }, undefined, () => { /* keep the drawn stand-in */ });
+    // picture light above, brass plaque below
+    const lamp = new THREE.Group(); const arm = box(1.1, 0.05, 0.12, std(0x2b2f3a, { metalness: 0.7 })); lamp.add(arm); const strip = box(1.0, 0.02, 0.02, glow('#ffe2b8', 2.2)); strip.position.set(0, -0.035, 0.04); lamp.add(strip);
+    lamp.position.set(X, Y + h / 2 + 0.2, wz + 0.14); g.add(lamp);
+    const plq = textPlane('TECHNICAL REVIEWER · WcAISR-2027', { height: 0.1, color: '#ffe2b8', bg: 'rgba(24,28,40,0.92)', border: '#c9a24a', pad: 0.5 }); plq.position.set(X, Y - h / 2 - 0.2, wz + 0.04); g.add(plq);
+    pic.userData = { owner: this, card: i, base: pic.position.clone(), rz: 0, pop: 0.05, zoom: 1.02 }; // the camera already glides in close
+    return pic;
+  }
+  /** close-up of the certificate frame (local space → world) */
+  certView() { const p = this.toWorld(CERT_SPOT.x - 0.45, 2.25, -0.85), t = this.toWorld(CERT_SPOT.x, CERT_SPOT.y, -4.1); return { pos: p, target: t }; }
+  details() { const d = document.createElement('div'); for (const k of ['edu', 'certs']) { const e = cloneSection(k); if (e) d.append(e); } return d; }
+  hoverInfo(obj) {
+    if (obj.userData.card == null) return null; const p = PUB_CARDS[obj.userData.card];
+    const title = p.kind === 'cert' ? 'Certificate · Technical Reviewer' : p.kind === 'ip' ? 'Copyright · CycloAI' : `Paper · ${p.venue}`;
+    return { title, sub: p.kind === 'cert' ? 'WcAISR-2027 · IEEE RAS co-sponsored · click to read' : p.status, hot: true, key: 'E', onUse: () => { this.game.openStation(this); setTimeout(() => this.select(obj.userData.card), 50); } };
+  }
   select(i) {
     this.sel = i; this.game.audio.blip();
+    const p = PUB_CARDS[i], g = this.game, cert = p.kind === 'cert';
+    // the camera glides over to the certificate frame (it hangs right of the corkboard) and back again for the cards
+    if (g.state === 'station' && g.active === this && (cert || this.atCert)) { const v = cert ? this.certView() : this.viewPose(); g.flyTo(v.pos, v.target, REDUCED ? 0.01 : 0.9); }
+    this.atCert = cert && g.state === 'station';
     if (this.ro && this.ro.isConnected) {
       this.ro.querySelectorAll('[data-c]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.c === i)));
-      const p = PUB_CARDS[i], box = this.ro.querySelector('[data-k=sel]');
-      box.innerHTML = `<span class="pill ${p.status === 'Presented' || p.status === 'Accepted' ? 'green' : 'amber'}">${p.venue} · ${p.status}</span><h4 style="margin:.5em 0 .3em;font-size:15.5px;line-height:1.35">${p.title}</h4>${p.link ? (p.link.startsWith('#TODO') ? `<a href="${p.link}" class="todo">paper link (${p.link})</a>` : `<a href="${p.link}" target="_blank" rel="noopener noreferrer">Read the paper ↗</a>`) :'<span class="demo-note">Copyright accepted for the deployed CycloAI alert warning system.</span>'}`;
+      const box = this.ro.querySelector('[data-k=sel]');
+      if (cert) box.innerHTML = `<span class="pill green">Certificate of Appreciation</span><h4 style="margin:.5em 0 .3em;font-size:15.5px;line-height:1.35">Technical Reviewer · WcAISR-2027</h4><p style="margin:.2em 0 .5em;font-size:13.5px;color:var(--muted);line-height:1.5">World Conference on Autonomous Intelligent Systems &amp; Robotics, technically co-sponsored by the IEEE Robotics and Automation Society (IEEE Record No. 72076) · Chandigarh University, Mohali. Recognised for expert peer-review evaluations and constructive feedback.</p><a href="${esc(CERT.pdf)}" target="_blank" rel="noopener noreferrer">View the certificate (PDF) ↗</a>`;
+      else box.innerHTML = `<span class="pill ${p.status === 'Presented' || p.status === 'Accepted' ? 'green' : 'amber'}">${p.venue} · ${p.status}</span><h4 style="margin:.5em 0 .3em;font-size:15.5px;line-height:1.35">${p.title}</h4>${p.link ? (p.link.startsWith('#TODO') ? `<a href="${p.link}" class="todo">paper link (${p.link})</a>` : `<a href="${p.link}" target="_blank" rel="noopener noreferrer">Read the paper ↗</a>`) :'<span class="demo-note">Copyright accepted for the deployed CycloAI alert warning system.</span>'}`;
     }
   }
   panelGame(el) {
     el.innerHTML = `
-      <h3>Corkboard · 4 presented papers + 1 copyright</h3>
-      <p>Click a card on the board (or a button below) to read it.</p>
+      <h3>Wall · 4 papers · 1 copyright · 1 reviewer certificate</h3>
+      <p>Click a card on the corkboard, the framed certificate beside it, or a button below to read it.</p>
       <div class="list-btns" data-k="list">${PUB_CARDS.map((p, i) => `<button type="button" data-c="${i}" aria-pressed="false"><b>${p.venue}</b> · ${p.status}<br><span style="color:var(--muted)">${p.title}</span></button>`).join('')}</div>
       <div class="minicard" data-k="sel" aria-live="polite"><span class="demo-note">No card selected yet.</span></div>`;
     this.ro = el;
@@ -4426,11 +4758,11 @@ class EduWall extends Station {
     this.game.world.renderer.domElement.style.cursor = hit ? 'pointer' : '';
     if (type === 'down' && hit) this.select(hit.object.userData.card);
   }
-  onClose() { this.game.world.renderer.domElement.style.cursor = ''; }
+  onClose() { this.game.world.renderer.domElement.style.cursor = ''; this.atCert = false; }
   update(dt, t, near) {
     super.update(dt, t, near);
     if (!near) return;
-    this.cards.forEach((c, i) => { const on = i === this.sel && this.game.active === this; c.position.z = damp(c.position.z, c.userData.base.z + (on ? 0.25 : 0), 8, dt); const s = damp(c.scale.x, on ? 1.18 : 1, 8, dt); c.scale.setScalar(s); c.rotation.z = damp(c.rotation.z, on ? 0 : c.userData.rz, 8, dt); });
+    this.cards.forEach((c, i) => { const on = i === this.sel && this.game.active === this; c.position.z = damp(c.position.z, c.userData.base.z + (on ? c.userData.pop || 0.25 : 0), 8, dt); const s = damp(c.scale.x, on ? c.userData.zoom || 1.18 : 1, 8, dt); c.scale.setScalar(s); c.rotation.z = damp(c.rotation.z, on ? 0 : c.userData.rz, 8, dt); });
   }
 }
 
@@ -4518,9 +4850,83 @@ class UI {
     this.el.panel.addEventListener('keydown', e => this.trapFocus(e, this.el.panel));
     this.el.map.addEventListener('keydown', e => this.trapFocus(e, this.el.map));
     this.hintTimer = 0; this.toastTimer = 0; this.miniT = 0;
-    addEventListener('resize', () => { if (this.panelOpen) this.measurePanel(); });
+    addEventListener('resize', () => { if (this.panelOpen) this.measurePanel(); if (this.tourOpen) this.measureTour(); });
     this.updateMission();
+    this.initMoves(); this.initTour();
   }
+  // ---------- character moves dock (right edge)
+  initMoves() {
+    const g = this.g, dock = this.el.emotes = $('#emotes'), list = $('#emoteList'), tg = $('#emoteToggle');
+    list.innerHTML = EMOTES.map((E, i) => `<button type="button" class="emo-b" data-emote="${E.id}" data-label="${E.name}" aria-label="${E.name} (${i + 1})"><span aria-hidden="true">${E.emoji}</span><kbd aria-hidden="true">${i + 1}</kbd></button>`).join('');
+    // e.detail > 0: a real click, so drop focus again (a focused button would also fire on the Space jump key)
+    list.addEventListener('click', e => { const b = e.target.closest('[data-emote]'); if (!b) return; g.emote(b.dataset.emote); if (e.detail) b.blur(); });
+    const setOpen = (on, save) => { dock.dataset.open = String(on); tg.setAttribute('aria-expanded', String(on)); tg.title = on ? 'Hide moves' : 'Show moves (1–6)'; if (save) store.set('akshat-ai-edge-lab:moves-open', on); };
+    setOpen(store.get('akshat-ai-edge-lab:moves-open', true) !== false, false);
+    tg.addEventListener('click', e => { setOpen(dock.dataset.open !== 'true', true); g.audio.blip(); if (e.detail) tg.blur(); });
+  }
+  /** light up the dock button of the move that is playing ('' = none) */
+  markEmote(id) { for (const b of this.el.emotes.querySelectorAll('[data-emote]')) b.classList.toggle('on', b.dataset.emote === id); }
+  // ---------- guided tour: the invitation + the tour card
+  initTour() {
+    const g = this.g, el = this.el;
+    Object.assign(el, { ask: $('#tourAsk'), tour: $('#tour'), tourBody: $('#tourBody'), tourStep: $('#tourStep'), tourBar: $('#tourBar'), tourDots: $('#tourDots'), tourPrev: $('#tourPrev'), tourNext: $('#tourNext'), tourPlay: $('#tourPlay'), tourBtn: $('#tourBtn') });
+    $('#tourYes').addEventListener('click', () => g.acceptTour());
+    $('#tourNo').addEventListener('click', () => g.declineTour());
+    el.ask.addEventListener('keydown', e => this.trapFocus(e, el.ask));
+    el.tourBtn.addEventListener('click', () => (g.state === 'tour' ? g.endTour() : g.startTour()));
+    $('#mapTour').addEventListener('click', () => g.startTour());
+    $('#tourClose').addEventListener('click', () => g.endTour());
+    el.tourPrev.addEventListener('click', () => g.tourStep(-1));
+    el.tourNext.addEventListener('click', () => g.tourStep(1));
+    el.tourPlay.addEventListener('click', () => g.toggleTourAuto());
+    el.tourDots.innerHTML = TOUR.map((S, k) => { const t = esc(S.title.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&')); return `<button type="button" data-k="${k}" style="--d:${S.accent || LAYOUT[S.id].accent}" aria-label="Stop ${k + 1}: ${t}" title="${k + 1}. ${t}"></button>`; }).join('');
+    el.tourDots.addEventListener('click', e => { const b = e.target.closest('[data-k]'); if (b) g.tourGo(+b.dataset.k); });
+    el.tourBody.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.tourOpen) g.tourOpenStation(b.dataset.tourOpen);
+      else if (b.dataset.tourTerm) { g.endTour({ instant: true, silent: true }); g.openTerminal(); }
+      else if (b.dataset.tourEnd) g.endTour({ finished: true });
+    });
+    // reading pauses the auto-play: the mouse over the card, or a finger on it (scrolling the text)
+    el.tour.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') g.tourHover = true; });
+    el.tour.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') g.tourHover = false; });
+    el.tour.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') g.tourHold = Math.max(g.tourHold || 0, 6); });
+    el.tourBody.addEventListener('scroll', () => { if (!g.tourHover) g.tourHold = Math.max(g.tourHold || 0, 4); }, { passive: true });
+    el.tour.addEventListener('keydown', e => this.trapFocus(e, el.tour));
+  }
+  showAsk(on) {
+    const el = this.el; el.ask.hidden = !on;
+    if (!on) return;
+    $('#tourAskTitle').textContent = this.g.progress.count ? 'Welcome back to the lab!' : 'Welcome to the lab!';
+    setTimeout(() => { try { $('#tourYes').focus({ preventScroll: true }); } catch {} }, 80);
+  }
+  showTour(on) {
+    const el = this.el; this.tourOpen = on;
+    el.tour.classList.toggle('open', on); el.tour.setAttribute('aria-hidden', String(!on));
+    if (on) requestAnimationFrame(() => this.measureTour()); else this.tourRect = null;
+  }
+  measureTour() { const r = this.el.tour.getBoundingClientRect(); this.tourRect = { w: r.width, h: r.height, sheet: r.left < 20 }; }
+  renderTour(i) {
+    const g = this.g, el = this.el, S = TOUR[i], st = S.id ? g.stations[S.id] : null, n = TOUR.length, last = i === n - 1;
+    el.tour.style.setProperty('--c', S.accent || st.meta.accent);
+    el.tourStep.textContent = `Stop ${i + 1} of ${n}${st ? ' · ' + st.meta.short : ''}`;
+    const cert = S.cert ? `<a class="cert-thumb" href="${esc(CERT.pdf)}" target="_blank" rel="noopener noreferrer" title="Open the certificate (PDF)"><img src="${esc(CERT.img)}" width="1600" height="1132" alt="${esc(CERT.alt)}"></a>` : '';
+    const fin = S.final ? `<div class="row"><button class="btn small primary" type="button" data-tour-term="1">💬 Open the Contact Terminal</button>${resumeBtn('btn small')}<button class="btn small" type="button" data-tour-end="1">✓ Finish the tour</button></div>` : '';
+    el.tourBody.innerHTML = `<div class="tag">${S.kicker}</div><h2>${S.title}</h2><p class="tour-lead">${S.lead}</p>`
+      + (S.pts ? `<ul class="tour-pts">${S.pts.map(p => `<li>${p}</li>`).join('')}</ul>` : '')
+      + (S.out ? `<p class="tour-out">${S.out}</p>` : '') + cert
+      + (S.chips ? `<div class="tour-chips">${S.chips.map(c => `<span class="pill">${c}</span>`).join('')}</div>` : '')
+      + (S.try && st ? `<div class="tour-try"><span>🎮 <b>In the lab:</b> ${S.try}</span><button class="btn small" type="button" data-tour-open="${S.id}">Try it now →</button></div>` : '') + fin;
+    el.tourBody.scrollTop = 0;
+    [...el.tourBody.children].forEach((c, k) => { c.classList.remove('rise'); c.style.setProperty('--i', Math.min(k, 8)); void c.offsetWidth; c.classList.add('rise'); });
+    [...el.tourDots.children].forEach((d, k) => { d.setAttribute('aria-current', k === i ? 'step' : 'false'); d.classList.toggle('seen', k < i); });
+    el.tourPrev.disabled = i === 0;
+    el.tourNext.textContent = last ? 'Finish ✓' : 'Next ▶';
+    this.renderTourPlay();
+    requestAnimationFrame(() => this.measureTour());
+  }
+  renderTourPlay() { const on = !!this.g.tourAuto, b = this.el.tourPlay; b.textContent = on ? '⏸ Pause' : '▶ Auto-play'; b.setAttribute('aria-pressed', String(on)); }
+  tourProgress(k) { const w = Math.round(clamp(k, 0, 1) * 1000) / 10 + '%'; if (this.el.tourBar.style.width !== w) this.el.tourBar.style.width = w; }
   trapFocus(e, root) {
     if (e.key !== 'Tab') return;
     const f = [...root.querySelectorAll('button:not([disabled]), a[href], input, [tabindex]:not([tabindex="-1"])')].filter(n => n.offsetParent !== null);
@@ -4692,7 +5098,7 @@ class Terminal {
       else if (e.key === 'ArrowUp') { e.preventDefault(); if (this.hist.length) { this.hi = this.hi < 0 ? this.hist.length - 1 : Math.max(0, this.hi - 1); this.input.value = this.hist[this.hi]; } }
       else if (e.key === 'ArrowDown') { e.preventDefault(); if (this.hi >= 0) { this.hi++; if (this.hi >= this.hist.length) { this.hi = -1; this.input.value = ''; } else this.input.value = this.hist[this.hi]; } }
       else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); game.closeTerminal(); }
-      else if (e.key === 'Tab' && this.input.value) { e.preventDefault(); const m = ['email', 'linkedin', 'phone', 'resume', 'whoami', 'projects', 'help', 'clear', 'exit', 'classic', 'github', 'duck', 'avatar'].find(c => c.startsWith(this.input.value.toLowerCase())); if (m) this.input.value = m; }
+      else if (e.key === 'Tab' && this.input.value) { e.preventDefault(); const m = ['email', 'linkedin', 'phone', 'resume', 'whoami', 'projects', 'papers', 'certs', 'tour', 'moves', 'help', 'clear', 'exit', 'classic', 'github', 'duck', 'avatar'].find(c => c.startsWith(this.input.value.toLowerCase())); if (m) this.input.value = m; }
       else game.audio.key();
     });
     this.out.addEventListener('click', e => {
@@ -4729,7 +5135,7 @@ class Terminal {
     const P = (h) => this.print(h);
     switch (c) {
       case 'help': case '?': case 'man':
-        P('Commands:\n  <b>email</b>      email address (copy / open mail)\n  <b>linkedin</b>   LinkedIn profile\n  <b>phone</b>      phone number\n  <b>resume</b>     résumé (PDF)\n  <b>whoami</b>     who built this lab\n  <b>projects</b>   what is in the lab\n  <b>avatar</b>     customise your character\n  <b>classic</b>    one-page classic view\n  <b>clear</b>      clear the screen\n  <b>exit</b>       back to the lab'); break;
+        P('Commands:\n  <b>email</b>      email address (copy / open mail)\n  <b>linkedin</b>   LinkedIn profile\n  <b>phone</b>      phone number\n  <b>resume</b>     résumé (PDF)\n  <b>whoami</b>     who built this lab\n  <b>projects</b>   what is in the lab\n  <b>papers</b>     papers, copyright &amp; certificate\n  <b>certs</b>      reviewer certificate (PDF)\n  <b>tour</b>       guided tour of every project\n  <b>moves</b>      make your character dance\n  <b>avatar</b>     customise your character\n  <b>classic</b>    one-page classic view\n  <b>clear</b>      clear the screen\n  <b>exit</b>       back to the lab'); break;
       case 'email': case 'mail': case 'cat email.txt':
         P(`${LINKS.email} ${cp(LINKS.email)} <a href="mailto:${LINKS.email}">open mail ↗</a>`); this.g.audio.blip(); break;
       case 'linkedin': case 'in': case 'cat linkedin.url':
@@ -4745,7 +5151,12 @@ class Terminal {
       case 'projects': case 'ls stations':
         P('  02 CycloAI      deployed cloud–edge cyclone alerts, Kusumpur (Odisha) · copyright accepted\n  03 Smart Village  8 geophones · 2× ADS131A04 · Raspberry Pi edge processing\n  04 Deepfakes    3D facial geometry + audio-visual cues (thesis, 2 ISICVA papers)\n  05 Sports CV    pose estimation · rep counting · shuttle trajectory (STPI Mohali)\n  06 ASL          real-time A–Z CNN, ~80% accuracy, webcam inference'); break;
       case 'ls': P('email.txt  linkedin.url  phone.txt  resume.pdf  stations/  papers/'); break;
-      case 'ls papers': case 'papers': P('ETTIS 2026 · RICE, Goa · ISICVA 2026 ×2: all 4 papers presented · + CycloAI copyright (accepted)'); break;
+      case 'ls papers': case 'papers': P('ETTIS 2026 · RICE, Goa · ISICVA 2026 ×2: all 4 papers presented · + CycloAI copyright (accepted)\n+ Technical Reviewer, WcAISR-2027 (IEEE RAS technically co-sponsored) · certificate of appreciation · type <b>certs</b>'); break;
+      case 'certs': case 'certificates': case 'certificate': case 'awards': case 'cert':
+        P(`<b>Certificate of Appreciation · Technical Reviewer</b>\nWcAISR-2027 · World Conference on Autonomous Intelligent Systems &amp; Robotics\nTechnically co-sponsored by IEEE RAS (IEEE Record No. 72076) · Chandigarh University, Mohali\n<a href="${esc(CERT.pdf)}" target="_blank" rel="noopener noreferrer">View the certificate (PDF) ↗</a>`); this.g.audio.blip(); break;
+      case 'tour': case 'guide': case 'guided tour': this.g.startTour(); break;
+      case 'moves': case 'emotes': case 'dance':
+        P(EMOTES.map((E, i) => `  <b>${i + 1}</b>  ${E.emoji} ${E.name}`).join('\n') + `\n${IS_TOUCH ? 'Tap the emoji buttons on the right edge of the lab.' : 'Press 1–6 in the lab, or click the emoji dock on the right edge.'}`); break;
       case 'classic': window.LabShell && LabShell.openClassic(); break;
       case 'avatar': case 'wardrobe': case 'customise': case 'customize': this.g.openStudio(); break;
       case 'clear': case 'cls': this.out.innerHTML = ''; break;
@@ -4830,6 +5241,63 @@ class Confetti {
 /* =====================================================================
    11. GAME — state machine, input, interaction, camera fly-to, loop
    ===================================================================== */
+/* ---------------------------------------------------------------------
+   GUIDED TOUR — LAB-E flies the camera to each stop and explains it.
+   Facts mirror the classic view. cam: world camera [pos, look], or
+   station-local when local:true (default: the station's own close-up).
+   stand: where the boy waits (station-local x,z; default: its approach point).
+   --------------------------------------------------------------------- */
+const TOUR = [
+  { id: null, accent: '#ffd27a', cam: { pos: [0, 44, 37], look: [0, 0, -2] },
+    kicker: 'Guided tour · 9 stops · about 2 minutes', title: 'Meet Akshat Rawat',
+    lead: "Hi, I'm LAB-E, Akshat's lab assistant! Akshat is an AI/ML engineer who builds edge AI, computer vision and LLM systems for the real world, not just for notebooks.",
+    pts: ['Project Associate I at <b>CSIR–CSIO, Chandigarh</b> (July 2026 – present).', '<b>M.Tech in AI &amp; ML</b> from C-DAC Mohali (CGPA 8.8) · B.Tech in CSE from Dehradun Institute of Technology.', "Below us is his lab, with <b>one room per project</b>. I'll fly you through each one: what it does, how it works and what came out of it."],
+    chips: ['1 deployed system', '4 papers presented', '1 copyright', 'Technical reviewer · WcAISR-2027'] },
+  { id: 'storm', kicker: 'Project 1 of 5 · Deployed · CSIR–CSIO', title: 'CycloAI: Cyclone Alert Warning System',
+    lead: 'A hybrid cloud–edge system that watches the Bay of Bengal and warns Kusumpur Village in Odisha before a cyclone arrives, in the local language.',
+    pts: ['Tracks cyclones <b>every 3 hours from 500+ km away</b>, and raises the alarm only when one comes <b>within 150 km</b>, so villagers are not alarmed for nothing.', 'The remote site stays online over a <b>5G/LTE modem</b> (Quectel RM500U-CNV) and drives an <b>industrial siren</b> through a relay, with LEDs for system error and perimeter alert.', '<b>Quantized, low-latency LLMs run on the edge</b> to write the alerts. LLM-based evaluation was used to pick the best alert-generation model.', 'An auto-refreshing alert website starts at boot and plays <b>local-language voice announcements</b>.'],
+    out: '<b>Deployed</b> in Kusumpur, Kendrapara (Odisha) · <b>copyright accepted</b> · paper presented at <b>ETTIS 2026</b>.',
+    chips: ['Edge LLMs', 'Cloud–edge', 'LLM evaluation', '5G/LTE', 'Relay + siren'],
+    try: 'drag the cyclone toward the coast and watch the siren go off.' },
+  { id: 'gscan', kicker: 'Project 2 of 5 · Edge sensing · CSIR–CSIO', title: 'Smart Village: G-SCAN seismic sensing',
+    lead: 'A multi-channel seismic sensing system that listens to the ground through 8 geophones and processes the signals right where they are recorded.',
+    pts: ['<b>8 geophones are read in parallel</b> through two 24-bit ADCs (<b>ADS131A04</b>, 4 channels each).', 'A <b>Raspberry Pi</b> does the edge processing: noise filtering, calibration and sampling-rate tuning.', 'Processing on site keeps latency low and runs on a <b>resource-constrained</b> board, with no big server needed.'],
+    out: 'Paper <b>“G-SCAN: A Multi-Channel Geophone Data Processing System on a Resource-Constrained Edge Platform”</b> presented at <b>RICE, Goa</b>.',
+    chips: ['Raspberry Pi', 'ADS131A04 · 24-bit', 'Geophones', 'Signal processing'],
+    try: 'stomp on the sensor field and watch the 8 traces react in arrival order.' },
+  { id: 'deepfake', kicker: 'Project 3 of 5 · M.Tech thesis', title: 'Deepfake Forensics: 3D face geometry + audio',
+    lead: "Modern deepfakes (diffusion, NeRF) no longer leave pixel artifacts, so this detector checks what they can't easily fake: how the face moves in 3D, and the voice.",
+    pts: ['Tracks <b>468 3D facial landmarks</b> per frame (MediaPipe Face Mesh) and builds depth features for the jaw, lips, eyes and cheeks, grown from 8 to 48 features with velocity and acceleration.', '<b>Random Forest: 86% accuracy, 0.92 F1</b> on FaceForensics++. Temporal <b>BiLSTM / BiGRU</b> models reach F1 ~85–86% and AUC ~89–90%.', 'Audio branch on FakeAVCeleb: a <b>BiLSTM hit 98.67% accuracy and 100% recall</b>. Fake speech never matches the quiet, narrow-band pauses of real speech.', 'Honest testing: on unseen datasets (Celeb-DF, FakeAVCeleb) accuracy drops 17–38 points, which shows in-dataset scores overstate robustness.'],
+    out: '<b>2 papers presented at ISICVA 2026</b>: an interpretable detection method, and a survey of 3D-geometry and audio-visual detection.',
+    chips: ['MediaPipe', 'BiLSTM / BiGRU', 'TCN · Transformer', 'librosa', 'scikit-learn'],
+    try: 'play “real or fake?” and see which cue gives each one away.' },
+  { id: 'sports', kicker: 'Project 4 of 5 · STPI Mohali (Rebec Technology)', title: 'Sports Vision: real-time AI trainer',
+    lead: 'A real-time sports training system: a camera watches the athlete and gives the kind of feedback a coach would.',
+    pts: ['Detects <b>players</b>, tracks the <b>shuttle trajectory</b> and checks <b>exercise form</b> with pose estimation.', 'Counts <b>reps in real time</b> and estimates <b>stamina and calories</b>, built with MediaPipe Pose and OpenCV.'],
+    out: 'Built in his computer-vision role at <b>STPI Mohali (Rebec Technology)</b>, Jul – Dec 2025.',
+    chips: ['MediaPipe Pose', 'OpenCV', 'Pose estimation', 'Real-time CV'],
+    try: 'count squats along with the pose skeleton.' },
+  { id: 'asl', kicker: 'Project 5 of 5 · Personal project', title: 'ASL Hand-Gesture Recognition',
+    lead: 'Reads American Sign Language letters from a webcam in real time, built as an assistive aid for deaf and mute communication.',
+    pts: ['A <b>custom CNN</b> recognises the letters <b>A–Z at ~80% accuracy</b>.', '<b>Live webcam inference</b> with bounding boxes, built with OpenCV, TensorFlow and cvzone.'],
+    out: 'Accessible AI: turning hand signs into text, live.',
+    chips: ['TensorFlow', 'CNN', 'OpenCV', 'cvzone'],
+    try: 'watch the big hand spell letters, or hold up your own hand to the webcam demo (video never leaves your device).' },
+  { id: 'skills', kicker: 'Toolbench', title: 'Skills: from models to hardware',
+    lead: 'Everything he works with, from training the models to wiring the boards they run on.',
+    pts: ['<b>ML:</b> deep learning, NLP, LLMs (quantization, LLM-based evaluation), supervised &amp; unsupervised learning.', '<b>Libraries:</b> TensorFlow, OpenCV, MediaPipe, scikit-learn, XGBoost, librosa, Pandas, NumPy.', '<b>Edge &amp; hardware:</b> Raspberry Pi 4 / CM5, Arduino Uno, ADS131A04 ADC, geophones, 5G/LTE modems, relay sirens.', '<b>Tools:</b> Python, Git, Jupyter, Colab, Streamlit, systemd, Linux, MySQL.'],
+    try: 'hover the glowing cubes to read each skill.' },
+  { id: 'edu', cam: { local: true, pos: [0.9, 2.6, 4.4], look: [0.9, 2.1, -4.2] }, cert: true,
+    kicker: 'Education · papers · recognition', title: 'Education, Publications &amp; Recognition',
+    lead: 'Two degrees, four presented papers, a copyright and, new on the wall, a technical reviewer certificate.',
+    pts: ['<b>M.Tech AI &amp; ML</b>, C-DAC Mohali (2024–2026, CGPA 8.8) · <b>B.Tech CSE</b>, Dehradun Institute of Technology (2020–2024).', '<b>Papers presented</b> at ETTIS 2026, RICE Goa and ISICVA 2026 (×2) · <b>CycloAI copyright</b> accepted.', '<b>Certificate of Appreciation · Technical Reviewer</b> for WcAISR-2027, the World Conference on Autonomous Intelligent Systems &amp; Robotics, technically co-sponsored by the IEEE Robotics &amp; Automation Society (Chandigarh University).'],
+    try: 'click any card on the corkboard, or the framed certificate beside it.' },
+  { id: 'contact', cam: { local: true, pos: [0, 3.3, 6.4], look: [0, 1.4, -0.6] }, stand: [1.9, 2.4], final: true,
+    kicker: 'Last stop', title: 'Get in touch',
+    lead: "That's the tour! The Contact Terminal has Akshat's email, LinkedIn, phone and résumé.",
+    pts: [IS_TOUCH ? 'Tap <b>💬</b> (top-right) to reach the terminal from anywhere.' : 'Press <kbd>C</kbd> or click <b>💬 Contact</b> to reach the terminal from anywhere.', 'Explore freely: walk onto any glowing circle to open a station and try its demo.', `Try the moves dock on the right${IS_TOUCH ? '' : ' (keys <kbd>1</kbd>–<kbd>6</kbd>)'}: your character can wave, dance, do the robot and even backflip.`] },
+];
+const tourText = S => [S.lead, ...(S.pts || []), S.out || ''].join(' ').replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
 const DWELL = 0.55; // seconds standing on a glowing circle before its station opens by itself
 class Game {
   constructor() {
@@ -4847,6 +5315,7 @@ class Game {
     this.view = { ox: 0, oy: 0 }; this.clock = new THREE.Clock();
     this.hintClock = 0; this.frame = 0; this.idle = 0; this.shake = 0; this.dwell = 0; this.dwellSt = null;
     this.extraHoverables = []; this._head = new THREE.Vector3(); this.drag = null; this.mouseHover = null;
+    this.tourI = 0; this.tourAuto = true; this.tourT = 0; this.tourHold = 0; this.tourHover = false; this.tourTw = null; this.quipped = new Set();
     this.initExtras();
     this.studio = new Studio(this);
     this.syncProgress();
@@ -4878,6 +5347,20 @@ class Game {
     $('#avatarBtn').addEventListener('click', () => (this.state === 'custom' ? this.closeStudio() : this.openStudio()));
     $('#mapAvatar').addEventListener('click', () => this.openStudio());
     $('#introSkip').addEventListener('click', () => this.skipIntro());
+    // the emoji that pops over the character's head during a move (outer div is placed by CSS2DRenderer, inner one animates)
+    const bw = document.createElement('div'); this.bubbleIn = document.createElement('div'); bw.appendChild(this.bubbleIn);
+    this.bubble = new CSS2DObject(bw); this.bubble.visible = false; this.world.scene.add(this.bubble);
+  }
+  /** one of the six moves (keys 1–6 / emoji dock): the character turns to the camera and performs it */
+  emote(id) {
+    const E = EMOTES.find(x => x.id === id), P = this.player, av = P.avatar;
+    if (!E || this.state !== 'play' || !P.grounded || av.sitTarget) return;
+    if (av.em && av.em.id === id && av.em.dur - av.em.t > 0.4) return; // already doing that one
+    P.emote(E); this.idle = 0;
+    this.audio.emote(id);
+    this.bubbleIn.innerHTML = `<div class="emo-bubble"><i>${E.emoji}</i></div>`;
+    if (id === 'cheer') this.confetti.burst(REDUCED ? 24 : 70);
+    if (!this.quipped.has(id)) { this.quipped.add(id); this.ui.say(E.quip, 4500); } // LAB-E reacts once per move
   }
   openResume() {
     if (!hasResume()) return;
@@ -4897,6 +5380,10 @@ class Game {
     const k = Math.sin(this.duckSquash / 0.35 * Math.PI) * 0.3; this.duck.scale.set(1 + k * 0.5, 1 - k, 1 + k * 0.5);
     this.duck.position.y = 0.86 + (REDUCED ? 0 : Math.abs(Math.sin(t * 2.2)) * 0.03);
     if (this.shake > 0 && this.state === 'play') { const s = this.shake, cam = this.world.camera; cam.position.x += rand(-1, 1) * s * 0.05; cam.position.y += rand(-1, 1) * s * 0.07; this.shake = Math.max(0, s - dt * 1.6); }
+    const av = this.player.avatar, showB = !!av.em && this.state === 'play', cur = av.em ? av.em.id : '';
+    this.bubble.visible = showB;
+    if (cur !== this.emoOn) { this.emoOn = cur; this.ui.markEmote(cur); }
+    if (showB) this.bubble.position.set(this.player.pos.x, 2.12 * av.root.scale.y + av.body.position.y, this.player.pos.z);
   }
   syncProgress() {
     for (const s of this.list) s.setVisited(this.progress.has(s.id));
@@ -4905,14 +5392,16 @@ class Game {
   setState(s) {
     this.state = s; document.body.dataset.state = s;
     const playing = s === 'play' || s === 'paused';
-    this.ui.el.hud.hidden = !(playing || s === 'station' || s === 'returning');
+    this.ui.el.hud.hidden = !(playing || s === 'station' || s === 'returning' || s === 'tour');
     this.ui.el.cross.hidden = true;
     this.ui.showPause(false);
     $('#touch').hidden = !(IS_TOUCH && s === 'play');
     $('#intro').hidden = s !== 'intro';
+    this.ui.el.emotes.hidden = !playing;
     if (s !== 'play') { this.ui.setPrompt(null); this.player.keys.clear(); this.player.joy.x = this.player.joy.y = 0; this.drag = null; this.player.aim.on = false; this.ui.hideTip(); }
-    this.ui.el.mapBtn.hidden = s === 'boot'; $('#contactBtn').hidden = s === 'boot'; $('#avatarBtn').hidden = s === 'boot';
-    $('#avatarBtn').setAttribute('aria-pressed', String(s === 'custom'));
+    if (s !== 'play' && this.player.avatar.em) this.player.avatar.stopEmote();
+    this.ui.el.mapBtn.hidden = s === 'boot'; $('#contactBtn').hidden = s === 'boot'; $('#avatarBtn').hidden = s === 'boot'; this.ui.el.tourBtn.hidden = s === 'boot';
+    $('#avatarBtn').setAttribute('aria-pressed', String(s === 'custom')); this.ui.el.tourBtn.setAttribute('aria-pressed', String(s === 'tour'));
   }
   /** called automatically once the 3D scene is ready — no "Enter" click needed */
   start() {
@@ -4924,14 +5413,14 @@ class Game {
   }
   greet() {
     const hello = IS_TOUCH
-      ? "Hi, I'm LAB-E! Left thumb walks, right thumb turns the camera. Walk onto any glowing circle and that station opens by itself. Akshat's own room is right here on your right!"
-      : `Hi, I'm LAB-E! WASD to walk, ${this.player.mouseLook ? 'move the mouse to look around (rest it at a screen edge to keep turning)' : 'drag the mouse to look around'}, Space to jump. Walk onto any glowing circle and that station opens by itself. Akshat's own room is right here on your right!`;
+      ? "Hi, I'm LAB-E! Left thumb walks, right thumb turns the camera. Walk onto any glowing circle and that station opens by itself. Akshat's own room is right here on your right! The emoji buttons on the right make your character dance."
+      : `Hi, I'm LAB-E! WASD to walk, ${this.player.mouseLook ? 'move the mouse to look around (rest it at a screen edge to keep turning)' : 'drag the mouse to look around'}, Space to jump, 1–6 for dance moves. Walk onto any glowing circle and that station opens by itself. Akshat's own room is right here on your right!`;
     this.ui.say(this.progress.count ? `Welcome back! You've explored ${this.progress.count}/${TOTAL} stations. Walk onto a glowing circle, or ${IS_TOUCH ? 'tap 🗺' : 'press M'} for the map.` : hello, 10000);
   }
 
   // ---------- opening cinematic: lights power up, camera sweeps the lab, lands behind the boy
   playIntro() {
-    if (REDUCED) { this.world.setPower(Infinity); this.finishIntro(); return; }
+    if (REDUCED) { this.world.setPower(Infinity); this.finishIntro(true); return; }
     const V = (x, y, z) => new THREE.Vector3(x, y, z), end = this.player.updateCamera(0, true, { pos: V(0, 0, 0), look: V(0, 0, 0) });
     // camera keyframes and what each one looks at (kept far apart so the shot never stares at the floor)
     const pos = [V(0, 5.4, -20.2), V(0.5, 5.2, -9.5), V(-12, 3.9, -7), V(-15, 3.4, 2), V(-9, 3.2, 11), V(5.5, 4.6, 11.0), end.pos];
@@ -4946,14 +5435,15 @@ class Game {
     const k = clamp(it.t / it.dur, 0, 1), e = ease(k), cam = this.world.camera;
     cam.position.copy(it.pos.getPointAt(e)); cam.lookAt(it.look.getPointAt(e));
     this.world.setPower(it.t);
-    if (k >= 1) this.finishIntro();
+    if (k >= 1) this.finishIntro(true);
   }
   skipIntro() { if (this.state === 'intro' && this.intro) this.intro.t = this.intro.dur; }
-  finishIntro() {
+  /** ask = the intro ended by itself (or was skipped): LAB-E offers the guided tour. Other callers jump straight to their overlay */
+  finishIntro(ask = false) {
     this.intro = null; this.world.setPower(Infinity); $('#intro').hidden = true;
     this.player.updateCamera(0, true); this.player.avatar.wave(2.6); this.labE.snap = true;
-    this.setState('play');
-    setTimeout(() => this.greet(), 600);
+    if (ask) { this.setState('ask'); this.ui.showAsk(true); this.audio.open(); }
+    else { this.setState('play'); setTimeout(() => this.greet(), 600); }
     if (!store.get('akshat-ai-edge-lab:studio-seen', false)) setTimeout(() => { if (this.state === 'play') this.ui.toast(`👕 <b>New:</b> make the character yours: ${IS_TOUCH ? 'tap 👕' : 'press <kbd>V</kbd>'} to change hair, face and outfit`, 6000); }, 11000);
   }
   resume() { if (this.started) this.setState('play'); }
@@ -4971,8 +5461,8 @@ class Game {
     if (tw.t >= 1) { this.tween = null; if (tw.done) tw.done(); }
   }
   updateViewOffset(dt) {
-    let tx = 0, ty = 0; const custom = this.state === 'custom', r = custom ? this.studio.rect : this.ui.panelRect;
-    if (((this.state === 'station' && this.ui.panelOpen) || custom) && r) { if (r.sheet) ty = r.h * 0.5; else tx = (r.w + 14) * 0.5; }
+    let tx = 0, ty = 0; const custom = this.state === 'custom', tour = this.state === 'tour', r = custom ? this.studio.rect : tour ? this.ui.tourRect : this.ui.panelRect;
+    if (((this.state === 'station' && this.ui.panelOpen) || custom || tour) && r) { if (r.sheet) ty = r.h * 0.5; else tx = (r.w + 14) * 0.5; }
     this.view.ox = damp(this.view.ox, tx, 5, dt); this.view.oy = damp(this.view.oy, ty, 5, dt);
     const cam = this.world.camera;
     if (Math.abs(this.view.ox) < 0.5 && Math.abs(this.view.oy) < 0.5) { if (cam.view && cam.view.enabled) cam.clearViewOffset(); }
@@ -5014,6 +5504,7 @@ class Game {
   openTerminal() {
     if (!this.started || this.state === 'terminal' || this.state === 'classic') return;
     if (this.state === 'intro') this.finishIntro();
+    this.clearTourUI();
     if (this.state === 'custom') this.closeStudio(true);
     if (this.state === 'station') this.closeStation(true);
     if (this.state === 'map') this.ui.showMap(false);
@@ -5037,6 +5528,7 @@ class Game {
   openStudio() {
     if (!this.started || this.blocked || ['custom', 'classic', 'boot'].includes(this.state)) return;
     if (this.state === 'intro') this.finishIntro();
+    this.clearTourUI();
     if (this.state === 'station') this.closeStation(true);
     if (this.state === 'map') this.ui.showMap(false);
     if (this.state === 'terminal') this.closeTerminal(true);
@@ -5081,6 +5573,7 @@ class Game {
   openMap() {
     if (!this.started || this.state === 'map' || this.state === 'terminal' || this.state === 'classic') return;
     if (this.state === 'intro') this.finishIntro();
+    this.clearTourUI();
     if (this.state === 'custom') this.closeStudio(true);
     if (this.state === 'station') this.closeStation(true);
     this.setState('map'); this.ui.showMap(true); this.audio.blip();
@@ -5089,6 +5582,7 @@ class Game {
   /** jump to a station and open it straight away */
   teleport(id, open = true) {
     if (this.state === 'intro') this.finishIntro();
+    this.clearTourUI();
     if (this.state === 'custom') this.closeStudio(true);
     if (this.state === 'station') this.closeStation(true);
     if (this.state === 'terminal') this.closeTerminal(true);
@@ -5098,6 +5592,105 @@ class Game {
     this.ui.showMap(false); this.audio.blip();
     this.setState('play');
     if (open) { if (id === 'contact') this.openTerminal(); else this.openStation(st); }
+  }
+
+  // ---------- guided tour: LAB-E flies the camera from stop to stop while the tour card explains each project
+  acceptTour() { if (this.state === 'ask') this.startTour(0); }
+  declineTour() {
+    if (this.state !== 'ask') return;
+    this.ui.showAsk(false); this.setState('play'); this.audio.blip();
+    setTimeout(() => this.greet(), 350);
+    setTimeout(() => { if (this.state === 'play') this.ui.toast(`🧭 Changed your mind? ${IS_TOUCH ? 'Tap 🧭' : 'Press <kbd>T</kbd>'} for the guided tour any time`, 4500); }, 2600);
+  }
+  /** another overlay is opening: put the invitation away, or end the tour on the spot */
+  clearTourUI() {
+    if (this.state === 'ask') { this.ui.showAsk(false); this.setState('play'); }
+    else if (this.state === 'tour') this.endTour({ instant: true, silent: true });
+  }
+  startTour(i = 0) {
+    if (!this.started || this.blocked || this.state === 'classic' || this.state === 'boot') return;
+    if (this.state === 'tour') { this.tourGo(i); return; }
+    if (this.state === 'intro') this.finishIntro();
+    if (this.state === 'ask') this.ui.showAsk(false);
+    if (this.state === 'custom') this.closeStudio(true);
+    if (this.state === 'station') this.closeStation(true);
+    if (this.state === 'map') this.ui.showMap(false);
+    if (this.state === 'terminal') this.closeTerminal(true);
+    this.tween = null; this.clearDwell(); this.tourLook = null; this.tourAuto = true; this.tourHover = false;
+    this.setState('tour'); this.ui.showTour(true); this.audio.open();
+    this.tourGo(i);
+    setTimeout(() => { if (this.state === 'tour' && !IS_TOUCH) { try { this.ui.el.tourNext.focus({ preventScroll: true }); } catch {} } }, 120);
+  }
+  tourGo(i) {
+    if (this.state !== 'tour') return;
+    i = clamp(i, 0, TOUR.length - 1); this.tourI = i;
+    const S = TOUR[i], st = S.id ? this.stations[S.id] : null, V = a => new THREE.Vector3(...a);
+    let pos, look;
+    if (S.cam && S.cam.local) { pos = st.toWorld(...S.cam.pos); look = st.toWorld(...S.cam.look); }
+    else if (S.cam) { pos = V(S.cam.pos); look = V(S.cam.look); }
+    else { const v = st.viewPose(); pos = v.pos; look = v.target; }
+    // the boy walks over too (placed while the camera is high above the roof, so he doesn't visibly pop)
+    this.tourPlace = null;
+    if (st) { const a = localToWorld(st.meta, ...(S.stand || [0, st.meta.az])); this.tourPlace = { x: a.x, z: a.z, fx: st.focusPoint.x, fz: st.focusPoint.z, id: st.id }; }
+    if (st && this.progress.visit(st.id)) this.syncProgress(); // touring a station counts as exploring it
+    this.tourFly(pos, look);
+    this.tourT = 0; this.tourHold = 0; this.tourDwell = clamp(5 + tourText(S).length / 42, 9, 18);
+    this.ui.renderTour(i); this.ui.tourProgress(0); this.audio.blip();
+    this.audio.narrate(S.lead.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&'));
+  }
+  /** arc flight: up over the roof (the roof hides itself above 6 m, so long hops become a bird's-eye shot) and down into the next view */
+  tourFly(pos, look) {
+    const cam = this.world.camera, p0 = cam.position.clone(), d = p0.distanceTo(pos);
+    const l0 = this.tourLook ? this.tourLook.clone() : p0.clone().add(cam.getWorldDirection(new THREE.Vector3()).multiplyScalar(8));
+    const c = p0.clone().lerp(pos, 0.5); c.y = Math.max(p0.y, pos.y) + Math.min(16, 2 + d * 0.4);
+    this.tourTw = { t: 0, dur: REDUCED ? 0.01 : clamp(0.9 + d * 0.035, 1.1, 2.4), p0, p1: pos.clone(), c, l0, l1: look.clone() };
+  }
+  placeTourPlayer() {
+    const a = this.tourPlace; if (!a) return; this.tourPlace = null;
+    this.player.teleport(a.x, a.z, a.fx, a.fz, false); this.player.faceTarget = new THREE.Vector3(a.fx, 0, a.fz);
+    this.stations[a.id].armed = false; this.clearDwell(); // he may be parked on the glowing circle: it only opens after stepping off and back on
+  }
+  updateTour(dt) {
+    const tw = this.tourTw, cam = this.world.camera;
+    if (tw) {
+      tw.t += dt / tw.dur; const k = ease(Math.min(1, tw.t)), u = 1 - k;
+      cam.position.set(u * u * tw.p0.x + 2 * u * k * tw.c.x + k * k * tw.p1.x, u * u * tw.p0.y + 2 * u * k * tw.c.y + k * k * tw.p1.y, u * u * tw.p0.z + 2 * u * k * tw.c.z + k * k * tw.p1.z);
+      this.tourLook = (this.tourLook || new THREE.Vector3()).lerpVectors(tw.l0, tw.l1, k); cam.lookAt(this.tourLook);
+      if (k >= 0.5) this.placeTourPlayer();
+      if (tw.t >= 1) this.tourTw = null;
+      return; // the reading timer starts once the camera has arrived
+    }
+    this.placeTourPlayer();
+    const last = this.tourI >= TOUR.length - 1;
+    if (this.tourHold > 0) this.tourHold -= dt;
+    else if (this.tourAuto && !this.tourHover && !last) { this.tourT += dt; if (this.tourT >= this.tourDwell) { this.tourGo(this.tourI + 1); return; } }
+    this.ui.tourProgress(last ? 1 : this.tourT / this.tourDwell);
+  }
+  tourStep(d) { if (this.state !== 'tour') return; if (d > 0 && this.tourI >= TOUR.length - 1) this.endTour({ finished: true }); else this.tourGo(this.tourI + d); }
+  toggleTourAuto() { this.tourAuto = !this.tourAuto; this.ui.renderTourPlay(); this.audio.blip(); }
+  /** the camera pose of the normal third-person view behind the boy */
+  thirdPersonPose() {
+    const o = this.player.updateCamera(0, true, { pos: new THREE.Vector3(), look: new THREE.Vector3() });
+    return { pos: o.pos, look: o.look, quat: new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().lookAt(o.pos, o.look, Y_AXIS)) };
+  }
+  /** finished: the visitor reached the end. instant: snap back (another overlay is opening). keepCam: leave the camera where it is */
+  endTour({ finished = false, instant = false, silent = false, keepCam = false } = {}) {
+    if (this.state !== 'tour') return;
+    this.tourTw = null; this.placeTourPlayer(); this.ui.showTour(false); this.audio.hush(); this.audio.close();
+    const cam = this.world.camera, tp = this.thirdPersonPose();
+    if (instant || keepCam) { if (!keepCam) { cam.position.copy(tp.pos); cam.quaternion.copy(tp.quat); } this.setState('play'); }
+    else { this.setState('returning'); this.flyTo(tp.pos, null, REDUCED ? 0.01 : 0.9, tp.quat, () => this.afterOverlay()); }
+    if (silent) return;
+    if (finished && this.progress.complete && !this.progress.celebrated) setTimeout(() => this.onAllVisited(), 900);
+    else if (finished) setTimeout(() => this.ui.say(`Thanks for taking the tour! Walk onto any glowing circle to try a demo, or ${IS_TOUCH ? 'tap the emoji buttons' : 'press 1–6'} to bust a move.`, 8000), 900);
+    else setTimeout(() => this.ui.say(`No problem! ${IS_TOUCH ? 'Tap 🧭' : 'Press T'} any time to pick the tour up again.`, 6000), 700);
+  }
+  /** "Try it now" on a tour stop: leave the tour and open that station's demo right where the camera already is */
+  tourOpenStation(id) {
+    const st = this.stations[id]; if (!st || this.state !== 'tour') return;
+    this.placeTourPlayer(); this.endTour({ keepCam: true, silent: true });
+    this.openStation(st);
+    const tp = this.thirdPersonPose(); this.savedPos = tp.pos; this.savedQuat = tp.quat; // closing the panel returns to the normal view
   }
 
   // ---------- interaction: walk onto a glowing circle and the station opens by itself
@@ -5238,6 +5831,7 @@ class Game {
     if (open) {
       if (this.state === 'classic') return;
       if (this.state === 'intro') this.finishIntro();
+      this.clearTourUI();
       if (this.state === 'custom') this.closeStudio(true);
       this.preClassic = this.state; if (this.state === 'station') this.closeStation(true);
       if (this.state === 'map') this.ui.showMap(false);
@@ -5257,7 +5851,18 @@ class Game {
       if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(c)) e.preventDefault();
       this.player.keys.add(c); this.idle = 0;
       if (e.repeat) return;
-      if (c === 'KeyE') this.interact(); else if (c === 'KeyM') this.openMap(); else if (c === 'Space') this.player.jump(); else if (c === 'KeyC') this.openTerminal(); else if (c === 'KeyV') this.openStudio();
+      const mv = /^(?:Digit|Numpad)([1-6])$/.exec(c);
+      if (mv) this.emote(EMOTES[+mv[1] - 1].id);
+      else if (c === 'KeyE') this.interact(); else if (c === 'KeyM') this.openMap(); else if (c === 'Space') this.player.jump(); else if (c === 'KeyC') this.openTerminal(); else if (c === 'KeyV') this.openStudio(); else if (c === 'KeyT') this.startTour();
+    } else if (s === 'tour') {
+      const onBtn = e.target && e.target.closest && e.target.closest('button, a'); // Space / Enter on a focused button already clicks it
+      if (c === 'Escape' || (c === 'KeyT' && !e.repeat)) { e.preventDefault(); this.endTour(); }
+      else if (e.repeat) return;
+      else if (c === 'ArrowRight' || c === 'KeyN' || (c === 'Space' && !onBtn)) { e.preventDefault(); this.tourStep(1); }
+      else if (c === 'ArrowLeft' || c === 'KeyB') { e.preventDefault(); this.tourStep(-1); }
+      else if (c === 'KeyP') this.toggleTourAuto();
+    } else if (s === 'ask') {
+      if (c === 'Escape') { e.preventDefault(); this.declineTour(); }
     } else if (s === 'station') {
       if (c === 'Escape' || (c === 'KeyE' && !e.repeat)) { e.preventDefault(); this.closeStation(); }
       else if (c === 'KeyM' && !e.repeat) this.openMap();
@@ -5296,6 +5901,8 @@ class Game {
       if (hasResume()) tips.push('Need the résumé? It is pinned on the notice board at reception, and the 📄 button (top-right) opens the PDF.');
       tips.push('Every lab has a room sign over its door. Follow the coloured floor lines from the Contact Terminal to reach it.');
       tips.push(`Fancy a new look? ${IS_TOUCH ? 'Tap 👕' : 'Press V'} for the avatar studio: hair, face, expression, outfit and extras. Your look is saved for next time.`);
+      tips.push(`Want the highlights fast? ${IS_TOUCH ? 'Tap 🧭' : 'Press T'} and I'll fly you through every project with a short explanation.`);
+      tips.push(`${IS_TOUCH ? 'Tap the emoji buttons on the right' : 'Press 1–6 (or click the emoji dock on the right)'} and your character will wave, dance, do the robot or even backflip.`);
       if (IS_TOUCH) tips.push('Drag your right thumb to turn the camera; the left thumb walks.');
       else tips.push(this.player.mouseLook ? 'The camera follows your cursor: rest it at the left or right edge to keep turning. Scroll to zoom.' : 'Drag the mouse to look around, and scroll to zoom the camera.');
       tips.push('Short on time? "Classic view" (top-right) has everything on one page.');
@@ -5313,11 +5920,13 @@ class Game {
     else { this.player.settle(dt); if (s === 'boot') this.player.updateCamera(dt); }
     if (s === 'intro') this.updateIntro(dt);
     if (s === 'custom') this.updateStudio(dt);
+    if (s === 'tour') this.updateTour(dt);
     this.updateTween(dt);
     this.updateViewOffset(dt);
     const cam = this.world.camera, cp = cam.position;
-    // keep the boy from blocking close-up station cameras
-    this.player.avatar.root.visible = !(s === 'station' || s === 'returning') || !this.active || this.active === this.stations.entrance || cp.distanceTo(this.player.headPos(this._head)) > 2.6;
+    // keep the boy from blocking close-up station (and tour) cameras
+    const near = cp.distanceTo(this.player.headPos(this._head)) <= 2.6;
+    this.player.avatar.root.visible = s === 'tour' ? !near : !(s === 'station' || s === 'returning') || !this.active || this.active === this.stations.entrance || !near;
     for (const st of this.list) { st.dist = Math.min(Math.hypot(st.focusPoint.x - cp.x, st.focusPoint.z - cp.z), Math.hypot(st.focusPoint.x - this.player.pos.x, st.focusPoint.z - this.player.pos.z)); st.update(dt, t, st.dist < 26 || st === this.active); }
     if (s === 'play') this.updateInteraction(dt);
     this.labE.update(dt, t);
